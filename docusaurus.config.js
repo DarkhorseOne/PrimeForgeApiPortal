@@ -25,15 +25,15 @@ const config = {
   // deploying to GitHub Pages under <org>/<repo>, `url` should be
   // `https://<org>.github.io` and `baseUrl` should be `/<repo>/`. The
   // defaults here assume a repo named `nestjs-doc-site` under `your-github-org`.
-  url: 'https://doc.primeforge.app',
-  baseUrl: '/',
+  url: 'https://darkhorseone.github.io',
+  baseUrl: '/PrimeForgeApiPortal/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   // The same logo is used as the favicon. You can replace this with
   // a proper ICO or PNG file by creating it under static/img/.
   favicon: 'img/logo.svg',
-  organizationName: 'DarkhorseOne Ltd', // Usually your GitHub org/user name.
-  projectName: 'primeforge', // Usually your repo name.
+  organizationName: 'darkhorseone', // Usually your GitHub org/user name.
+  projectName: 'PrimeForgeApiPortal', // Usually your repo name.
   presets: [
     [
       '@docusaurus/preset-classic',
