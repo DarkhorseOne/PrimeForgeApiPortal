@@ -15,7 +15,7 @@ const services = require('./services.json');
 // Redoc page with its own search and navigation on the left.
 const specs = services.map((svc) => ({
   spec: path.join(__dirname, 'openapi', `${svc.name}.json`),
-  route: `${PREFIX}/api/${svc.name}`,
+  route: `/api/${svc.name}`,
   id: svc.name,
 }));
 
