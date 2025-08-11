@@ -1,0 +1,78 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "App"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "PrimeForge Store Track API",
+    "description": "\nThe PrimeForge Store Track Service provides comprehensive analytics and tracking capabilities for the PrimeForge platform.\n\n## Features\n- Store performance analytics\n- Inventory tracking\n- Sales metrics and reporting\n- Customer behavior analysis\n- Product performance tracking\n- Revenue analytics\n- Real-time dashboard metrics\n- Historical data analysis\n\n## Authentication\nMost endpoints require JWT authentication. Include the access token in the Authorization header:\n`Authorization: Bearer <your_access_token>`\n\n## Rate Limiting\n- General endpoints: 100 requests per minute per user\n- Analytics endpoints: 50 requests per minute per user\n- Admin endpoints: 50 requests per minute per admin user\n\n## Multi-tenancy\nThis service supports multi-tenancy. The tenant context is automatically extracted from the JWT token.\n    ",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Analytics",
+      "description": "Store analytics and metrics"
+    },
+    {
+      "name": "Inventory",
+      "description": "Inventory tracking and management"
+    },
+    {
+      "name": "Sales",
+      "description": "Sales metrics and reports"
+    },
+    {
+      "name": "Products",
+      "description": "Product performance tracking"
+    },
+    {
+      "name": "Customers",
+      "description": "Customer behavior analysis"
+    },
+    {
+      "name": "Dashboard",
+      "description": "Dashboard metrics and widgets"
+    },
+    {
+      "name": "Reports",
+      "description": "Generate and export reports"
+    },
+    {
+      "name": "Health",
+      "description": "Health check and monitoring endpoints"
+    }
+  ],
+  "servers": [
+    {
+      "url": "http://0.0.0.0:4040",
+      "description": "Development Server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "JWT-auth": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http",
+        "name": "JWT",
+        "description": "Enter JWT token",
+        "in": "header"
+      }
+    },
+    "schemas": {}
+  }
+}

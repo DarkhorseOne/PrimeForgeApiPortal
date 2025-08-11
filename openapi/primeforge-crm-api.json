@@ -1,0 +1,74 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "App"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "PrimeForge CRM API",
+    "description": "\nThe PrimeForge CRM Service provides comprehensive customer relationship management capabilities for the PrimeForge platform.\n\n## Features\n- Customer management\n- Lead tracking and conversion\n- Sales pipeline management\n- Contact management\n- Opportunity tracking\n- Account management\n- Activity logging\n- Sales analytics\n\n## Authentication\nMost endpoints require JWT authentication. Include the access token in the Authorization header:\n`Authorization: Bearer <your_access_token>`\n\n## Rate Limiting\n- General endpoints: 100 requests per minute per user\n- Admin endpoints: 50 requests per minute per admin user\n\n## Multi-tenancy\nThis service supports multi-tenancy. The tenant context is automatically extracted from the JWT token.\n    ",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Customers",
+      "description": "Customer management operations"
+    },
+    {
+      "name": "Leads",
+      "description": "Lead tracking and conversion"
+    },
+    {
+      "name": "Opportunities",
+      "description": "Sales opportunity management"
+    },
+    {
+      "name": "Contacts",
+      "description": "Contact management"
+    },
+    {
+      "name": "Activities",
+      "description": "Activity logging and tracking"
+    },
+    {
+      "name": "Analytics",
+      "description": "Sales analytics and reports"
+    },
+    {
+      "name": "Health",
+      "description": "Health check and monitoring endpoints"
+    }
+  ],
+  "servers": [
+    {
+      "url": "http://0.0.0.0:4020",
+      "description": "Development Server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "JWT-auth": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http",
+        "name": "JWT",
+        "description": "Enter JWT token",
+        "in": "header"
+      }
+    },
+    "schemas": {}
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "App"
+        ]
+      }
+    },
+    "/payroll-estimator": {
+      "get": {
+        "operationId": "AppController_getPayrollEstimatorInfo",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "App"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "PrimeForge Work-UK API",
+    "description": "\nThe PrimeForge Work-UK Service provides UK government compliance and regulatory features for the PrimeForge platform.\n\n## Features\n- UK Standard Occupational Classification (SOC 2020) codes\n- Healthcare Worker codes (HC997)\n- UK employment law compliance\n- HMRC integration support\n- UK visa and immigration status tracking\n- National Insurance number validation\n- UK payroll regulations\n- Statutory payment calculations\n\n## Authentication\nMost endpoints require JWT authentication. Include the access token in the Authorization header:\n`Authorization: Bearer <your_access_token>`\n\n## Rate Limiting\n- General endpoints: 100 requests per minute per user\n- Compliance endpoints: 50 requests per minute per user\n- Admin endpoints: 50 requests per minute per admin user\n\n## Multi-tenancy\nThis service supports multi-tenancy. The tenant context is automatically extracted from the JWT token.\n\n## UK Compliance Standards\n- SOC 2020: Standard Occupational Classification\n- HC997: Healthcare Worker categorization\n- HMRC: Her Majesty's Revenue and Customs requirements\n- UK GDPR: Data protection regulations\n    ",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "SOC Codes",
+      "description": "Standard Occupational Classification"
+    },
+    {
+      "name": "Healthcare",
+      "description": "Healthcare worker classifications"
+    },
+    {
+      "name": "Compliance",
+      "description": "UK regulatory compliance"
+    },
+    {
+      "name": "HMRC",
+      "description": "HMRC integration and reporting"
+    },
+    {
+      "name": "Immigration",
+      "description": "Visa and work permit management"
+    },
+    {
+      "name": "Payroll",
+      "description": "UK payroll regulations"
+    },
+    {
+      "name": "Statutory",
+      "description": "Statutory payment calculations"
+    },
+    {
+      "name": "Health",
+      "description": "Health check and monitoring endpoints"
+    }
+  ],
+  "servers": [
+    {
+      "url": "http://0.0.0.0:4050",
+      "description": "Development Server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "JWT-auth": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http",
+        "name": "JWT",
+        "description": "Enter JWT token",
+        "in": "header"
+      }
+    },
+    "schemas": {}
+  }
+}

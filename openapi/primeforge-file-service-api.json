@@ -1,0 +1,2150 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Application is running"
+          }
+        },
+        "summary": "Get application status",
+        "tags": [
+          "Health"
+        ]
+      }
+    },
+    "/health": {
+      "get": {
+        "operationId": "AppController_getHealth",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Application is running"
+          }
+        },
+        "summary": "Get application health",
+        "tags": [
+          "Health"
+        ]
+      }
+    },
+    "/auth/status": {
+      "get": {
+        "operationId": "AppController_getAuthStatus",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Authentication status retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "authenticated": {
+                      "type": "boolean"
+                    },
+                    "tenantId": {
+                      "type": "string"
+                    },
+                    "userId": {
+                      "type": "string"
+                    },
+                    "roles": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "permissions": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get authentication status",
+        "tags": [
+          "Health"
+        ]
+      }
+    },
+    "/auth/health": {
+      "get": {
+        "operationId": "AppController_getAuthHealth",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Authentication health status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get authentication health status",
+        "tags": [
+          "Health"
+        ]
+      }
+    },
+    "/auth/user-info": {
+      "get": {
+        "operationId": "AppController_getUserInfo",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "User information retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "userId": {
+                      "type": "string"
+                    },
+                    "tenantId": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string"
+                    },
+                    "fullContext": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get current user information using decorators",
+        "tags": [
+          "Health"
+        ]
+      }
+    },
+    "/enums": {
+      "get": {
+        "operationId": "EnumsController_getAllEnums",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Enums"
+        ]
+      }
+    },
+    "/enums/{name}": {
+      "get": {
+        "operationId": "EnumsController_getEnumByName",
+        "parameters": [
+          {
+            "name": "name",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Enums"
+        ]
+      }
+    },
+    "/files/upload": {
+      "post": {
+        "operationId": "FilesController_uploadFile",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/FileUploadDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "File uploaded successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Upload a new file",
+        "tags": [
+          "files"
+        ]
+      }
+    },
+    "/files/{id}": {
+      "get": {
+        "operationId": "FilesController_getFileInfo",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "File ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "File information retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get file information",
+        "tags": [
+          "files"
+        ]
+      },
+      "put": {
+        "operationId": "FilesController_updateFile",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "File ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FileUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "File updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Update file information",
+        "tags": [
+          "files"
+        ]
+      },
+      "delete": {
+        "operationId": "FilesController_deleteFile",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "File ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "permanent",
+            "required": false,
+            "in": "query",
+            "description": "Permanent deletion",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "File deleted successfully"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Delete file",
+        "tags": [
+          "files"
+        ]
+      }
+    },
+    "/files/{id}/download": {
+      "get": {
+        "operationId": "FilesController_downloadFile",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "File ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "version",
+            "required": false,
+            "in": "query",
+            "description": "File version",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "auditReason",
+            "required": false,
+            "in": "query",
+            "description": "Reason for download",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "File downloaded successfully"
+          },
+          "403": {
+            "description": "Insufficient permissions to download file"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Download file content",
+        "tags": [
+          "files"
+        ]
+      }
+    },
+    "/files": {
+      "get": {
+        "operationId": "FilesController_searchFiles",
+        "parameters": [
+          {
+            "name": "filename",
+            "required": false,
+            "in": "query",
+            "description": "Search by filename",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mimeType",
+            "required": false,
+            "in": "query",
+            "description": "Filter by MIME type",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "classification",
+            "required": false,
+            "in": "query",
+            "description": "Filter by classification",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "PUBLIC",
+                "INTERNAL",
+                "CONFIDENTIAL",
+                "RESTRICTED"
+              ]
+            }
+          },
+          {
+            "name": "tags",
+            "required": false,
+            "in": "query",
+            "description": "Filter by tags",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "ownerId",
+            "required": false,
+            "in": "query",
+            "description": "Filter by owner ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "createdAfter",
+            "required": false,
+            "in": "query",
+            "description": "Created after date",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "createdBefore",
+            "required": false,
+            "in": "query",
+            "description": "Created before date",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "minSize",
+            "required": false,
+            "in": "query",
+            "description": "Minimum file size",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "maxSize",
+            "required": false,
+            "in": "query",
+            "description": "Maximum file size",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Files retrieved successfully"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Search files",
+        "tags": [
+          "files"
+        ]
+      }
+    },
+    "/files/bulk-operation": {
+      "post": {
+        "operationId": "FilesController_bulkOperation",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FileBulkOperationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Bulk operation completed"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Perform bulk operations on files",
+        "tags": [
+          "files"
+        ]
+      }
+    },
+    "/files/{fileId}/request-access": {
+      "post": {
+        "description": "Submit a request to get permission to access a file",
+        "operationId": "FilesController_requestAccess",
+        "parameters": [
+          {
+            "name": "fileId",
+            "required": true,
+            "in": "path",
+            "description": "File ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccessRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Access request submitted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessRequestResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Request access to a file",
+        "tags": [
+          "files"
+        ]
+      }
+    },
+    "/files/{fileId}/access-requests": {
+      "get": {
+        "description": "Get all access requests for a file (Admin only)",
+        "operationId": "FilesController_getFileAccessRequests",
+        "parameters": [
+          {
+            "name": "fileId",
+            "required": true,
+            "in": "path",
+            "description": "File ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Filter by status",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Access requests retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AccessRequestResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get file access requests",
+        "tags": [
+          "files"
+        ]
+      }
+    },
+    "/files/{fileId}/access-requests/{requestId}/review": {
+      "post": {
+        "description": "Approve or reject an access request (Admin only)",
+        "operationId": "FilesController_reviewAccessRequest",
+        "parameters": [
+          {
+            "name": "fileId",
+            "required": true,
+            "in": "path",
+            "description": "File ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "requestId",
+            "required": true,
+            "in": "path",
+            "description": "Access request ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewAccessRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Access request reviewed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessRequestResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Review access request",
+        "tags": [
+          "files"
+        ]
+      }
+    },
+    "/files/{fileId}/permission-matrix": {
+      "get": {
+        "description": "Get a matrix showing all users and their permissions for this file",
+        "operationId": "FilesController_getPermissionMatrix",
+        "parameters": [
+          {
+            "name": "fileId",
+            "required": true,
+            "in": "path",
+            "description": "File ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Permission matrix retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PermissionMatrixDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get file permission matrix",
+        "tags": [
+          "files"
+        ]
+      }
+    },
+    "/files/{fileId}/grant-permission": {
+      "post": {
+        "description": "Quickly grant permission to a user (Admin only)",
+        "operationId": "FilesController_quickGrantPermission",
+        "parameters": [
+          {
+            "name": "fileId",
+            "required": true,
+            "in": "path",
+            "description": "File ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuickGrantPermissionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Permission granted successfully"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Quick grant permission",
+        "tags": [
+          "files"
+        ]
+      }
+    },
+    "/files/{fileId}/bulk-permission": {
+      "post": {
+        "description": "Grant, revoke, or update permissions for multiple users (Admin only)",
+        "operationId": "FilesController_bulkPermissionAction",
+        "parameters": [
+          {
+            "name": "fileId",
+            "required": true,
+            "in": "path",
+            "description": "File ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkPermissionActionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Bulk operation completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkPermissionResultDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Bulk permission operations",
+        "tags": [
+          "files"
+        ]
+      }
+    },
+    "/permissions/files/{fileId}/grant": {
+      "post": {
+        "description": "Grant specific permissions to a user, role, or group for a file. Requires ADMIN permission on the file.",
+        "operationId": "PermissionsController_grantPermission",
+        "parameters": [
+          {
+            "name": "fileId",
+            "required": true,
+            "in": "path",
+            "description": "File ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PermissionGrantDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Permission granted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PermissionResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient privileges to grant permission"
+          },
+          "404": {
+            "description": "File not found"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Grant permission to a file",
+        "tags": [
+          "File Permissions"
+        ]
+      }
+    },
+    "/permissions/{permissionId}": {
+      "delete": {
+        "description": "Revoke a previously granted permission. Requires ADMIN permission on the file.",
+        "operationId": "PermissionsController_revokePermission",
+        "parameters": [
+          {
+            "name": "permissionId",
+            "required": true,
+            "in": "path",
+            "description": "Permission ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Permission revoked successfully"
+          },
+          "403": {
+            "description": "Insufficient privileges to revoke permission"
+          },
+          "404": {
+            "description": "Permission not found"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Revoke a permission",
+        "tags": [
+          "File Permissions"
+        ]
+      }
+    },
+    "/permissions/files/{fileId}": {
+      "get": {
+        "description": "Retrieve all active permissions for a specific file. Requires READ permission on the file.",
+        "operationId": "PermissionsController_getFilePermissions",
+        "parameters": [
+          {
+            "name": "fileId",
+            "required": true,
+            "in": "path",
+            "description": "File ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "subjectType",
+            "required": false,
+            "in": "query",
+            "description": "Filter by subject type",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "USER",
+                "ROLE",
+                "GROUP"
+              ]
+            }
+          },
+          {
+            "name": "subjectId",
+            "required": false,
+            "in": "query",
+            "description": "Filter by subject ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "permissionType",
+            "required": false,
+            "in": "query",
+            "description": "Filter by permission type",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "READ",
+                "WRITE",
+                "DELETE",
+                "SHARE",
+                "ADMIN"
+              ]
+            }
+          },
+          {
+            "name": "includeExpired",
+            "required": false,
+            "in": "query",
+            "description": "Include expired permissions",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "includeRevoked",
+            "required": false,
+            "in": "query",
+            "description": "Include revoked permissions",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "File permissions retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PermissionResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get file permissions",
+        "tags": [
+          "File Permissions"
+        ]
+      }
+    },
+    "/permissions/users/{userId}": {
+      "get": {
+        "description": "Retrieve all permissions granted to a specific user across all files they have access to.",
+        "operationId": "PermissionsController_getUserPermissions",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "User ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User permissions retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PermissionResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get user permissions",
+        "tags": [
+          "File Permissions"
+        ]
+      }
+    },
+    "/permissions/check": {
+      "post": {
+        "description": "Check if a user has a specific permission on a file.",
+        "operationId": "PermissionsController_checkPermission",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PermissionCheckDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Permission check result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PermissionCheckResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Check permission",
+        "tags": [
+          "File Permissions"
+        ]
+      }
+    },
+    "/permissions/bulk/grant": {
+      "post": {
+        "description": "Grant permissions to multiple files at once. Requires ADMIN permission on all specified files.",
+        "operationId": "PermissionsController_bulkGrantPermissions",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkPermissionGrantDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Bulk permission grant completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "successful": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PermissionResponseDto"
+                      }
+                    },
+                    "failed": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fileId": {
+                            "type": "string"
+                          },
+                          "error": {
+                            "type": "string"
+                          },
+                          "permission": {
+                            "$ref": "#/components/schemas/PermissionGrantDto"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Bulk grant permissions",
+        "tags": [
+          "File Permissions"
+        ]
+      }
+    },
+    "/permissions/summary/files/{fileId}": {
+      "get": {
+        "description": "Get a summary of all permissions for a specific file.",
+        "operationId": "PermissionsController_getFilePermissionSummary",
+        "parameters": [
+          {
+            "name": "fileId",
+            "required": true,
+            "in": "path",
+            "description": "File ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Permission summary retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PermissionSummaryDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get file permission summary",
+        "tags": [
+          "File Permissions"
+        ]
+      }
+    },
+    "/permissions/cleanup/expired": {
+      "delete": {
+        "description": "Remove expired permissions across all files. Admin only operation.",
+        "operationId": "PermissionsController_cleanupExpiredPermissions",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Expired permissions cleaned up successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "cleanedCount": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Clean up expired permissions",
+        "tags": [
+          "File Permissions"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "PrimeForge File Service API",
+    "description": "\nThe PrimeForge File Service Service provides comprehensive human resources management capabilities for the PrimeForge platform.\n\n## Features\n- File management\n- File storage\n- File upload\n- File download\n- File delete\n- File list\n- File search\n- File statistics\n\n## Authentication\nMost endpoints require JWT authentication. Include the access token in the Authorization header:\n`Authorization: Bearer <your_access_token>`\n\n## Rate Limiting\n- General endpoints: 100 requests per minute per user\n- Admin endpoints: 50 requests per minute per admin user\n\n## Multi-tenancy\nThis service supports multi-tenancy. The tenant context is automatically extracted from the JWT token.\n    ",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "File Service",
+      "description": "File management"
+    },
+    {
+      "name": "Health",
+      "description": "Health check and monitoring endpoints"
+    }
+  ],
+  "servers": [
+    {
+      "url": "http://0.0.0.0:4060",
+      "description": "Development Server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "JWT-auth": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http",
+        "name": "JWT",
+        "description": "Enter JWT token",
+        "in": "header"
+      }
+    },
+    "schemas": {
+      "FileUploadDto": {
+        "type": "object",
+        "properties": {
+          "filename": {
+            "type": "string",
+            "description": "Original filename",
+            "maxLength": 512
+          },
+          "classification": {
+            "type": "string",
+            "description": "File classification level",
+            "enum": [
+              "PUBLIC",
+              "INTERNAL",
+              "CONFIDENTIAL",
+              "RESTRICTED"
+            ],
+            "default": "PUBLIC"
+          },
+          "sensitivityLevel": {
+            "type": "string",
+            "description": "File sensitivity level",
+            "enum": [
+              "LOW",
+              "MEDIUM",
+              "HIGH",
+              "CRITICAL"
+            ],
+            "default": "LOW"
+          },
+          "tags": {
+            "description": "File tags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Additional metadata"
+          },
+          "description": {
+            "type": "string",
+            "description": "File description",
+            "maxLength": 1000
+          },
+          "storageBackend": {
+            "type": "string",
+            "description": "Storage backend preference"
+          },
+          "retentionPeriod": {
+            "type": "number",
+            "description": "Retention period in days"
+          }
+        },
+        "required": [
+          "filename",
+          "classification",
+          "sensitivityLevel"
+        ]
+      },
+      "FileResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "File ID"
+          },
+          "tenantId": {
+            "type": "string",
+            "description": "Tenant ID"
+          },
+          "ownerId": {
+            "type": "string",
+            "description": "Owner ID"
+          },
+          "originalFilename": {
+            "type": "string",
+            "description": "Original filename"
+          },
+          "storedFilename": {
+            "type": "string",
+            "description": "Stored filename"
+          },
+          "mimeType": {
+            "type": "string",
+            "description": "MIME type"
+          },
+          "fileSize": {
+            "type": "string",
+            "description": "File size in bytes"
+          },
+          "classification": {
+            "type": "string",
+            "description": "File classification",
+            "enum": [
+              "PUBLIC",
+              "INTERNAL",
+              "CONFIDENTIAL",
+              "RESTRICTED"
+            ]
+          },
+          "sensitivityLevel": {
+            "type": "string",
+            "description": "Sensitivity level",
+            "enum": [
+              "LOW",
+              "MEDIUM",
+              "HIGH",
+              "CRITICAL"
+            ]
+          },
+          "tags": {
+            "description": "File tags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "description": {
+            "type": "string",
+            "description": "File description"
+          },
+          "version": {
+            "type": "number",
+            "description": "File version"
+          },
+          "isCurrentVersion": {
+            "type": "boolean",
+            "description": "Is current version"
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Additional metadata"
+          },
+          "checksumSha256": {
+            "type": "string",
+            "description": "SHA-256 checksum"
+          },
+          "storageBackend": {
+            "type": "string",
+            "description": "Storage backend"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Creation timestamp"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Last update timestamp"
+          },
+          "deletedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Deletion timestamp"
+          },
+          "createdBy": {
+            "type": "string",
+            "description": "Created by user ID"
+          },
+          "updatedBy": {
+            "type": "string",
+            "description": "Updated by user ID"
+          },
+          "deletedBy": {
+            "type": "string",
+            "description": "Deleted by user ID"
+          }
+        },
+        "required": [
+          "id",
+          "tenantId",
+          "ownerId",
+          "originalFilename",
+          "storedFilename",
+          "mimeType",
+          "fileSize",
+          "classification",
+          "sensitivityLevel",
+          "tags",
+          "version",
+          "isCurrentVersion",
+          "metadata",
+          "checksumSha256",
+          "storageBackend",
+          "createdAt",
+          "updatedAt",
+          "createdBy"
+        ]
+      },
+      "FileUpdateDto": {
+        "type": "object",
+        "properties": {
+          "filename": {
+            "type": "string",
+            "description": "Updated filename",
+            "maxLength": 512
+          },
+          "classification": {
+            "type": "string",
+            "description": "Updated file classification",
+            "enum": [
+              "PUBLIC",
+              "INTERNAL",
+              "CONFIDENTIAL",
+              "RESTRICTED"
+            ]
+          },
+          "sensitivityLevel": {
+            "type": "string",
+            "description": "Updated sensitivity level",
+            "enum": [
+              "LOW",
+              "MEDIUM",
+              "HIGH",
+              "CRITICAL"
+            ]
+          },
+          "tags": {
+            "description": "Updated tags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Updated metadata"
+          },
+          "description": {
+            "type": "string",
+            "description": "Updated description",
+            "maxLength": 1000
+          }
+        }
+      },
+      "FileBulkOperationDto": {
+        "type": "object",
+        "properties": {
+          "fileIds": {
+            "description": "File IDs to operate on",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "operation": {
+            "type": "string",
+            "description": "Operation type"
+          },
+          "parameters": {
+            "type": "object",
+            "description": "Operation parameters"
+          }
+        },
+        "required": [
+          "fileIds",
+          "operation"
+        ]
+      },
+      "AccessRequestDto": {
+        "type": "object",
+        "properties": {
+          "permissionType": {
+            "type": "string",
+            "description": "Requested permission type",
+            "enum": [
+              "READ",
+              "WRITE",
+              "DELETE",
+              "SHARE",
+              "ADMIN"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for requesting access"
+          },
+          "expiresAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Requested expiration date"
+          }
+        },
+        "required": [
+          "permissionType"
+        ]
+      },
+      "AccessRequestResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Request ID"
+          },
+          "fileId": {
+            "type": "string",
+            "description": "File ID"
+          },
+          "requesterId": {
+            "type": "string",
+            "description": "Requester user ID"
+          },
+          "permissionType": {
+            "type": "string",
+            "description": "Requested permission type",
+            "enum": [
+              "READ",
+              "WRITE",
+              "DELETE",
+              "SHARE",
+              "ADMIN"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "description": "Request reason"
+          },
+          "status": {
+            "type": "string",
+            "description": "Request status"
+          },
+          "requestedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Request creation date"
+          },
+          "expiresAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Request expiration date"
+          },
+          "reviewedBy": {
+            "type": "string",
+            "description": "Reviewer user ID"
+          },
+          "reviewedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Review date"
+          },
+          "reviewComments": {
+            "type": "string",
+            "description": "Review comments"
+          }
+        },
+        "required": [
+          "id",
+          "fileId",
+          "requesterId",
+          "permissionType",
+          "reason",
+          "status",
+          "requestedAt"
+        ]
+      },
+      "ReviewAccessRequestDto": {
+        "type": "object",
+        "properties": {
+          "decision": {
+            "type": "string",
+            "description": "Review decision",
+            "enum": [
+              "approve",
+              "reject"
+            ]
+          },
+          "comments": {
+            "type": "string",
+            "description": "Review comments"
+          },
+          "expiresAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Permission expiration date (only for approve)"
+          }
+        },
+        "required": [
+          "decision"
+        ]
+      },
+      "PermissionMatrixUserDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "description": "User ID"
+          },
+          "userDisplayName": {
+            "type": "string",
+            "description": "User display name or email"
+          },
+          "permissions": {
+            "description": "User permissions for this file",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "grantedVia": {
+            "type": "string",
+            "description": "How the permission was granted"
+          },
+          "expiresAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Permission expiration date"
+          },
+          "grantedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Permission grant date"
+          },
+          "grantedBy": {
+            "type": "string",
+            "description": "Who granted the permission"
+          }
+        },
+        "required": [
+          "userId",
+          "userDisplayName",
+          "permissions",
+          "grantedVia",
+          "grantedAt",
+          "grantedBy"
+        ]
+      },
+      "PermissionMatrixDto": {
+        "type": "object",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "File ID"
+          },
+          "ownerId": {
+            "type": "string",
+            "description": "File owner ID"
+          },
+          "totalUsers": {
+            "type": "number",
+            "description": "Total users with access"
+          },
+          "users": {
+            "description": "Users and their permissions",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PermissionMatrixUserDto"
+            }
+          },
+          "permissionSummary": {
+            "type": "object",
+            "description": "Permission summary by type"
+          },
+          "pendingRequests": {
+            "type": "number",
+            "description": "Pending access requests count"
+          }
+        },
+        "required": [
+          "fileId",
+          "ownerId",
+          "totalUsers",
+          "users",
+          "permissionSummary",
+          "pendingRequests"
+        ]
+      },
+      "QuickGrantPermissionDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "description": "User ID to grant permission to"
+          },
+          "permissionType": {
+            "type": "string",
+            "description": "Permission type to grant",
+            "enum": [
+              "READ",
+              "WRITE",
+              "DELETE",
+              "SHARE",
+              "ADMIN"
+            ]
+          },
+          "expiresAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Permission expiration date"
+          }
+        },
+        "required": [
+          "userId",
+          "permissionType"
+        ]
+      },
+      "BulkPermissionActionDto": {
+        "type": "object",
+        "properties": {
+          "userIds": {
+            "description": "User IDs to apply action to",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "action": {
+            "type": "string",
+            "description": "Action to perform",
+            "enum": [
+              "grant",
+              "revoke",
+              "update"
+            ]
+          },
+          "permissionType": {
+            "type": "string",
+            "description": "Permission type (required for grant/update)",
+            "enum": [
+              "READ",
+              "WRITE",
+              "DELETE",
+              "SHARE",
+              "ADMIN"
+            ]
+          },
+          "expiresAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Permission expiration date"
+          }
+        },
+        "required": [
+          "userIds",
+          "action"
+        ]
+      },
+      "BulkPermissionResultDto": {
+        "type": "object",
+        "properties": {
+          "successful": {
+            "description": "Successfully processed user IDs",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "failed": {
+            "description": "Failed operations with reasons",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "totalProcessed": {
+            "type": "number",
+            "description": "Total processed count"
+          },
+          "successCount": {
+            "type": "number",
+            "description": "Success count"
+          },
+          "failureCount": {
+            "type": "number",
+            "description": "Failure count"
+          }
+        },
+        "required": [
+          "successful",
+          "failed",
+          "totalProcessed",
+          "successCount",
+          "failureCount"
+        ]
+      },
+      "PermissionGrantDto": {
+        "type": "object",
+        "properties": {
+          "subjectType": {
+            "type": "string",
+            "description": "Subject type (user, role, or group)",
+            "enum": [
+              "USER",
+              "ROLE",
+              "GROUP"
+            ]
+          },
+          "subjectId": {
+            "type": "string",
+            "description": "Subject ID (user/role/group ID)"
+          },
+          "permissionType": {
+            "type": "string",
+            "description": "Permission type",
+            "enum": [
+              "READ",
+              "WRITE",
+              "DELETE",
+              "SHARE",
+              "ADMIN"
+            ]
+          },
+          "expiresAt": {
+            "type": "string",
+            "description": "Permission expiration date"
+          },
+          "scope": {
+            "type": "object",
+            "description": "Permission scope and additional parameters"
+          }
+        },
+        "required": [
+          "subjectType",
+          "subjectId",
+          "permissionType"
+        ]
+      },
+      "PermissionResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Permission ID"
+          },
+          "fileId": {
+            "type": "string",
+            "description": "File ID"
+          },
+          "tenantId": {
+            "type": "string",
+            "description": "Tenant ID"
+          },
+          "subjectType": {
+            "type": "string",
+            "description": "Subject type",
+            "enum": [
+              "USER",
+              "ROLE",
+              "GROUP"
+            ]
+          },
+          "subjectId": {
+            "type": "string",
+            "description": "Subject ID"
+          },
+          "permissionType": {
+            "type": "string",
+            "description": "Permission type",
+            "enum": [
+              "READ",
+              "WRITE",
+              "DELETE",
+              "SHARE",
+              "ADMIN"
+            ]
+          },
+          "scope": {
+            "type": "object",
+            "description": "Permission scope"
+          },
+          "expiresAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Expiration date"
+          },
+          "grantedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Grant timestamp"
+          },
+          "grantedBy": {
+            "type": "string",
+            "description": "Granted by user ID"
+          },
+          "revokedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Revocation timestamp"
+          },
+          "revokedBy": {
+            "type": "string",
+            "description": "Revoked by user ID"
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": "Is permission currently active"
+          },
+          "isExpired": {
+            "type": "boolean",
+            "description": "Is permission expired"
+          }
+        },
+        "required": [
+          "id",
+          "fileId",
+          "tenantId",
+          "subjectType",
+          "subjectId",
+          "permissionType",
+          "scope",
+          "grantedAt",
+          "grantedBy"
+        ]
+      },
+      "PermissionCheckDto": {
+        "type": "object",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "File ID to check permission for"
+          },
+          "userId": {
+            "type": "string",
+            "description": "User ID to check permission for"
+          },
+          "permissionType": {
+            "type": "string",
+            "description": "Permission type to check",
+            "enum": [
+              "READ",
+              "WRITE",
+              "DELETE",
+              "SHARE",
+              "ADMIN"
+            ]
+          },
+          "context": {
+            "type": "object",
+            "description": "Additional context for permission check"
+          }
+        },
+        "required": [
+          "fileId",
+          "userId",
+          "permissionType"
+        ]
+      },
+      "PermissionCheckResponseDto": {
+        "type": "object",
+        "properties": {
+          "hasPermission": {
+            "type": "boolean",
+            "description": "Whether user has the requested permission"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for permission decision"
+          },
+          "effectivePermission": {
+            "type": "string",
+            "description": "Effective permission level"
+          },
+          "expiresAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Permission expiration date"
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Additional metadata"
+          }
+        },
+        "required": [
+          "hasPermission",
+          "reason"
+        ]
+      },
+      "BulkPermissionGrantDto": {
+        "type": "object",
+        "properties": {
+          "fileIds": {
+            "description": "File IDs to grant permissions for",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "permissions": {
+            "description": "Permissions to grant",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PermissionGrantDto"
+            }
+          }
+        },
+        "required": [
+          "fileIds",
+          "permissions"
+        ]
+      },
+      "PermissionSummaryDto": {
+        "type": "object",
+        "properties": {
+          "totalPermissions": {
+            "type": "number",
+            "description": "Total permissions count"
+          },
+          "activePermissions": {
+            "type": "number",
+            "description": "Active permissions count"
+          },
+          "expiredPermissions": {
+            "type": "number",
+            "description": "Expired permissions count"
+          },
+          "revokedPermissions": {
+            "type": "number",
+            "description": "Revoked permissions count"
+          },
+          "byPermissionType": {
+            "type": "object",
+            "description": "Permissions by type"
+          },
+          "bySubjectType": {
+            "type": "object",
+            "description": "Permissions by subject type"
+          },
+          "recentActivities": {
+            "description": "Recent permission activities",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "totalPermissions",
+          "activePermissions",
+          "expiredPermissions",
+          "revokedPermissions",
+          "byPermissionType",
+          "bySubjectType",
+          "recentActivities"
+        ]
+      }
+    }
+  }
+}

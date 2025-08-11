@@ -1,0 +1,6337 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "AppController_getHome",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "App"
+        ]
+      }
+    },
+    "/health": {
+      "get": {
+        "operationId": "HealthController_getHealth",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Health"
+        ]
+      }
+    },
+    "/health/detailed": {
+      "get": {
+        "operationId": "HealthController_getDetailedHealth",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Health"
+        ]
+      }
+    },
+    "/health/ready": {
+      "get": {
+        "operationId": "HealthController_getReadiness",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Health"
+        ]
+      }
+    },
+    "/health/live": {
+      "get": {
+        "operationId": "HealthController_getLiveness",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Health"
+        ]
+      }
+    },
+    "/metrics": {
+      "get": {
+        "operationId": "MetricsController_getMetrics",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Metrics"
+        ]
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "operationId": "AuthController_register",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User registered successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "409": {
+            "description": "User already exists"
+          }
+        },
+        "summary": "Register a new user",
+        "tags": [
+          "Authentication"
+        ]
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "operationId": "AuthController_login",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        },
+        "summary": "User login with email, username, or phone",
+        "tags": [
+          "Authentication"
+        ]
+      }
+    },
+    "/auth/refresh": {
+      "post": {
+        "operationId": "AuthController_refreshToken",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Token refreshed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RefreshTokenResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid refresh token"
+          }
+        },
+        "summary": "Refresh access token",
+        "tags": [
+          "Authentication"
+        ]
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "operationId": "AuthController_logout",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": "Logout successful"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "User logout",
+        "tags": [
+          "Authentication"
+        ]
+      }
+    },
+    "/auth/forgot-password": {
+      "post": {
+        "operationId": "AuthController_forgotPassword",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password reset email sent"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        },
+        "summary": "Request password reset",
+        "tags": [
+          "Authentication"
+        ]
+      }
+    },
+    "/auth/reset-password": {
+      "post": {
+        "operationId": "AuthController_resetPassword",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password reset successfully"
+          },
+          "400": {
+            "description": "Invalid or expired token"
+          }
+        },
+        "summary": "Reset password with token",
+        "tags": [
+          "Authentication"
+        ]
+      }
+    },
+    "/auth/verify-email": {
+      "post": {
+        "operationId": "AuthController_verifyEmail",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifyEmailDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email verified successfully"
+          },
+          "400": {
+            "description": "Invalid or expired verification token"
+          }
+        },
+        "summary": "Verify email address",
+        "tags": [
+          "Authentication"
+        ]
+      },
+      "get": {
+        "operationId": "AuthController_verifyEmailByQuery",
+        "parameters": [
+          {
+            "name": "token",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Authentication"
+        ]
+      }
+    },
+    "/auth/resend-verification": {
+      "post": {
+        "operationId": "AuthController_resendVerification",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResendVerificationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Verification email sent"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        },
+        "summary": "Resend email verification",
+        "tags": [
+          "Authentication"
+        ]
+      }
+    },
+    "/auth/me": {
+      "get": {
+        "operationId": "AuthController_getCurrentUser",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "User profile retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProfileResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get current user profile",
+        "tags": [
+          "Authentication"
+        ]
+      },
+      "put": {
+        "operationId": "AuthController_updateCurrentUser",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserProfileDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User profile updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProfileResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid input data"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "409": {
+            "description": "Conflict - Username already exists"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Update current user profile",
+        "tags": [
+          "Authentication"
+        ]
+      }
+    },
+    "/auth/change-password": {
+      "post": {
+        "operationId": "AuthController_changePassword",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password changed successfully"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Change password",
+        "tags": [
+          "Authentication"
+        ]
+      }
+    },
+    "/auth/health": {
+      "get": {
+        "operationId": "AuthController_healthCheck",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Authentication"
+        ]
+      }
+    },
+    "/auth/switch_org": {
+      "post": {
+        "description": "Switch to a different organization and get new JWT tokens",
+        "operationId": "AuthController_switchOrganization",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SwitchOrganizationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Organization switched successfully or no change needed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SwitchOrganizationResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid tenant_id or user not member of target organization"
+          },
+          "401": {
+            "description": "Unauthorized - Valid JWT token required"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Switch user organization",
+        "tags": [
+          "Authentication"
+        ]
+      }
+    },
+    "/auth/.well-known/jwks.json": {
+      "get": {
+        "operationId": "AuthController_getJwks",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Authentication"
+        ]
+      }
+    },
+    "/policies": {
+      "get": {
+        "operationId": "PoliciesController_getAllPolicies",
+        "parameters": [
+          {
+            "name": "page",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of policy rules",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PolicyRuleResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all policy rules",
+        "tags": [
+          "Policies"
+        ]
+      },
+      "post": {
+        "operationId": "PoliciesController_createPolicy",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePolicyRuleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Policy rule created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PolicyRuleResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data"
+          },
+          "403": {
+            "description": "Insufficient permissions"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new policy rule",
+        "tags": [
+          "Policies"
+        ]
+      }
+    },
+    "/policies/{id}": {
+      "put": {
+        "operationId": "PoliciesController_updatePolicy",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Policy rule ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePolicyRuleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Policy rule updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PolicyRuleResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data"
+          },
+          "403": {
+            "description": "Insufficient permissions"
+          },
+          "404": {
+            "description": "Policy rule not found"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a policy rule",
+        "tags": [
+          "Policies"
+        ]
+      },
+      "delete": {
+        "operationId": "PoliciesController_deletePolicy",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Policy rule ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Policy rule deleted successfully"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a policy rule",
+        "tags": [
+          "Policies"
+        ]
+      }
+    },
+    "/policies/evaluate": {
+      "post": {
+        "operationId": "PoliciesController_evaluatePolicy",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EvaluatePolicyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Policy evaluation result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PolicyEvaluationResultDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Evaluate a single policy permission",
+        "tags": [
+          "Policies"
+        ]
+      }
+    },
+    "/policies/evaluate/bulk": {
+      "post": {
+        "operationId": "PoliciesController_evaluatePoliciesBulk",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkEvaluatePolicyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Bulk policy evaluation results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkPolicyEvaluationResultDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Evaluate multiple policy permissions",
+        "tags": [
+          "Policies"
+        ]
+      }
+    },
+    "/policies/sync": {
+      "post": {
+        "operationId": "PoliciesController_syncPolicies",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Policies synced successfully"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Sync all policy rules to OPA",
+        "tags": [
+          "Policies"
+        ]
+      }
+    },
+    "/policies/health": {
+      "get": {
+        "operationId": "PoliciesController_checkOpaHealth",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OPA health status"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Check OPA health status",
+        "tags": [
+          "Policies"
+        ]
+      }
+    },
+    "/organizations": {
+      "post": {
+        "operationId": "OrganizationsController_createOrganization",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrganizationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Organization created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data"
+          },
+          "409": {
+            "description": "Organization slug already exists"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Create a new organization",
+        "tags": [
+          "Organizations"
+        ]
+      }
+    },
+    "/organizations/{id}": {
+      "get": {
+        "operationId": "OrganizationsController_getOrganizationById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Organization ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Organization found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access denied to this organization"
+          },
+          "404": {
+            "description": "Organization not found"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get organization by ID",
+        "tags": [
+          "Organizations"
+        ]
+      },
+      "put": {
+        "operationId": "OrganizationsController_updateOrganization",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Organization ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateOrganizationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Organization updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data"
+          },
+          "403": {
+            "description": "Insufficient permissions"
+          },
+          "404": {
+            "description": "Organization not found"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Update organization",
+        "tags": [
+          "Organizations"
+        ]
+      },
+      "delete": {
+        "operationId": "OrganizationsController_deleteOrganization",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Organization ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Organization deleted successfully"
+          },
+          "403": {
+            "description": "Insufficient permissions"
+          },
+          "404": {
+            "description": "Organization not found"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Delete organization",
+        "tags": [
+          "Organizations"
+        ]
+      }
+    },
+    "/organizations/slug/{slug}": {
+      "get": {
+        "operationId": "OrganizationsController_getOrganizationBySlug",
+        "parameters": [
+          {
+            "name": "slug",
+            "required": true,
+            "in": "path",
+            "description": "Organization slug",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Organization found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access denied to this organization"
+          },
+          "404": {
+            "description": "Organization not found"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get organization by slug",
+        "tags": [
+          "Organizations"
+        ]
+      }
+    },
+    "/organizations/{id}/members": {
+      "get": {
+        "operationId": "OrganizationsController_getOrganizationMembers",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Organization ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (default: 20)",
+            "schema": {}
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (default: 1)",
+            "schema": {}
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Organization members retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedOrganizationMembersResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access denied to this organization"
+          },
+          "404": {
+            "description": "Organization not found"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get organization members",
+        "tags": [
+          "Organizations"
+        ]
+      }
+    },
+    "/organizations/{id}/members/invite": {
+      "post": {
+        "operationId": "OrganizationsController_inviteMember",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Organization ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InviteMemberDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Member invited successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvitationResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data"
+          },
+          "403": {
+            "description": "Insufficient permissions"
+          },
+          "409": {
+            "description": "User is already a member or invitation already exists"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Invite member to organization",
+        "tags": [
+          "Organizations"
+        ]
+      }
+    },
+    "/organizations/{id}/members/bulk-invite": {
+      "post": {
+        "operationId": "OrganizationsController_bulkInviteMembers",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Organization ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkInviteMembersDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Bulk invitation processed"
+          },
+          "400": {
+            "description": "Invalid input data"
+          },
+          "403": {
+            "description": "Insufficient permissions"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Bulk invite members to organization",
+        "tags": [
+          "Organizations"
+        ]
+      }
+    },
+    "/organizations/{id}/members/{memberId}/role": {
+      "put": {
+        "operationId": "OrganizationsController_updateMemberRole",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Organization ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "memberId",
+            "required": true,
+            "in": "path",
+            "description": "Member ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMemberRoleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Member role updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationMemberResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data"
+          },
+          "403": {
+            "description": "Insufficient permissions or cannot change own role"
+          },
+          "404": {
+            "description": "Member not found"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Update member role",
+        "tags": [
+          "Organizations"
+        ]
+      }
+    },
+    "/organizations/{id}/members/{memberId}": {
+      "delete": {
+        "operationId": "OrganizationsController_removeMember",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Organization ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "memberId",
+            "required": true,
+            "in": "path",
+            "description": "Member ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Member removed successfully"
+          },
+          "403": {
+            "description": "Insufficient permissions or cannot remove yourself"
+          },
+          "404": {
+            "description": "Member not found"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Remove member from organization",
+        "tags": [
+          "Organizations"
+        ]
+      }
+    },
+    "/organizations/{id}/invitations": {
+      "get": {
+        "operationId": "OrganizationsController_getOrganizationInvitations",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Organization ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (default: 20)",
+            "schema": {}
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (default: 1)",
+            "schema": {}
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Organization invitations retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedInvitationsResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient permissions"
+          },
+          "404": {
+            "description": "Organization not found"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get organization invitations",
+        "tags": [
+          "Organizations"
+        ]
+      }
+    },
+    "/organizations/{id}/invitations/{invitationId}": {
+      "delete": {
+        "operationId": "OrganizationsController_cancelInvitation",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Organization ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "invitationId",
+            "required": true,
+            "in": "path",
+            "description": "Invitation ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Invitation cancelled successfully"
+          },
+          "403": {
+            "description": "Insufficient permissions"
+          },
+          "404": {
+            "description": "Invitation not found or already processed"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Cancel invitation",
+        "tags": [
+          "Organizations"
+        ]
+      }
+    },
+    "/organizations/{id}/transfer-ownership": {
+      "put": {
+        "operationId": "OrganizationsController_transferOwnership",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Organization ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransferOwnershipDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ownership transferred successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationMemberResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Only owners can transfer ownership"
+          },
+          "404": {
+            "description": "Member not found or not an active member"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Transfer organization ownership",
+        "tags": [
+          "Organizations"
+        ]
+      }
+    },
+    "/auth/social/google": {
+      "get": {
+        "operationId": "SocialAuthController_googleAuth",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Initiate Google OAuth login",
+        "tags": [
+          "Social Authentication"
+        ]
+      }
+    },
+    "/auth/social/google/callback": {
+      "get": {
+        "operationId": "SocialAuthController_googleAuthCallback",
+        "parameters": [
+          {
+            "name": "code",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "state",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Google OAuth callback",
+        "tags": [
+          "Social Authentication"
+        ]
+      }
+    },
+    "/auth/social/microsoft": {
+      "get": {
+        "operationId": "SocialAuthController_microsoftAuth",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Initiate Microsoft OAuth login",
+        "tags": [
+          "Social Authentication"
+        ]
+      }
+    },
+    "/auth/social/microsoft/callback": {
+      "get": {
+        "operationId": "SocialAuthController_microsoftAuthCallback",
+        "parameters": [
+          {
+            "name": "state",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Microsoft OAuth callback",
+        "tags": [
+          "Social Authentication"
+        ]
+      }
+    },
+    "/auth/social/link/{provider}": {
+      "post": {
+        "operationId": "SocialAuthController_linkSocialAccount",
+        "parameters": [
+          {
+            "name": "provider",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Link social account to current user",
+        "tags": [
+          "Social Authentication"
+        ]
+      }
+    },
+    "/auth/social/unlink/{provider}": {
+      "delete": {
+        "operationId": "SocialAuthController_unlinkSocialAccount",
+        "parameters": [
+          {
+            "name": "provider",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Unlink social account from current user",
+        "tags": [
+          "Social Authentication"
+        ]
+      }
+    },
+    "/auth/social/accounts": {
+      "get": {
+        "operationId": "SocialAuthController_getSocialAccounts",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get linked social accounts",
+        "tags": [
+          "Social Authentication"
+        ]
+      }
+    },
+    "/admin/login": {
+      "post": {
+        "description": "Admin login",
+        "operationId": "AdminController_adminLogin",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminLoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Admin login successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminLoginResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        },
+        "summary": "(Admin) Admin login",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/refresh-token": {
+      "post": {
+        "description": "Refresh admin access token",
+        "operationId": "AdminController_refreshToken",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminRefreshTokenDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Token refreshed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminRefreshTokenResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid refresh token"
+          }
+        },
+        "summary": "(Admin) Refresh admin access token",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/password": {
+      "put": {
+        "description": "Change admin password",
+        "operationId": "AdminController_changePassword",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminChangePasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password changed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - validation error"
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Change admin password",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/password/reset-request": {
+      "post": {
+        "description": "Request admin password reset",
+        "operationId": "AdminController_requestPasswordReset",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminResetPasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password reset request processed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "(Admin) Request admin password reset",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/password/reset-confirm": {
+      "post": {
+        "description": "Confirm admin password reset with token",
+        "operationId": "AdminController_confirmPasswordReset",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminConfirmResetPasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password reset successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid or expired token"
+          }
+        },
+        "summary": "(Admin) Confirm admin password reset with token",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/users": {
+      "get": {
+        "description": "Get all users with pagination and filtering",
+        "operationId": "AdminController_getAllUsers",
+        "parameters": [
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Search term for email, first name, or last name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "role",
+            "required": false,
+            "in": "query",
+            "description": "Filter by user role",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Filter by user status",
+            "schema": {
+              "enum": [
+                "ACTIVE",
+                "INACTIVE",
+                "SUSPENDED",
+                "PENDING"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Users retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminUserListResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Get all users with pagination and filtering",
+        "tags": [
+          "Admin"
+        ]
+      },
+      "post": {
+        "description": "Create new user",
+        "operationId": "AdminController_createUser",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created successfully"
+          },
+          "409": {
+            "description": "User already exists"
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Create new user",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/users/{id}": {
+      "get": {
+        "description": "Get user by ID",
+        "operationId": "AdminController_getUserById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminUserResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Get user by ID",
+        "tags": [
+          "Admin"
+        ]
+      },
+      "put": {
+        "description": "Update user",
+        "operationId": "AdminController_updateUser",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminUserResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Update user",
+        "tags": [
+          "Admin"
+        ]
+      },
+      "delete": {
+        "description": "Delete user",
+        "operationId": "AdminController_deleteUser",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted successfully"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Delete user",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/users/{id}/reset_pwd_by_admin": {
+      "post": {
+        "description": "Reset user password. If no new password is provided, a secure password will be generated automatically.",
+        "operationId": "AdminController_resetUserPasswordByAdmin",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "User ID",
+            "schema": {
+              "example": "user-uuid-123",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminResetUserPasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password reset successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminResetUserPasswordResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Reset user password",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/organizations": {
+      "get": {
+        "description": "Paginated organization list",
+        "operationId": "AdminController_getAllOrganizations",
+        "parameters": [
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Search term for organization name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Organizations retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminOrganizationListResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Get all organizations with pagination",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/organizations/{id}": {
+      "get": {
+        "description": "Organization details with all member data",
+        "operationId": "AdminController_getOrganizationById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Organization tenant ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Organization details retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminOrganizationResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Organization not found"
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Get organization details with all member data",
+        "tags": [
+          "Admin"
+        ]
+      },
+      "put": {
+        "description": "Update organization (especially status field)",
+        "operationId": "AdminController_updateOrganization",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Organization tenant ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminUpdateOrganizationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Organization updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminOrganizationResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data"
+          },
+          "404": {
+            "description": "Organization not found"
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Update organization (especially status field)",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/config": {
+      "get": {
+        "description": "Get all system configurations",
+        "operationId": "AdminController_getSystemConfigs",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "System configurations retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SystemConfigResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Get all system configurations",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/config/{key}": {
+      "put": {
+        "description": "Update system configuration",
+        "operationId": "AdminController_updateSystemConfig",
+        "parameters": [
+          {
+            "name": "key",
+            "required": true,
+            "in": "path",
+            "description": "Configuration key",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSystemConfigDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "System configuration updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemConfigResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Update system configuration",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/stats": {
+      "get": {
+        "description": "Get system statistics",
+        "operationId": "AdminController_getSystemStats",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "System statistics retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemStatsResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Get system statistics",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/analytics": {
+      "get": {
+        "description": "Get analytics data",
+        "operationId": "AdminController_getAnalytics",
+        "parameters": [
+          {
+            "name": "startDate",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "endDate",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "metric",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "users",
+                "organizations",
+                "logins",
+                "signups"
+              ]
+            }
+          },
+          {
+            "name": "granularity",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "default": "day",
+              "type": "string",
+              "enum": [
+                "hour",
+                "day",
+                "week",
+                "month"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Analytics data retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalyticsResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Get analytics data",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/social-providers": {
+      "get": {
+        "description": "Get all social providers",
+        "operationId": "AdminController_getSocialProviders",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Social providers retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SocialProviderListResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Get all social providers",
+        "tags": [
+          "Admin"
+        ]
+      },
+      "post": {
+        "description": "Create social provider",
+        "operationId": "AdminController_createSocialProvider",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSocialProviderDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Social provider created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SocialProviderResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Create social provider",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/social-providers/{id}": {
+      "get": {
+        "description": "Get social provider by ID",
+        "operationId": "AdminController_getSocialProvider",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Social provider ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Social provider retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SocialProviderResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Get social provider by ID",
+        "tags": [
+          "Admin"
+        ]
+      },
+      "put": {
+        "description": "Update social provider",
+        "operationId": "AdminController_updateSocialProvider",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Social provider ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSocialProviderDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Social provider updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SocialProviderResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Update social provider",
+        "tags": [
+          "Admin"
+        ]
+      },
+      "delete": {
+        "description": "Delete social provider",
+        "operationId": "AdminController_deleteSocialProvider",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Social provider ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Social provider deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Delete social provider",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/social-providers/{id}/toggle": {
+      "patch": {
+        "description": "Toggle social provider enabled status",
+        "operationId": "AdminController_toggleSocialProvider",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Social provider ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Social provider toggled successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SocialProviderResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Toggle social provider enabled status",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/email-templates": {
+      "get": {
+        "description": "Get all email templates with pagination and filtering",
+        "operationId": "AdminController_getEmailTemplates",
+        "parameters": [
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Search term for name, subject, or description",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "required": false,
+            "in": "query",
+            "description": "Filter by template type",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "language",
+            "required": false,
+            "in": "query",
+            "description": "Filter by language",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Email templates retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailTemplateListResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Get all email templates",
+        "tags": [
+          "Admin"
+        ]
+      },
+      "post": {
+        "description": "Create new email template",
+        "operationId": "AdminController_createEmailTemplate",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEmailTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Email template created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailTemplateResponseDto"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Email template with same name and language already exists"
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Create email template",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/email-templates/{id}": {
+      "get": {
+        "description": "Get email template by ID",
+        "operationId": "AdminController_getEmailTemplate",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Email template retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailTemplateResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Email template not found"
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Get email template by ID",
+        "tags": [
+          "Admin"
+        ]
+      },
+      "put": {
+        "description": "Update email template",
+        "operationId": "AdminController_updateEmailTemplate",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEmailTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email template updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailTemplateResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Email template not found"
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Update email template",
+        "tags": [
+          "Admin"
+        ]
+      },
+      "delete": {
+        "description": "Delete email template",
+        "operationId": "AdminController_deleteEmailTemplate",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Email template deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Email template not found"
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Delete email template",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/email-templates/{id}/toggle": {
+      "patch": {
+        "description": "Toggle email template active status",
+        "operationId": "AdminController_toggleEmailTemplate",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Email template toggled successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailTemplateResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Email template not found"
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Toggle email template active status",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/keys/status": {
+      "get": {
+        "description": "Get key rotation status",
+        "operationId": "AdminController_getKeyRotationStatus",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Get key rotation status",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/keys/jwks": {
+      "get": {
+        "description": "Get all active public keys (JWKS format)",
+        "operationId": "AdminController_getJwks",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Get all active public keys (JWKS format)",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/keys/rotate": {
+      "post": {
+        "description": "Rotate keys",
+        "operationId": "AdminController_rotateKeys",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Rotate keys",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/keys/generate": {
+      "post": {
+        "description": "Generate new key",
+        "operationId": "AdminController_generateNewKey",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Generate new key",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/keys/{kid}": {
+      "delete": {
+        "description": "Revoke key",
+        "operationId": "AdminController_revokeKey",
+        "parameters": [
+          {
+            "name": "kid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Revoke key",
+        "tags": [
+          "Admin"
+        ]
+      },
+      "get": {
+        "description": "Get key info",
+        "operationId": "AdminController_getKeyInfo",
+        "parameters": [
+          {
+            "name": "kid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Get key info",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/keys/cleanup": {
+      "post": {
+        "description": "Cleanup expired keys",
+        "operationId": "AdminController_cleanupExpiredKeys",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Cleanup expired keys",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/.well-known/jwks.json": {
+      "get": {
+        "description": "Get JSON Web Key Set for admin token verification",
+        "operationId": "AdminController_getAdminJwks",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "JWKS retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "keys": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "kty": {
+                            "type": "string"
+                          },
+                          "use": {
+                            "type": "string"
+                          },
+                          "kid": {
+                            "type": "string"
+                          },
+                          "alg": {
+                            "type": "string"
+                          },
+                          "x": {
+                            "type": "string"
+                          },
+                          "y": {
+                            "type": "string"
+                          },
+                          "crv": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Admin JWKS endpoint",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/organization-type-plans": {
+      "get": {
+        "description": "Get all organization type plans with pagination and filtering",
+        "operationId": "AdminController_getOrganizationTypePlans",
+        "parameters": [
+          {
+            "name": "orgType",
+            "required": false,
+            "in": "query",
+            "description": "Filter by organization type",
+            "schema": {
+              "enum": [
+                "SOLO",
+                "BUSINESS"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "plan",
+            "required": false,
+            "in": "query",
+            "description": "Filter by plan",
+            "schema": {
+              "enum": [
+                "SOLO_FREE",
+                "SOLO_TRIAL",
+                "SOLO_MONTHLY",
+                "SOLO_ANNUAL",
+                "TEAM_FREE",
+                "TEAM_STARTER",
+                "TEAM_GROWTH",
+                "ENTERPRISE"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Organization type plans retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationTypePlanListResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Get all organization type plans",
+        "tags": [
+          "Admin"
+        ]
+      },
+      "post": {
+        "description": "Create new organization type plan",
+        "operationId": "AdminController_createOrganizationTypePlan",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrganizationTypePlanDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Organization type plan created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationTypePlanResponseDto"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Organization type plan with same org_type and plan already exists"
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Create organization type plan",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/organization-type-plans/{id}": {
+      "get": {
+        "description": "Get organization type plan by ID",
+        "operationId": "AdminController_getOrganizationTypePlan",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Organization type plan retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationTypePlanResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Organization type plan not found"
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Get organization type plan by ID",
+        "tags": [
+          "Admin"
+        ]
+      },
+      "put": {
+        "description": "Update organization type plan",
+        "operationId": "AdminController_updateOrganizationTypePlan",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateOrganizationTypePlanDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Organization type plan updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationTypePlanResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Organization type plan not found"
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Update organization type plan",
+        "tags": [
+          "Admin"
+        ]
+      },
+      "delete": {
+        "description": "Delete organization type plan",
+        "operationId": "AdminController_deleteOrganizationTypePlan",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Organization type plan deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Organization type plan not found"
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Delete organization type plan",
+        "tags": [
+          "Admin"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "PrimeForge Auth API",
+    "description": "\nThe PrimeForge Auth Service provides comprehensive authentication and authorization capabilities for the PrimeForge platform.\n\n## Features\n- JWT-based authentication\n- Role-based access control\n- Organization management\n- Social authentication (Google, LinkedIn)\n- User management\n- Password reset functionality\n- Email verification\n\n## Authentication\nMost endpoints require JWT authentication. Include the access token in the Authorization header:\n`Authorization: Bearer <your_access_token>`\n\n## Rate Limiting\n- Authentication endpoints: 5 requests per minute per IP\n- General endpoints: 100 requests per minute per user\n- Admin endpoints: 50 requests per minute per admin user\n    ",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "Core authentication endpoints"
+    },
+    {
+      "name": "Organizations",
+      "description": "Organization management endpoints"
+    },
+    {
+      "name": "Social Auth",
+      "description": "Social authentication endpoints"
+    },
+    {
+      "name": "Admin",
+      "description": "Administrative endpoints"
+    }
+  ],
+  "servers": [
+    {
+      "url": "http://0.0.0.0:4111",
+      "description": "Development Server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "JWT-auth": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http",
+        "name": "JWT",
+        "description": "Enter JWT token",
+        "in": "header"
+      }
+    },
+    "schemas": {
+      "RegisterDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "The email address to register with",
+            "example": "user@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "The password to register with",
+            "example": "Password123!"
+          },
+          "first_name": {
+            "type": "string",
+            "description": "First name of the user",
+            "example": "John"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "Last name of the user",
+            "example": "Doe"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "RegisterResponseDto": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "verified": {
+                "type": "boolean"
+              },
+              "first_name": {
+                "type": "string"
+              },
+              "last_name": {
+                "type": "string"
+              },
+              "solo_org_id": {
+                "type": "string"
+              },
+              "solo_org_name": {
+                "type": "string"
+              }
+            },
+            "required": []
+          },
+          "message": {
+            "type": "string",
+            "description": "The message indicating the registration was successful",
+            "example": "Registration successful"
+          }
+        },
+        "required": [
+          "user",
+          "message"
+        ]
+      },
+      "LoginDto": {
+        "type": "object",
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "description": "The identifier to login with",
+            "example": "user@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "The password to login with",
+            "example": "password123"
+          },
+          "rememberMe": {
+            "type": "boolean",
+            "description": "Whether to remember the user",
+            "example": true
+          },
+          "deviceId": {
+            "type": "string",
+            "description": "The device ID to login with",
+            "example": "device-123"
+          }
+        },
+        "required": [
+          "identifier",
+          "password"
+        ]
+      },
+      "OrganizationDto": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "description": "Organization ID",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "name": {
+            "type": "string",
+            "description": "Organization name",
+            "example": "Acme Corporation"
+          },
+          "slug": {
+            "type": "string",
+            "description": "Organization slug",
+            "example": "acme-corp"
+          },
+          "org_type": {
+            "type": "string",
+            "description": "Organization type",
+            "example": "SOLO",
+            "enum": [
+              "SOLO",
+              "BUSINESS"
+            ]
+          },
+          "plan": {
+            "type": "string",
+            "description": "Organization plan",
+            "example": "SOLO_TRIAL",
+            "enum": [
+              "SOLO_FREE",
+              "SOLO_TRIAL",
+              "SOLO_MONTHLY",
+              "SOLO_ANNUAL",
+              "TEAM_STARTER",
+              "TEAM_GROWTH",
+              "ENTERPRISE"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "description": "Organization status",
+            "example": "PLAN_ACTIVE",
+            "enum": [
+              "PLAN_ACTIVE",
+              "PLAN_EXPIRED",
+              "SUSPENDED",
+              "FREEZE"
+            ]
+          }
+        },
+        "required": [
+          "tenant_id",
+          "name",
+          "slug",
+          "org_type",
+          "plan",
+          "status"
+        ]
+      },
+      "MembershipDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Membership ID",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "tenant_id": {
+            "type": "string",
+            "description": "Organization tenant ID",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "role": {
+            "type": "string",
+            "description": "User role in the organization",
+            "example": "MEMBER",
+            "enum": [
+              "MEMBER",
+              "OWNER",
+              "ADMIN"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "description": "Membership status",
+            "example": "ACTIVE",
+            "enum": [
+              "ACTIVE",
+              "INACTIVE",
+              "SUSPENDED"
+            ]
+          },
+          "organization": {
+            "description": "Organization details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OrganizationDto"
+              }
+            ]
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Membership creation timestamp",
+            "example": "2023-12-01T00:00:00.000Z"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Membership last update timestamp",
+            "example": "2023-12-01T00:00:00.000Z"
+          }
+        },
+        "required": [
+          "id",
+          "tenant_id",
+          "role",
+          "status",
+          "organization",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "UserProfileResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The user ID",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "email": {
+            "type": "string",
+            "description": "The user email address",
+            "example": "user@example.com"
+          },
+          "username": {
+            "type": "string",
+            "description": "The username",
+            "example": "johndoe"
+          },
+          "phone": {
+            "type": "string",
+            "description": "The user phone number",
+            "example": "+1234567890"
+          },
+          "first_name": {
+            "type": "string",
+            "description": "The user first name",
+            "example": "John"
+          },
+          "preferred_name": {
+            "type": "string",
+            "description": "The user preferred name",
+            "example": "Johnny"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The user last name",
+            "example": "Doe"
+          },
+          "verified": {
+            "type": "boolean",
+            "description": "Whether the email is verified",
+            "example": true
+          },
+          "phone_verified": {
+            "type": "boolean",
+            "description": "Whether the phone is verified",
+            "example": false
+          },
+          "status": {
+            "type": "string",
+            "description": "User status",
+            "example": "ACTIVE",
+            "enum": [
+              "ACTIVE",
+              "INACTIVE",
+              "SUSPENDED",
+              "PENDING",
+              "DELETED"
+            ]
+          },
+          "avatar": {
+            "type": "string",
+            "description": "User avatar URL",
+            "example": "https://example.com/avatar.jpg"
+          },
+          "language": {
+            "type": "string",
+            "description": "User language preference",
+            "example": "en"
+          },
+          "timezone": {
+            "type": "string",
+            "description": "User timezone",
+            "example": "UTC"
+          },
+          "title": {
+            "type": "string",
+            "description": "User title",
+            "example": "MR",
+            "enum": [
+              "MR",
+              "MRS",
+              "MS",
+              "DR",
+              "PROF",
+              "OTHER"
+            ]
+          },
+          "solo_org_id": {
+            "type": "string",
+            "description": "Solo organization ID",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "default_org_id": {
+            "type": "string",
+            "description": "Default organization ID",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "solo_org": {
+            "description": "Solo organization details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OrganizationDto"
+              }
+            ]
+          },
+          "memberships": {
+            "type": "array",
+            "items": {
+              "description": "User memberships in organizations",
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/MembershipDto"
+              }
+            }
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "User creation timestamp",
+            "example": "2023-12-01T00:00:00.000Z"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "User last update timestamp",
+            "example": "2023-12-01T00:00:00.000Z"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "username",
+          "verified",
+          "phone_verified",
+          "status",
+          "language",
+          "timezone",
+          "solo_org_id",
+          "solo_org",
+          "memberships",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "LoginResponseDto": {
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "description": "The access token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+          },
+          "refresh_token": {
+            "type": "string",
+            "description": "The refresh token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+          },
+          "expires_in": {
+            "type": "number",
+            "description": "The expiration time of the access token in seconds",
+            "example": 3600
+          },
+          "user": {
+            "description": "The complete user profile information",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserProfileResponseDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "access_token",
+          "refresh_token",
+          "expires_in",
+          "user"
+        ]
+      },
+      "RefreshTokenDto": {
+        "type": "object",
+        "properties": {
+          "refresh_token": {
+            "type": "string",
+            "description": "The refresh token to refresh",
+            "example": "1234567890"
+          }
+        },
+        "required": [
+          "refresh_token"
+        ]
+      },
+      "RefreshTokenResponseDto": {
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "description": "The new access token",
+            "example": "1234567890"
+          },
+          "refresh_token": {
+            "type": "string",
+            "description": "The new refresh token",
+            "example": "1234567890"
+          },
+          "expires_in": {
+            "type": "number",
+            "description": "The expiration time of the access token",
+            "example": 3600
+          }
+        },
+        "required": [
+          "access_token",
+          "refresh_token",
+          "expires_in"
+        ]
+      },
+      "ForgotPasswordDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "The email address to send the reset password email to",
+            "example": "user@example.com"
+          }
+        },
+        "required": [
+          "email"
+        ]
+      },
+      "ResetPasswordDto": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "The reset token received via email",
+            "example": "1234567890"
+          },
+          "newPassword": {
+            "type": "string",
+            "description": "The new password to set",
+            "example": "NewPassword123!"
+          },
+          "confirmPassword": {
+            "type": "string",
+            "description": "Confirmation of the new password",
+            "example": "NewPassword123!"
+          }
+        },
+        "required": [
+          "token",
+          "newPassword",
+          "confirmPassword"
+        ]
+      },
+      "VerifyEmailDto": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "The token to verify the email",
+            "example": "1234567890"
+          }
+        },
+        "required": [
+          "token"
+        ]
+      },
+      "ResendVerificationDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "The email address to resend the verification email to",
+            "example": "user@example.com"
+          }
+        },
+        "required": [
+          "email"
+        ]
+      },
+      "UpdateUserProfileDto": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "Username",
+            "example": "johndoe",
+            "minLength": 3,
+            "maxLength": 50
+          },
+          "first_name": {
+            "type": "string",
+            "description": "First name",
+            "example": "John",
+            "maxLength": 50
+          },
+          "preferred_name": {
+            "type": "string",
+            "description": "Preferred name",
+            "example": "Johnny",
+            "maxLength": 50
+          },
+          "last_name": {
+            "type": "string",
+            "description": "Last name",
+            "example": "Doe",
+            "maxLength": 50
+          },
+          "language": {
+            "type": "string",
+            "description": "Language preference",
+            "example": "en",
+            "enum": [
+              "en",
+              "zh",
+              "es",
+              "fr",
+              "de",
+              "ja",
+              "ko"
+            ]
+          },
+          "timezone": {
+            "type": "string",
+            "description": "Timezone",
+            "example": "UTC"
+          },
+          "title": {
+            "type": "string",
+            "description": "User title",
+            "example": "MR",
+            "enum": [
+              "MR",
+              "MRS",
+              "MS",
+              "DR",
+              "PROF",
+              "OTHER"
+            ]
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number",
+            "example": "+1234567890"
+          }
+        }
+      },
+      "ChangePasswordDto": {
+        "type": "object",
+        "properties": {
+          "oldPassword": {
+            "type": "string",
+            "description": "The old password",
+            "example": "OldPassword123!"
+          },
+          "newPassword": {
+            "type": "string",
+            "description": "The new password",
+            "example": "NewPassword123!"
+          }
+        },
+        "required": [
+          "oldPassword",
+          "newPassword"
+        ]
+      },
+      "SwitchOrganizationDto": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "example": "27aee4a6-cdeb-4924-a6f5-2d915ce63a4e",
+            "description": "Target organization tenant ID to switch to"
+          }
+        },
+        "required": [
+          "tenant_id"
+        ]
+      },
+      "SwitchOrganizationResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "description": "Switch operation status",
+            "enum": [
+              "success",
+              "no_change"
+            ]
+          },
+          "message": {
+            "type": "string",
+            "example": "Organization switched successfully",
+            "description": "Response message"
+          },
+          "access_token": {
+            "type": "string",
+            "example": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9...",
+            "description": "New access token (only present when status is success)"
+          },
+          "refresh_token": {
+            "type": "string",
+            "example": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9...",
+            "description": "New refresh token (only present when status is success)"
+          },
+          "expires_in": {
+            "type": "number",
+            "example": 900,
+            "description": "Token expiration time in seconds (only present when status is success)"
+          },
+          "tenant_id": {
+            "type": "string",
+            "example": "27aee4a6-cdeb-4924-a6f5-2d915ce63a4e",
+            "description": "Current tenant ID after switch"
+          }
+        },
+        "required": [
+          "status",
+          "message",
+          "tenant_id"
+        ]
+      },
+      "PolicyRuleResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Policy rule ID"
+          },
+          "tenant_id": {
+            "type": "string",
+            "description": "Tenant/Organization ID"
+          },
+          "resource": {
+            "type": "string",
+            "description": "Resource type"
+          },
+          "action": {
+            "type": "string",
+            "description": "Action"
+          },
+          "conditions": {
+            "type": "object",
+            "description": "Policy conditions"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Creation timestamp"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Last update timestamp"
+          }
+        },
+        "required": [
+          "id",
+          "tenant_id",
+          "resource",
+          "action",
+          "conditions",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "CreatePolicyRuleDto": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "type": "string",
+            "description": "Resource type the policy applies to",
+            "example": "organization"
+          },
+          "action": {
+            "type": "string",
+            "description": "Action the policy governs",
+            "example": "read"
+          },
+          "conditions": {
+            "type": "object",
+            "description": "Policy conditions as JSON object",
+            "example": {
+              "role": "ADMIN",
+              "userAttributes": {
+                "department": "IT"
+              },
+              "resourceAttributes": {
+                "status": "active"
+              }
+            }
+          }
+        },
+        "required": [
+          "resource",
+          "action",
+          "conditions"
+        ]
+      },
+      "UpdatePolicyRuleDto": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "type": "string",
+            "description": "Resource type the policy applies to",
+            "example": "organization"
+          },
+          "action": {
+            "type": "string",
+            "description": "Action the policy governs",
+            "example": "read"
+          },
+          "conditions": {
+            "type": "object",
+            "description": "Policy conditions as JSON object",
+            "example": {
+              "role": "ADMIN",
+              "userAttributes": {
+                "department": "IT"
+              },
+              "resourceAttributes": {
+                "status": "active"
+              }
+            }
+          }
+        }
+      },
+      "EvaluatePolicyDto": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "type": "string",
+            "description": "Resource to check access for",
+            "example": "organization"
+          },
+          "action": {
+            "type": "string",
+            "description": "Action to check",
+            "example": "read"
+          },
+          "context": {
+            "type": "object",
+            "description": "Additional context for policy evaluation",
+            "example": {
+              "resourceAttributes": {
+                "status": "active"
+              },
+              "environment": "production"
+            }
+          }
+        },
+        "required": [
+          "resource",
+          "action"
+        ]
+      },
+      "PolicyEvaluationResultDto": {
+        "type": "object",
+        "properties": {
+          "allowed": {
+            "type": "boolean",
+            "description": "Whether access is allowed"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for the decision"
+          },
+          "details": {
+            "type": "object",
+            "description": "Additional details"
+          }
+        },
+        "required": [
+          "allowed"
+        ]
+      },
+      "BulkEvaluatePolicyDto": {
+        "type": "object",
+        "properties": {
+          "checks": {
+            "description": "Array of permission checks to evaluate",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EvaluatePolicyDto"
+            }
+          }
+        },
+        "required": [
+          "checks"
+        ]
+      },
+      "BulkPolicyEvaluationResultDto": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "object",
+            "description": "Results for each check, keyed by resource:action",
+            "example": {
+              "organization:read": true,
+              "members:invite": false
+            }
+          }
+        },
+        "required": [
+          "results"
+        ]
+      },
+      "CreateOrganizationDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Acme Corporation",
+            "description": "Organization name",
+            "minLength": 2,
+            "maxLength": 100
+          },
+          "slug": {
+            "type": "string",
+            "example": "acme-corp",
+            "description": "Organization slug for URLs",
+            "minLength": 2,
+            "maxLength": 50
+          },
+          "region": {
+            "type": "string",
+            "example": "UK"
+          },
+          "description": {
+            "type": "string",
+            "example": "A leading technology company",
+            "description": "Organization description",
+            "maxLength": 500
+          },
+          "website": {
+            "type": "string",
+            "example": "https://acme.com",
+            "description": "Organization website"
+          },
+          "logo": {
+            "type": "string",
+            "example": "https://acme.com/logo.png",
+            "description": "Organization logo URL"
+          }
+        },
+        "required": [
+          "name",
+          "slug",
+          "region"
+        ]
+      },
+      "OrganizationResponseDto": {
+        "type": "object",
+        "properties": {
+          "tenantId": {
+            "type": "string",
+            "example": "tenant-uuid"
+          },
+          "name": {
+            "type": "string",
+            "example": "Acme Corporation"
+          },
+          "slug": {
+            "type": "string",
+            "example": "acme-corp"
+          },
+          "description": {
+            "type": "string",
+            "example": "A leading technology company"
+          },
+          "website": {
+            "type": "string",
+            "example": "https://acme.com"
+          },
+          "logo": {
+            "type": "string",
+            "example": "https://acme.com/logo.png"
+          },
+          "region": {
+            "type": "string",
+            "example": "us-east-1"
+          },
+          "orgType": {
+            "type": "string",
+            "example": "BUSINESS",
+            "enum": [
+              "SOLO",
+              "BUSINESS"
+            ]
+          },
+          "plan": {
+            "type": "string",
+            "example": "TEAM_STARTER",
+            "enum": [
+              "SOLO_FREE",
+              "SOLO_TRIAL",
+              "SOLO_MONTHLY",
+              "SOLO_ANNUAL",
+              "TEAM_STARTER",
+              "TEAM_GROWTH",
+              "ENTERPRISE"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "example": "PLAN_ACTIVE",
+            "enum": [
+              "PLAN_ACTIVE",
+              "PLAN_EXPIRED",
+              "SUSPENDED",
+              "FREEZE"
+            ]
+          },
+          "planExpiresAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-12-31T23:59:59Z"
+          },
+          "openJoin": {
+            "type": "boolean",
+            "example": true
+          },
+          "openInvite": {
+            "type": "boolean",
+            "example": true
+          },
+          "maxMembers": {
+            "type": "number",
+            "example": 100
+          },
+          "maxActiveMembers": {
+            "type": "number",
+            "example": 50
+          },
+          "subscription": {
+            "type": "object",
+            "example": {
+              "subscriptionId": "sub_123",
+              "customerId": "cus_456"
+            }
+          },
+          "memberCount": {
+            "type": "number",
+            "example": 25
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-01-01T00:00:00Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-01-01T00:00:00Z"
+          }
+        },
+        "required": [
+          "tenantId",
+          "name",
+          "slug",
+          "description",
+          "website",
+          "logo",
+          "region",
+          "orgType",
+          "plan",
+          "status",
+          "openJoin",
+          "openInvite",
+          "maxMembers",
+          "maxActiveMembers",
+          "memberCount"
+        ]
+      },
+      "UpdateOrganizationDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Acme Corporation",
+            "minLength": 2,
+            "maxLength": 100
+          },
+          "slug": {
+            "type": "string",
+            "example": "acme-corp",
+            "description": "Organization slug for URLs",
+            "minLength": 2,
+            "maxLength": 50
+          },
+          "description": {
+            "type": "string",
+            "example": "A leading technology company",
+            "maxLength": 500
+          },
+          "website": {
+            "type": "string",
+            "example": "https://acme.com"
+          },
+          "logo": {
+            "type": "string",
+            "example": "https://acme.com/logo.png"
+          },
+          "openJoin": {
+            "type": "boolean",
+            "example": true,
+            "description": "Whether users can join the organization"
+          },
+          "openInvite": {
+            "type": "boolean",
+            "example": true,
+            "description": "Whether users can invite others to the organization"
+          }
+        },
+        "required": [
+          "slug"
+        ]
+      },
+      "OrganizationMemberResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "member-uuid"
+          },
+          "role": {
+            "type": "string",
+            "example": "ADMIN",
+            "enum": [
+              "OWNER",
+              "ADMIN",
+              "MEMBER"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "example": "ACTIVE",
+            "enum": [
+              "ACTIVE",
+              "INACTIVE",
+              "SUSPENDED",
+              "PENDING"
+            ]
+          },
+          "joinedAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-01-01T00:00:00Z"
+          },
+          "user": {
+            "type": "object",
+            "description": "User information",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "user-uuid"
+              },
+              "email": {
+                "type": "string",
+                "example": "user@example.com"
+              },
+              "firstName": {
+                "type": "string",
+                "example": "John",
+                "required": false
+              },
+              "lastName": {
+                "type": "string",
+                "example": "Doe",
+                "required": false
+              },
+              "avatar": {
+                "type": "string",
+                "example": "https://example.com/avatar.jpg",
+                "required": false
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "role",
+          "status",
+          "joinedAt",
+          "user"
+        ]
+      },
+      "PaginationMetaDto": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "number",
+            "description": "Current page number",
+            "example": 1
+          },
+          "limit": {
+            "type": "number",
+            "description": "Items per page",
+            "example": 20
+          },
+          "total": {
+            "type": "number",
+            "description": "Total number of items",
+            "example": 100
+          },
+          "totalPages": {
+            "type": "number",
+            "description": "Total number of pages",
+            "example": 5
+          }
+        },
+        "required": [
+          "page",
+          "limit",
+          "total",
+          "totalPages"
+        ]
+      },
+      "PaginatedOrganizationMembersResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of organization members",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrganizationMemberResponseDto"
+            }
+          },
+          "pagination": {
+            "description": "Pagination metadata",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationMetaDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "data",
+          "pagination"
+        ]
+      },
+      "InviteMemberDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "user@example.com",
+            "description": "Email address of the user to invite"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "OWNER",
+              "ADMIN",
+              "MEMBER"
+            ],
+            "default": "MEMBER",
+            "description": "Role to assign to the invited user"
+          },
+          "message": {
+            "type": "string",
+            "example": "Welcome to our organization!",
+            "maxLength": 500,
+            "description": "Optional message to include in the invitation"
+          }
+        },
+        "required": [
+          "email",
+          "role"
+        ]
+      },
+      "InvitationResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "invitation-uuid"
+          },
+          "email": {
+            "type": "string",
+            "example": "user@example.com"
+          },
+          "role": {
+            "type": "string",
+            "example": "MEMBER",
+            "enum": [
+              "OWNER",
+              "ADMIN",
+              "MEMBER"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "example": "PENDING",
+            "enum": [
+              "PENDING",
+              "ACCEPTED",
+              "DECLINED",
+              "EXPIRED",
+              "REVOKED"
+            ]
+          },
+          "expiresAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-01-08T00:00:00Z"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-01-01T00:00:00Z"
+          },
+          "inviter": {
+            "type": "object",
+            "description": "Inviter information",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "inviter-uuid"
+              },
+              "email": {
+                "type": "string",
+                "example": "admin@example.com"
+              },
+              "firstName": {
+                "type": "string",
+                "example": "Admin",
+                "required": false
+              },
+              "lastName": {
+                "type": "string",
+                "example": "User",
+                "required": false
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "role",
+          "status",
+          "expiresAt",
+          "createdAt",
+          "inviter"
+        ]
+      },
+      "BulkInviteMembersDto": {
+        "type": "object",
+        "properties": {
+          "members": {
+            "description": "Array of invitations (max 50)",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InviteMemberDto"
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "members"
+        ]
+      },
+      "UpdateMemberRoleDto": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "OWNER",
+              "ADMIN",
+              "MEMBER"
+            ],
+            "description": "New role for the member"
+          }
+        },
+        "required": [
+          "role"
+        ]
+      },
+      "PaginatedInvitationsResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of invitations",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InvitationResponseDto"
+            }
+          },
+          "pagination": {
+            "description": "Pagination metadata",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationMetaDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "data",
+          "pagination"
+        ]
+      },
+      "TransferOwnershipDto": {
+        "type": "object",
+        "properties": {
+          "newOwnerId": {
+            "type": "string",
+            "example": "user-uuid",
+            "description": "ID of the user to transfer ownership to"
+          }
+        },
+        "required": [
+          "newOwnerId"
+        ]
+      },
+      "AdminLoginDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "admin@prime-forge.com",
+            "description": "Admin email address"
+          },
+          "password": {
+            "type": "string",
+            "example": "AdminP@ssw0rd!123#",
+            "description": "Admin password"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "AdminLoginResponseDto": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+            "description": "JWT access token"
+          },
+          "refreshToken": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+            "description": "JWT refresh token"
+          },
+          "admin": {
+            "type": "object",
+            "description": "Admin user information",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "admin-uuid"
+              },
+              "email": {
+                "type": "string",
+                "example": "admin@prime-forge.com"
+              },
+              "role": {
+                "type": "string",
+                "example": "SUPER_ADMIN"
+              }
+            }
+          },
+          "expiresIn": {
+            "type": "number",
+            "example": 3600,
+            "description": "Token expiration time in seconds"
+          }
+        },
+        "required": [
+          "accessToken",
+          "refreshToken",
+          "admin",
+          "expiresIn"
+        ]
+      },
+      "AdminRefreshTokenDto": {
+        "type": "object",
+        "properties": {
+          "refreshToken": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+            "description": "Admin refresh token"
+          }
+        },
+        "required": [
+          "refreshToken"
+        ]
+      },
+      "AdminRefreshTokenResponseDto": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+            "description": "New JWT access token"
+          },
+          "refreshToken": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+            "description": "New JWT refresh token"
+          },
+          "expiresIn": {
+            "type": "number",
+            "example": 3600,
+            "description": "Token expiration time in seconds"
+          }
+        },
+        "required": [
+          "accessToken",
+          "refreshToken",
+          "expiresIn"
+        ]
+      },
+      "AdminChangePasswordDto": {
+        "type": "object",
+        "properties": {
+          "currentPassword": {
+            "type": "string",
+            "example": "CurrentAdminP@ssw0rd!",
+            "description": "Current admin password"
+          },
+          "newPassword": {
+            "type": "string",
+            "example": "NewAdminP@ssw0rd!123#",
+            "description": "New admin password (minimum 8 characters)"
+          },
+          "confirmPassword": {
+            "type": "string",
+            "example": "NewAdminP@ssw0rd!123#",
+            "description": "Confirm new password"
+          }
+        },
+        "required": [
+          "currentPassword",
+          "newPassword",
+          "confirmPassword"
+        ]
+      },
+      "AdminResetPasswordDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "admin@prime-forge.com",
+            "description": "Admin email address for password reset"
+          }
+        },
+        "required": [
+          "email"
+        ]
+      },
+      "AdminConfirmResetPasswordDto": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "reset-token-uuid",
+            "description": "Password reset token"
+          },
+          "newPassword": {
+            "type": "string",
+            "example": "NewAdminP@ssw0rd!123#",
+            "description": "New admin password (minimum 8 characters)"
+          },
+          "confirmPassword": {
+            "type": "string",
+            "example": "NewAdminP@ssw0rd!123#",
+            "description": "Confirm new password"
+          }
+        },
+        "required": [
+          "token",
+          "newPassword",
+          "confirmPassword"
+        ]
+      },
+      "AdminUserResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "user-uuid"
+          },
+          "email": {
+            "type": "string",
+            "example": "user@example.com"
+          },
+          "firstName": {
+            "type": "string",
+            "example": "John"
+          },
+          "preferredName": {
+            "type": "string",
+            "example": "Johnny"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Doe"
+          },
+          "primaryRole": {
+            "type": "string",
+            "example": "ADMIN",
+            "description": "Role from primary membership"
+          },
+          "status": {
+            "type": "string",
+            "example": "ACTIVE",
+            "enum": [
+              "ACTIVE",
+              "INACTIVE",
+              "SUSPENDED",
+              "PENDING"
+            ]
+          },
+          "organizationId": {
+            "type": "string",
+            "example": "org-uuid"
+          },
+          "organizationName": {
+            "type": "string",
+            "example": "Acme Corp"
+          },
+          "emailVerified": {
+            "type": "boolean",
+            "example": true
+          },
+          "phone": {
+            "type": "string",
+            "example": "1234567890"
+          },
+          "phoneVerified": {
+            "type": "boolean",
+            "example": true
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-01-01T00:00:00Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-01-01T00:00:00Z"
+          },
+          "organizations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "tenantId": {
+                  "type": "string",
+                  "example": "tenant-uuid"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Acme Corp"
+                },
+                "region": {
+                  "type": "string",
+                  "example": "us-east-1"
+                },
+                "orgType": {
+                  "type": "string",
+                  "example": "BUSINESS"
+                },
+                "plan": {
+                  "type": "string",
+                  "example": "TEAM_STARTER"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "PLAN_ACTIVE"
+                }
+              }
+            }
+          },
+          "memberships": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "tenantId": {
+                  "type": "string",
+                  "example": "tenant-uuid"
+                },
+                "role": {
+                  "type": "string",
+                  "example": "ADMIN"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "ACTIVE"
+                },
+                "joinedAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "example": "2024-01-01T00:00:00Z"
+                },
+                "organizationName": {
+                  "type": "string",
+                  "example": "Acme Corp"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "status",
+          "emailVerified",
+          "phoneVerified",
+          "createdAt",
+          "updatedAt",
+          "organizations",
+          "memberships"
+        ]
+      },
+      "AdminUserListResponseDto": {
+        "type": "object",
+        "properties": {
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AdminUserResponseDto"
+            }
+          },
+          "total": {
+            "type": "number",
+            "example": 10
+          },
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "totalPages": {
+            "type": "number",
+            "example": 10
+          }
+        },
+        "required": [
+          "users",
+          "total",
+          "page",
+          "totalPages"
+        ]
+      },
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "user@example.com"
+          },
+          "firstName": {
+            "type": "string",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Doe"
+          },
+          "region": {
+            "type": "string",
+            "example": "UK"
+          },
+          "sendWelcomeEmail": {
+            "type": "boolean",
+            "default": true
+          }
+        },
+        "required": [
+          "email",
+          "sendWelcomeEmail"
+        ]
+      },
+      "UpdateUserDto": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "preferredName": {
+            "type": "string",
+            "description": "Preferred name of the user"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "INACTIVE",
+              "SUSPENDED",
+              "PENDING"
+            ]
+          },
+          "organizationId": {
+            "type": "object"
+          },
+          "verified": {
+            "type": "boolean"
+          },
+          "phone_verified": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AdminResetUserPasswordDto": {
+        "type": "object",
+        "properties": {
+          "newPassword": {
+            "type": "string",
+            "example": "NewP@ssw0rd123!",
+            "description": "New password for the user. If not provided, a secure password will be generated automatically."
+          }
+        }
+      },
+      "AdminResetUserPasswordResponseDto": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Password reset successfully",
+            "description": "Success message"
+          },
+          "newPassword": {
+            "type": "string",
+            "example": "GeneratedP@ssw0rd123!",
+            "description": "The new password (only returned if auto-generated)"
+          }
+        },
+        "required": [
+          "message"
+        ]
+      },
+      "AdminOrganizationResponseDto": {
+        "type": "object",
+        "properties": {
+          "tenantId": {
+            "type": "string",
+            "example": "tenant-uuid"
+          },
+          "name": {
+            "type": "string",
+            "example": "Acme Corporation"
+          },
+          "slug": {
+            "type": "string",
+            "example": "acme-corp"
+          },
+          "region": {
+            "type": "string",
+            "example": "UK",
+            "enum": [
+              "UK",
+              "US",
+              "EU",
+              "AU",
+              "CA",
+              "JP",
+              "CN",
+              "IN",
+              "BR",
+              "MX",
+              "AR"
+            ]
+          },
+          "orgType": {
+            "type": "string",
+            "example": "BUSINESS",
+            "enum": [
+              "SOLO",
+              "BUSINESS"
+            ]
+          },
+          "plan": {
+            "type": "string",
+            "example": "TEAM_STARTER",
+            "enum": [
+              "SOLO_FREE",
+              "SOLO_TRIAL",
+              "SOLO_MONTHLY",
+              "SOLO_ANNUAL",
+              "TEAM_STARTER",
+              "TEAM_GROWTH",
+              "ENTERPRISE"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "example": "PLAN_ACTIVE",
+            "enum": [
+              "PLAN_ACTIVE",
+              "PLAN_EXPIRED",
+              "SUSPENDED",
+              "FREEZE"
+            ]
+          },
+          "planExpiresAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-12-31T23:59:59Z"
+          },
+          "openJoin": {
+            "type": "boolean",
+            "example": true
+          },
+          "openInvite": {
+            "type": "boolean",
+            "example": true
+          },
+          "maxMembers": {
+            "type": "number",
+            "example": 100
+          },
+          "maxActiveMembers": {
+            "type": "number",
+            "example": 50
+          },
+          "subscription": {
+            "type": "object",
+            "example": {
+              "subscriptionId": "sub_123",
+              "customerId": "cus_456"
+            }
+          },
+          "memberCount": {
+            "type": "number",
+            "example": 25
+          },
+          "members": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "user-uuid"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "user@example.com"
+                },
+                "firstName": {
+                  "type": "string",
+                  "example": "John"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Doe"
+                },
+                "avatar": {
+                  "type": "string",
+                  "example": "https://example.com/avatar.png"
+                }
+              }
+            }
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-01-01T00:00:00Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-01-01T00:00:00Z"
+          },
+          "createdBy": {
+            "type": "string",
+            "example": "admin-uuid"
+          },
+          "updatedBy": {
+            "type": "string",
+            "example": "admin-uuid"
+          }
+        },
+        "required": [
+          "tenantId",
+          "name",
+          "slug",
+          "region",
+          "orgType",
+          "plan",
+          "status",
+          "openJoin",
+          "openInvite",
+          "maxMembers",
+          "maxActiveMembers",
+          "memberCount",
+          "members",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "AdminOrganizationListResponseDto": {
+        "type": "object",
+        "properties": {
+          "organizations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AdminOrganizationResponseDto"
+            }
+          },
+          "total": {
+            "type": "number",
+            "example": 10
+          },
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "totalPages": {
+            "type": "number",
+            "example": 10
+          }
+        },
+        "required": [
+          "organizations",
+          "total",
+          "page",
+          "totalPages"
+        ]
+      },
+      "AdminUpdateOrganizationDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Acme Corporation",
+            "minLength": 2,
+            "maxLength": 100,
+            "description": "Organization name"
+          },
+          "region": {
+            "type": "string",
+            "example": "us-east-1",
+            "description": "Organization region"
+          },
+          "orgType": {
+            "type": "string",
+            "enum": [
+              "SOLO",
+              "BUSINESS"
+            ],
+            "description": "Organization type"
+          },
+          "plan": {
+            "type": "string",
+            "enum": [
+              "SOLO_FREE",
+              "SOLO_TRIAL",
+              "SOLO_MONTHLY",
+              "SOLO_ANNUAL",
+              "TEAM_STARTER",
+              "TEAM_GROWTH",
+              "ENTERPRISE"
+            ],
+            "description": "Organization plan"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PLAN_ACTIVE",
+              "PLAN_EXPIRED",
+              "SUSPENDED",
+              "FREEZE"
+            ],
+            "description": "Organization status"
+          },
+          "planExpiresAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-12-31T23:59:59Z",
+            "description": "Plan expiration date"
+          },
+          "openJoin": {
+            "type": "boolean",
+            "example": true,
+            "description": "Whether users can join the organization"
+          },
+          "openInvite": {
+            "type": "boolean",
+            "example": true,
+            "description": "Whether users can invite others to the organization"
+          },
+          "maxMembers": {
+            "type": "number",
+            "example": 100,
+            "description": "Maximum number of members",
+            "minimum": 1
+          },
+          "maxActiveMembers": {
+            "type": "number",
+            "example": 100,
+            "description": "Maximum number of active members",
+            "minimum": 1
+          },
+          "subscription": {
+            "type": "object",
+            "example": {
+              "subscriptionId": "sub_123",
+              "customerId": "cus_456"
+            },
+            "description": "Subscription data (JSON object)"
+          }
+        }
+      },
+      "SystemConfigResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "config-uuid"
+          },
+          "key": {
+            "type": "string",
+            "example": "email_verification_base_url"
+          },
+          "type": {
+            "type": "string",
+            "example": "STRING",
+            "enum": [
+              "STRING",
+              "INTEGER",
+              "NUMBER",
+              "BOOLEAN",
+              "JSON"
+            ]
+          },
+          "value": {
+            "type": "object",
+            "example": "http://localhost:3000"
+          },
+          "description": {
+            "type": "string",
+            "example": "Base URL for email verification links"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-01-01T00:00:00Z"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-01-01T00:00:00Z"
+          }
+        },
+        "required": [
+          "id",
+          "key",
+          "type",
+          "value",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "UpdateSystemConfigDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "STRING",
+              "INTEGER",
+              "NUMBER",
+              "BOOLEAN",
+              "JSON"
+            ]
+          },
+          "value": {
+            "type": "object",
+            "example": "http://localhost:3000"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "SystemStatsResponseDto": {
+        "type": "object",
+        "properties": {
+          "totalUsers": {
+            "type": "number",
+            "example": 1500
+          },
+          "activeUsers": {
+            "type": "number",
+            "example": 1200
+          },
+          "totalOrganizations": {
+            "type": "number",
+            "example": 250
+          },
+          "totalLogins": {
+            "type": "number",
+            "example": 5000
+          },
+          "newUsersThisMonth": {
+            "type": "number",
+            "example": 150
+          },
+          "newOrganizationsThisMonth": {
+            "type": "number",
+            "example": 25
+          }
+        },
+        "required": [
+          "totalUsers",
+          "activeUsers",
+          "totalOrganizations",
+          "totalLogins",
+          "newUsersThisMonth",
+          "newOrganizationsThisMonth"
+        ]
+      },
+      "AnalyticsDataPointDto": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "example": "2024-01-01"
+          },
+          "value": {
+            "type": "number",
+            "example": 150
+          }
+        },
+        "required": [
+          "date",
+          "value"
+        ]
+      },
+      "AnalyticsResponseDto": {
+        "type": "object",
+        "properties": {
+          "metric": {
+            "type": "string",
+            "example": "users",
+            "enum": [
+              "users",
+              "organizations",
+              "logins",
+              "signups"
+            ]
+          },
+          "granularity": {
+            "type": "string",
+            "example": "day",
+            "enum": [
+              "hour",
+              "day",
+              "week",
+              "month"
+            ]
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AnalyticsDataPointDto"
+            }
+          },
+          "total": {
+            "type": "number",
+            "example": 1500
+          }
+        },
+        "required": [
+          "metric",
+          "granularity",
+          "data",
+          "total"
+        ]
+      },
+      "SocialProviderResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The ID of the social provider",
+            "example": "1234567890"
+          },
+          "provider": {
+            "type": "string",
+            "description": "The provider of the social provider",
+            "example": "google"
+          },
+          "client_id": {
+            "type": "string",
+            "description": "The client ID of the social provider",
+            "example": "1234567890"
+          },
+          "client_secret": {
+            "type": "string",
+            "description": "The client secret of the social provider",
+            "example": "1234567890"
+          },
+          "redirect_uri": {
+            "type": "object",
+            "description": "The redirect URI of the social provider",
+            "example": "http://localhost:3000/auth/callback"
+          },
+          "scopes": {
+            "description": "The scopes of the social provider",
+            "example": [
+              "openid",
+              "profile",
+              "email"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "Whether the social provider is enabled",
+            "example": true
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The creation date of the social provider",
+            "example": "2021-01-01T00:00:00.000Z"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The update date of the social provider",
+            "example": "2021-01-01T00:00:00.000Z"
+          }
+        },
+        "required": [
+          "id",
+          "provider",
+          "client_id",
+          "enabled",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "SocialProviderListResponseDto": {
+        "type": "object",
+        "properties": {
+          "providers": {
+            "description": "The list of social providers",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SocialProviderResponse"
+            }
+          },
+          "total": {
+            "type": "number",
+            "description": "The total number of social providers",
+            "example": 1
+          }
+        },
+        "required": [
+          "providers",
+          "total"
+        ]
+      },
+      "CreateSocialProviderDto": {
+        "type": "object",
+        "properties": {
+          "provider": {
+            "type": "string",
+            "description": "The provider to create",
+            "example": "google"
+          },
+          "client_id": {
+            "type": "string",
+            "description": "The client ID to create",
+            "example": "1234567890"
+          },
+          "client_secret": {
+            "type": "string",
+            "description": "The client secret to create",
+            "example": "1234567890"
+          },
+          "redirect_uri": {
+            "type": "string",
+            "description": "The redirect URI to create",
+            "example": "http://localhost:3000/auth/callback"
+          },
+          "scopes": {
+            "description": "The scopes to create",
+            "example": [
+              "openid",
+              "profile",
+              "email"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "Whether the provider is enabled",
+            "example": true
+          }
+        },
+        "required": [
+          "provider",
+          "client_id",
+          "client_secret"
+        ]
+      },
+      "UpdateSocialProviderDto": {
+        "type": "object",
+        "properties": {
+          "provider": {
+            "type": "string",
+            "description": "The provider to create",
+            "example": "google"
+          },
+          "client_id": {
+            "type": "string",
+            "description": "The client ID to create",
+            "example": "1234567890"
+          },
+          "client_secret": {
+            "type": "string",
+            "description": "The client secret to create",
+            "example": "1234567890"
+          },
+          "redirect_uri": {
+            "type": "string",
+            "description": "The redirect URI to create",
+            "example": "http://localhost:3000/auth/callback"
+          },
+          "scopes": {
+            "description": "The scopes to create",
+            "example": [
+              "openid",
+              "profile",
+              "email"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "Whether the provider is enabled",
+            "example": true
+          }
+        }
+      },
+      "EmailTemplateResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "template-uuid"
+          },
+          "name": {
+            "type": "string",
+            "example": "verification"
+          },
+          "type": {
+            "type": "string",
+            "example": "system"
+          },
+          "subject": {
+            "type": "string",
+            "example": "Verify Your Email Address"
+          },
+          "html_body": {
+            "type": "string",
+            "example": "<h1>Hello {{firstName}}</h1>"
+          },
+          "text_body": {
+            "type": "string",
+            "example": "Hello {{firstName}}"
+          },
+          "shipper_name": {
+            "type": "string",
+            "example": "PrimeForge Team"
+          },
+          "shipper_email": {
+            "type": "string",
+            "example": "noreply@prime-forge.com"
+          },
+          "response_email": {
+            "type": "string",
+            "example": "support@prime-forge.com"
+          },
+          "language": {
+            "type": "string",
+            "example": "en"
+          },
+          "variables": {
+            "type": "object",
+            "example": [
+              "firstName",
+              "lastName"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "example": "Email template for user verification"
+          },
+          "is_active": {
+            "type": "boolean",
+            "example": true
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-01-01T00:00:00Z"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-01-01T00:00:00Z"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "subject",
+          "html_body",
+          "language",
+          "is_active",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "EmailTemplateListResponseDto": {
+        "type": "object",
+        "properties": {
+          "templates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmailTemplateResponseDto"
+            }
+          },
+          "total": {
+            "type": "number",
+            "example": 10
+          }
+        },
+        "required": [
+          "templates",
+          "total"
+        ]
+      },
+      "CreateEmailTemplateDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "verification"
+          },
+          "type": {
+            "type": "string",
+            "example": "system"
+          },
+          "subject": {
+            "type": "string",
+            "example": "Verify Your Email Address"
+          },
+          "html_body": {
+            "type": "string",
+            "example": "<h1>Hello {{firstName}}</h1>"
+          },
+          "text_body": {
+            "type": "string"
+          },
+          "shipper_name": {
+            "type": "string"
+          },
+          "shipper_email": {
+            "type": "string"
+          },
+          "response_email": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string",
+            "default": "en"
+          },
+          "variables": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "description": {
+            "type": "string"
+          },
+          "is_active": {
+            "type": "boolean",
+            "default": true
+          }
+        },
+        "required": [
+          "name",
+          "type",
+          "subject",
+          "html_body",
+          "language",
+          "is_active"
+        ]
+      },
+      "UpdateEmailTemplateDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "html_body": {
+            "type": "string"
+          },
+          "text_body": {
+            "type": "string"
+          },
+          "shipper_name": {
+            "type": "string"
+          },
+          "shipper_email": {
+            "type": "string"
+          },
+          "response_email": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          },
+          "variables": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "description": {
+            "type": "string"
+          },
+          "is_active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "OrganizationTypePlanResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "uuid-string"
+          },
+          "org_type": {
+            "type": "string",
+            "example": "SOLO",
+            "enum": [
+              "SOLO",
+              "BUSINESS"
+            ]
+          },
+          "plan": {
+            "type": "string",
+            "example": "SOLO_TRIAL",
+            "enum": [
+              "SOLO_FREE",
+              "SOLO_TRIAL",
+              "SOLO_MONTHLY",
+              "SOLO_ANNUAL",
+              "TEAM_FREE",
+              "TEAM_STARTER",
+              "TEAM_GROWTH",
+              "ENTERPRISE"
+            ]
+          },
+          "can_create_business_org": {
+            "type": "boolean",
+            "example": false
+          },
+          "features": {
+            "type": "object",
+            "example": {
+              "ai_features": true,
+              "hr_basic": true
+            }
+          },
+          "max_business_orgs_per_user": {
+            "type": "number",
+            "example": 1
+          },
+          "max_active_business_orgs_per_user": {
+            "type": "number",
+            "example": 1
+          },
+          "max_members": {
+            "type": "number",
+            "example": 100
+          },
+          "max_active_members": {
+            "type": "number",
+            "example": 5
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-01-01T00:00:00Z"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-01-01T00:00:00Z"
+          },
+          "created_by": {
+            "type": "string",
+            "example": "admin-uuid"
+          },
+          "updated_by": {
+            "type": "string",
+            "example": "admin-uuid"
+          }
+        },
+        "required": [
+          "id",
+          "org_type",
+          "plan",
+          "can_create_business_org",
+          "max_business_orgs_per_user",
+          "max_active_business_orgs_per_user",
+          "max_members",
+          "max_active_members",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "OrganizationTypePlanListResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrganizationTypePlanResponseDto"
+            }
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number",
+                "example": 1
+              },
+              "limit": {
+                "type": "number",
+                "example": 20
+              },
+              "total": {
+                "type": "number",
+                "example": 100
+              },
+              "totalPages": {
+                "type": "number",
+                "example": 5
+              }
+            }
+          }
+        },
+        "required": [
+          "data",
+          "pagination"
+        ]
+      },
+      "CreateOrganizationTypePlanDto": {
+        "type": "object",
+        "properties": {
+          "org_type": {
+            "type": "string",
+            "enum": [
+              "SOLO",
+              "BUSINESS"
+            ],
+            "example": "SOLO",
+            "description": "Organization type"
+          },
+          "plan": {
+            "type": "string",
+            "enum": [
+              "SOLO_FREE",
+              "SOLO_TRIAL",
+              "SOLO_MONTHLY",
+              "SOLO_ANNUAL",
+              "TEAM_FREE",
+              "TEAM_STARTER",
+              "TEAM_GROWTH",
+              "ENTERPRISE"
+            ],
+            "example": "SOLO_TRIAL",
+            "description": "Organization plan"
+          },
+          "can_create_business_org": {
+            "type": "boolean",
+            "example": false,
+            "default": false,
+            "description": "Whether can create business organization"
+          },
+          "features": {
+            "type": "object",
+            "example": {
+              "ai_features": true,
+              "hr_basic": true
+            },
+            "description": "Features configuration JSON object"
+          },
+          "max_business_orgs_per_user": {
+            "type": "number",
+            "example": 1,
+            "default": 1,
+            "minimum": 0,
+            "description": "Maximum business organizations per user"
+          },
+          "max_active_business_orgs_per_user": {
+            "type": "number",
+            "example": 1,
+            "default": 1,
+            "minimum": 0,
+            "description": "Maximum active business organizations per user"
+          },
+          "max_members": {
+            "type": "number",
+            "example": 100,
+            "default": 100,
+            "minimum": 1,
+            "description": "Maximum members"
+          },
+          "max_active_members": {
+            "type": "number",
+            "example": 5,
+            "default": 5,
+            "minimum": 1,
+            "description": "Maximum active members"
+          }
+        },
+        "required": [
+          "org_type",
+          "plan",
+          "can_create_business_org",
+          "max_business_orgs_per_user",
+          "max_active_business_orgs_per_user",
+          "max_members",
+          "max_active_members"
+        ]
+      },
+      "UpdateOrganizationTypePlanDto": {
+        "type": "object",
+        "properties": {
+          "org_type": {
+            "type": "string",
+            "enum": [
+              "SOLO",
+              "BUSINESS"
+            ],
+            "example": "SOLO",
+            "description": "Organization type"
+          },
+          "plan": {
+            "type": "string",
+            "enum": [
+              "SOLO_FREE",
+              "SOLO_TRIAL",
+              "SOLO_MONTHLY",
+              "SOLO_ANNUAL",
+              "TEAM_FREE",
+              "TEAM_STARTER",
+              "TEAM_GROWTH",
+              "ENTERPRISE"
+            ],
+            "example": "SOLO_TRIAL",
+            "description": "Organization plan"
+          },
+          "can_create_business_org": {
+            "type": "boolean",
+            "example": false,
+            "default": false,
+            "description": "Whether can create business organization"
+          },
+          "features": {
+            "type": "object",
+            "example": {
+              "ai_features": true,
+              "hr_basic": true
+            },
+            "description": "Features configuration JSON object"
+          },
+          "max_business_orgs_per_user": {
+            "type": "number",
+            "example": 1,
+            "default": 1,
+            "minimum": 0,
+            "description": "Maximum business organizations per user"
+          },
+          "max_active_business_orgs_per_user": {
+            "type": "number",
+            "example": 1,
+            "default": 1,
+            "minimum": 0,
+            "description": "Maximum active business organizations per user"
+          },
+          "max_members": {
+            "type": "number",
+            "example": 100,
+            "default": 100,
+            "minimum": 1,
+            "description": "Maximum members"
+          },
+          "max_active_members": {
+            "type": "number",
+            "example": 5,
+            "default": 5,
+            "minimum": 1,
+            "description": "Maximum active members"
+          }
+        }
+      }
+    }
+  }
+}

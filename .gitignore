@@ -13,8 +13,8 @@ dist/
 .cache-loader/
 
 # Generated files
-openapi/*.json
-!openapi/.gitkeep
+# openapi/*.json
+# !openapi/.gitkeep
 
 # Environment variables
 .env
