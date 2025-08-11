@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import Layout from '@theme/Layout';
+import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.css';
 import services from '../../services.json';
@@ -28,9 +29,9 @@ function ServiceCard({ service }) {
           <p>Click below to view API documentation for <strong>{service.title || service.name}</strong>.</p>
         </div>
         <div className="card__footer">
-          <a className="button button--secondary button--block" href={`/api/${service.name}`}>
+          <Link className="button button--secondary button--block" to={`/api/${service.name}`}>
             Open Docs
-          </a>
+          </Link>
         </div>
       </div>
     </div>
