@@ -3,6 +3,8 @@
 
 const path = require('path');
 
+const PREFIX = '/PrimeForgeApiPortal';
+
 // Read services definition. Each entry should have at least a `name` and
 // `title` (optional) and `url` pointing to the JSON OpenAPI spec.
 const services = require('./services.json');
@@ -13,7 +15,7 @@ const services = require('./services.json');
 // Redoc page with its own search and navigation on the left.
 const specs = services.map((svc) => ({
   spec: path.join(__dirname, 'openapi', `${svc.name}.json`),
-  route: `/api/${svc.name}`,
+  route: `${PREFIX}/api/${svc.name}`,
   id: svc.name,
 }));
 
@@ -26,7 +28,7 @@ const config = {
   // `https://<org>.github.io` and `baseUrl` should be `/<repo>/`. The
   // defaults here assume a repo named `nestjs-doc-site` under `your-github-org`.
   url: 'https://darkhorseone.github.io',
-  baseUrl: '/PrimeForgeApiPortal/',
+  baseUrl: `${PREFIX}/`,
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   // The same logo is used as the favicon. You can replace this with
