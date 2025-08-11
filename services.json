@@ -1,0 +1,37 @@
+[
+  {
+    "name": "primeforge-auth-api",
+    "title": "Auth API",
+    "url": "http://localhost:4111/api-docs-json"
+  },
+  {
+    "name": "primeforge-billing-api",
+    "title": "Billing API",
+    "url": "http://localhost:4222/api-docs-json"
+  },
+  {
+    "name": "primeforge-hr-api",
+    "title": "HR API",
+    "url": "http://localhost:4030/api-docs-json"
+  },
+  {
+    "name": "primeforge-crm-api",
+    "title": "CRM API",
+    "url": "http://localhost:4020/api-docs-json"
+  },
+  {
+    "name": "primeforge-store-track-api",
+    "title": "Store Track API",
+    "url": "http://localhost:4040/api-docs-json"
+  },
+  {
+    "name": "primeforge-work-in-the-uk-api",
+    "title": "Work in the UK API",
+    "url": "http://localhost:4050/api-docs-json"
+  },
+  {
+    "name": "primeforge-file-service-api",
+    "title": "File Service API",
+    "url": "http://localhost:4060/api-docs-json"
+  }
+]

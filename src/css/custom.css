@@ -1,0 +1,18 @@
+/*
+ * Custom CSS for your API portal.
+ *
+ * You can override Docusaurus default styles here. This file is imported
+ * via docusaurus.config.js and will apply globally to your site. Keep it
+ * minimal and prefer customizing through config where possible.
+ */
+
+.hero--primary {
+  background: linear-gradient(135deg, #5b21b6 0%, #9333ea 100%);
+  color: white;
+}
+
+.button--secondary {
+  background-color: #f3f4f6;
+  color: #4b5563;
+  border: 1px solid #d1d5db;
+}

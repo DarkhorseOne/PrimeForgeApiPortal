@@ -1,0 +1,35 @@
+{
+  "name": "nestjs-doc-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A complete documentation portal for NestJS microservices. Fetches OpenAPI specs from your services and builds a static site with Redoc and Docusaurus.",
+  "engines": {
+    "node": ">=20.18.0",
+    "npm": ">=10.0.0"
+  },
+  "scripts": {
+    "update-specs": "node ./scripts/fetch-openapi.js",
+    "start": "docusaurus start",
+    "build": "docusaurus build",
+    "serve": "docusaurus serve",
+    "deploy": "docusaurus deploy"
+  },
+  "dependencies": {
+    "@docusaurus/core": "^3.3.2",
+    "@docusaurus/preset-classic": "^3.3.2",
+    "fs-extra": "^11.1.1",
+    "redocusaurus": "^2.5.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
