@@ -14670,6 +14670,4507 @@
           "Performance Improvement Plans"
         ]
       }
+    },
+    "/training/skills/categories": {
+      "post": {
+        "operationId": "SkillController_createCategory",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSkillCategoryDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SkillCategoryResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create skill category",
+        "tags": [
+          "Training - Skills"
+        ]
+      },
+      "get": {
+        "operationId": "SkillController_getCategories",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "default": 1,
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "default": 20,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "active",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": true,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "parent_id",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "uuid-of-parent-category",
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "Technical",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedSkillCategoryResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all skill categories",
+        "tags": [
+          "Training - Skills"
+        ]
+      }
+    },
+    "/training/skills/categories/tree": {
+      "get": {
+        "operationId": "SkillController_getCategoryTree",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SkillCategoryResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get skill category tree",
+        "tags": [
+          "Training - Skills"
+        ]
+      }
+    },
+    "/training/skills/categories/{id}": {
+      "get": {
+        "operationId": "SkillController_getCategory",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SkillCategoryResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get skill category by ID",
+        "tags": [
+          "Training - Skills"
+        ]
+      },
+      "put": {
+        "operationId": "SkillController_updateCategory",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSkillCategoryDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SkillCategoryResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update skill category",
+        "tags": [
+          "Training - Skills"
+        ]
+      },
+      "delete": {
+        "operationId": "SkillController_deleteCategory",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete skill category",
+        "tags": [
+          "Training - Skills"
+        ]
+      }
+    },
+    "/training/skills": {
+      "post": {
+        "operationId": "SkillController_createSkill",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSkillDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SkillResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create skill",
+        "tags": [
+          "Training - Skills"
+        ]
+      },
+      "get": {
+        "operationId": "SkillController_getSkills",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "default": 1,
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "default": 20,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "active",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": true,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "category_id",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "uuid-of-category",
+              "type": "string"
+            }
+          },
+          {
+            "name": "skill_type",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "TECHNICAL",
+              "type": "string",
+              "enum": [
+                "TECHNICAL",
+                "SOFT",
+                "LEADERSHIP",
+                "FUNCTIONAL",
+                "COMPLIANCE"
+              ]
+            }
+          },
+          {
+            "name": "market_demand",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "HIGH",
+              "type": "string",
+              "enum": [
+                "HIGH",
+                "MEDIUM",
+                "LOW"
+              ]
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "TypeScript",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedSkillResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all skills",
+        "tags": [
+          "Training - Skills"
+        ]
+      }
+    },
+    "/training/skills/high-demand": {
+      "get": {
+        "operationId": "SkillController_getHighDemandSkills",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SkillResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get high demand skills",
+        "tags": [
+          "Training - Skills"
+        ]
+      }
+    },
+    "/training/skills/{id}": {
+      "get": {
+        "operationId": "SkillController_getSkill",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SkillResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get skill by ID",
+        "tags": [
+          "Training - Skills"
+        ]
+      },
+      "put": {
+        "operationId": "SkillController_updateSkill",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSkillDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SkillResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update skill",
+        "tags": [
+          "Training - Skills"
+        ]
+      },
+      "delete": {
+        "operationId": "SkillController_deleteSkill",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete skill",
+        "tags": [
+          "Training - Skills"
+        ]
+      }
+    },
+    "/training/skills/category/{categoryId}": {
+      "get": {
+        "operationId": "SkillController_getSkillsByCategory",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SkillResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get skills by category",
+        "tags": [
+          "Training - Skills"
+        ]
+      }
+    },
+    "/training/skills/employee": {
+      "post": {
+        "operationId": "SkillController_assignSkillToEmployee",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEmployeeSkillDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmployeeSkillResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Assign skill to employee",
+        "tags": [
+          "Training - Skills"
+        ]
+      },
+      "get": {
+        "operationId": "SkillController_getEmployeeSkills",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "default": 1,
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "default": 20,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "employee_id",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "uuid-of-employee",
+              "type": "string"
+            }
+          },
+          {
+            "name": "skill_id",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "uuid-of-skill",
+              "type": "string"
+            }
+          },
+          {
+            "name": "current_level",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "COMPETENT",
+              "type": "string",
+              "enum": [
+                "BEGINNER",
+                "DEVELOPING",
+                "COMPETENT",
+                "PROFICIENT",
+                "EXPERT"
+              ]
+            }
+          },
+          {
+            "name": "target_level",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "EXPERT",
+              "type": "string",
+              "enum": [
+                "BEGINNER",
+                "DEVELOPING",
+                "COMPETENT",
+                "PROFICIENT",
+                "EXPERT"
+              ]
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "TypeScript",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedEmployeeSkillResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all employee skills",
+        "tags": [
+          "Training - Skills"
+        ]
+      }
+    },
+    "/training/skills/employee/{employeeId}/matrix": {
+      "get": {
+        "operationId": "SkillController_getEmployeeSkillMatrix",
+        "parameters": [
+          {
+            "name": "employeeId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmployeeSkillMatrixDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get employee skill matrix",
+        "tags": [
+          "Training - Skills"
+        ]
+      }
+    },
+    "/training/skills/employee/{employeeId}/gap-analysis": {
+      "get": {
+        "operationId": "SkillController_getSkillGapAnalysis",
+        "parameters": [
+          {
+            "name": "employeeId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get employee skill gap analysis",
+        "tags": [
+          "Training - Skills"
+        ]
+      }
+    },
+    "/training/skills/employee-skill/{id}": {
+      "get": {
+        "operationId": "SkillController_getEmployeeSkill",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmployeeSkillResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get employee skill by ID",
+        "tags": [
+          "Training - Skills"
+        ]
+      },
+      "put": {
+        "operationId": "SkillController_updateEmployeeSkill",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEmployeeSkillDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmployeeSkillResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update employee skill",
+        "tags": [
+          "Training - Skills"
+        ]
+      },
+      "delete": {
+        "operationId": "SkillController_removeEmployeeSkill",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Remove skill from employee",
+        "tags": [
+          "Training - Skills"
+        ]
+      }
+    },
+    "/training/skills/employee-skill/{id}/assess": {
+      "post": {
+        "operationId": "SkillController_assessEmployeeSkill",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmployeeSkillAssessmentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmployeeSkillResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Assess employee skill",
+        "tags": [
+          "Training - Skills"
+        ]
+      }
+    },
+    "/training/courses": {
+      "post": {
+        "operationId": "CourseController_createCourse",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCourseDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create training course",
+        "tags": [
+          "Training - Courses"
+        ]
+      },
+      "get": {
+        "operationId": "CourseController_getCourses",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "default": 1,
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "default": 20,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "course_type",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "INTERNAL",
+              "type": "string",
+              "enum": [
+                "INTERNAL",
+                "EXTERNAL",
+                "ONLINE",
+                "VENDOR"
+              ]
+            }
+          },
+          {
+            "name": "delivery_method",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "ONLINE",
+              "type": "string",
+              "enum": [
+                "CLASSROOM",
+                "ONLINE",
+                "BLENDED",
+                "SELF_PACED",
+                "ON_THE_JOB"
+              ]
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "ACTIVE",
+              "type": "string",
+              "enum": [
+                "DRAFT",
+                "ACTIVE",
+                "PAUSED",
+                "RETIRED",
+                "ARCHIVED"
+              ]
+            }
+          },
+          {
+            "name": "certificate_awarded",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": true,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "TypeScript",
+              "type": "string"
+            }
+          },
+          {
+            "name": "skill_id",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "uuid-of-skill",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedCourseResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all training courses",
+        "tags": [
+          "Training - Courses"
+        ]
+      }
+    },
+    "/training/courses/catalog": {
+      "get": {
+        "operationId": "CourseController_getCourseCatalog",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CourseCatalogDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get course catalog",
+        "tags": [
+          "Training - Courses"
+        ]
+      }
+    },
+    "/training/courses/{id}": {
+      "get": {
+        "operationId": "CourseController_getCourse",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get course by ID",
+        "tags": [
+          "Training - Courses"
+        ]
+      },
+      "put": {
+        "operationId": "CourseController_updateCourse",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCourseDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update training course",
+        "tags": [
+          "Training - Courses"
+        ]
+      },
+      "delete": {
+        "operationId": "CourseController_deleteCourse",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete training course",
+        "tags": [
+          "Training - Courses"
+        ]
+      }
+    },
+    "/training/courses/{id}/status": {
+      "patch": {
+        "operationId": "CourseController_updateCourseStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update course status",
+        "tags": [
+          "Training - Courses"
+        ]
+      }
+    },
+    "/training/courses/{id}/duplicate": {
+      "post": {
+        "operationId": "CourseController_duplicateCourse",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Duplicate a course",
+        "tags": [
+          "Training - Courses"
+        ]
+      }
+    },
+    "/training/courses/skill/{skillId}": {
+      "get": {
+        "operationId": "CourseController_getCoursesBySkill",
+        "parameters": [
+          {
+            "name": "skillId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CourseResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get courses by skill",
+        "tags": [
+          "Training - Courses"
+        ]
+      }
+    },
+    "/training/courses/sessions": {
+      "post": {
+        "operationId": "CourseController_createSession",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSessionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create training session",
+        "tags": [
+          "Training - Courses"
+        ]
+      },
+      "get": {
+        "operationId": "CourseController_getSessions",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "default": 1,
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "default": 20,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "course_id",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "uuid-of-course",
+              "type": "string"
+            }
+          },
+          {
+            "name": "instructor_id",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "uuid-of-instructor",
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "SCHEDULED",
+              "type": "string",
+              "enum": [
+                "SCHEDULED",
+                "IN_PROGRESS",
+                "COMPLETED",
+                "CANCELLED",
+                "POSTPONED"
+              ]
+            }
+          },
+          {
+            "name": "start_date_from",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "2024-01-01",
+              "type": "string"
+            }
+          },
+          {
+            "name": "start_date_to",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "2024-12-31",
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "TypeScript",
+              "type": "string"
+            }
+          },
+          {
+            "name": "available_only",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": true,
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedSessionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all training sessions",
+        "tags": [
+          "Training - Courses"
+        ]
+      }
+    },
+    "/training/courses/sessions/upcoming": {
+      "get": {
+        "operationId": "CourseController_getUpcomingSessions",
+        "parameters": [
+          {
+            "name": "courseId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SessionResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get upcoming sessions",
+        "tags": [
+          "Training - Courses"
+        ]
+      }
+    },
+    "/training/courses/sessions/{id}": {
+      "get": {
+        "operationId": "CourseController_getSession",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get session by ID",
+        "tags": [
+          "Training - Courses"
+        ]
+      },
+      "put": {
+        "operationId": "CourseController_updateSession",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSessionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update training session",
+        "tags": [
+          "Training - Courses"
+        ]
+      },
+      "delete": {
+        "operationId": "CourseController_deleteSession",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete training session",
+        "tags": [
+          "Training - Courses"
+        ]
+      }
+    },
+    "/training/courses/sessions/{id}/availability": {
+      "get": {
+        "operationId": "CourseController_getSessionAvailability",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionAvailabilityDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get session availability",
+        "tags": [
+          "Training - Courses"
+        ]
+      }
+    },
+    "/training/courses/sessions/{id}/status": {
+      "patch": {
+        "operationId": "CourseController_updateSessionStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update session status",
+        "tags": [
+          "Training - Courses"
+        ]
+      }
+    },
+    "/training/courses/instructor/{instructorId}/sessions": {
+      "get": {
+        "operationId": "CourseController_getInstructorSessions",
+        "parameters": [
+          {
+            "name": "instructorId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SessionResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get sessions by instructor",
+        "tags": [
+          "Training - Courses"
+        ]
+      }
+    },
+    "/training/courses/{id}/sessions": {
+      "get": {
+        "operationId": "CourseController_getCourseSessions",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "default": 1,
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "default": 20,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "course_id",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "uuid-of-course",
+              "type": "string"
+            }
+          },
+          {
+            "name": "instructor_id",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "uuid-of-instructor",
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "SCHEDULED",
+              "type": "string",
+              "enum": [
+                "SCHEDULED",
+                "IN_PROGRESS",
+                "COMPLETED",
+                "CANCELLED",
+                "POSTPONED"
+              ]
+            }
+          },
+          {
+            "name": "start_date_from",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "2024-01-01",
+              "type": "string"
+            }
+          },
+          {
+            "name": "start_date_to",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "2024-12-31",
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "TypeScript",
+              "type": "string"
+            }
+          },
+          {
+            "name": "available_only",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": true,
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedSessionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get sessions for a specific course",
+        "tags": [
+          "Training - Courses"
+        ]
+      }
+    },
+    "/analytics/templates": {
+      "post": {
+        "operationId": "ReportTemplateController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateReportTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportTemplateResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new report template",
+        "tags": [
+          "Analytics - Report Templates"
+        ]
+      },
+      "get": {
+        "operationId": "ReportTemplateController_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "default": 1,
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "default": 20,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "category",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "PAYROLL",
+              "type": "string",
+              "enum": [
+                "EMPLOYEE",
+                "PERFORMANCE",
+                "PAYROLL",
+                "RECRUITMENT",
+                "ATTENDANCE",
+                "LEAVE",
+                "TRAINING",
+                "CUSTOM"
+              ]
+            }
+          },
+          {
+            "name": "report_type",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "STANDARD",
+              "type": "string",
+              "enum": [
+                "STANDARD",
+                "CUSTOM",
+                "DASHBOARD"
+              ]
+            }
+          },
+          {
+            "name": "access_level",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "DEPARTMENT",
+              "type": "string",
+              "enum": [
+                "PRIVATE",
+                "DEPARTMENT",
+                "COMPANY",
+                "PUBLIC"
+              ]
+            }
+          },
+          {
+            "name": "active",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": true,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "payroll",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedReportTemplateResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all report templates",
+        "tags": [
+          "Analytics - Report Templates"
+        ]
+      }
+    },
+    "/analytics/templates/predefined": {
+      "get": {
+        "operationId": "ReportTemplateController_getPredefined",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ReportTemplateResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get predefined report templates",
+        "tags": [
+          "Analytics - Report Templates"
+        ]
+      }
+    },
+    "/analytics/templates/{id}": {
+      "get": {
+        "operationId": "ReportTemplateController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportTemplateResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a report template by ID",
+        "tags": [
+          "Analytics - Report Templates"
+        ]
+      },
+      "put": {
+        "operationId": "ReportTemplateController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateReportTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportTemplateResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a report template",
+        "tags": [
+          "Analytics - Report Templates"
+        ]
+      },
+      "delete": {
+        "operationId": "ReportTemplateController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a report template",
+        "tags": [
+          "Analytics - Report Templates"
+        ]
+      }
+    },
+    "/analytics/templates/{id}/duplicate": {
+      "post": {
+        "operationId": "ReportTemplateController_duplicate",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportTemplateResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Duplicate a report template",
+        "tags": [
+          "Analytics - Report Templates"
+        ]
+      }
+    },
+    "/analytics/instances/generate": {
+      "post": {
+        "operationId": "ReportInstanceController_generate",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateReportInstanceDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportInstanceResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Generate a new report instance",
+        "tags": [
+          "Analytics - Report Instances"
+        ]
+      }
+    },
+    "/analytics/instances": {
+      "get": {
+        "operationId": "ReportInstanceController_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "default": 1,
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "default": 20,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "template_id",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "uuid-of-template",
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "COMPLETED",
+              "type": "string",
+              "enum": [
+                "PENDING",
+                "GENERATING",
+                "COMPLETED",
+                "FAILED",
+                "EXPIRED"
+              ]
+            }
+          },
+          {
+            "name": "file_format",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "PDF",
+              "type": "string",
+              "enum": [
+                "PDF",
+                "EXCEL",
+                "CSV",
+                "JSON"
+              ]
+            }
+          },
+          {
+            "name": "generated_from",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "2024-01-01",
+              "type": "string"
+            }
+          },
+          {
+            "name": "generated_to",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "2024-12-31",
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "sales",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedReportInstanceResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all report instances",
+        "tags": [
+          "Analytics - Report Instances"
+        ]
+      }
+    },
+    "/analytics/instances/recent": {
+      "get": {
+        "operationId": "ReportInstanceController_getRecent",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ReportInstanceResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get recent report instances for current user",
+        "tags": [
+          "Analytics - Report Instances"
+        ]
+      }
+    },
+    "/analytics/instances/{id}": {
+      "get": {
+        "operationId": "ReportInstanceController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportInstanceResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a report instance by ID",
+        "tags": [
+          "Analytics - Report Instances"
+        ]
+      }
+    },
+    "/analytics/instances/{id}/status": {
+      "get": {
+        "operationId": "ReportInstanceController_getStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportGenerationStatusDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get generation status of a report instance",
+        "tags": [
+          "Analytics - Report Instances"
+        ]
+      }
+    },
+    "/analytics/instances/{id}/download": {
+      "get": {
+        "operationId": "ReportInstanceController_download",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Report file"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Download a generated report",
+        "tags": [
+          "Analytics - Report Instances"
+        ]
+      }
+    },
+    "/analytics/instances/cleanup-expired": {
+      "post": {
+        "operationId": "ReportInstanceController_cleanupExpired",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Clean up expired report instances",
+        "tags": [
+          "Analytics - Report Instances"
+        ]
+      }
+    },
+    "/analytics/dashboards": {
+      "post": {
+        "operationId": "DashboardController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDashboardDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new dashboard",
+        "tags": [
+          "Analytics - Dashboards"
+        ]
+      },
+      "get": {
+        "operationId": "DashboardController_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "default": 1,
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "default": 20,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "dashboard_type",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "OVERVIEW",
+              "type": "string",
+              "enum": [
+                "OVERVIEW",
+                "DEPARTMENT",
+                "EXECUTIVE",
+                "OPERATIONAL",
+                "CUSTOM"
+              ]
+            }
+          },
+          {
+            "name": "is_default",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": true,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "active",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": true,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "overview",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedDashboardResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all dashboards",
+        "tags": [
+          "Analytics - Dashboards"
+        ]
+      }
+    },
+    "/analytics/dashboards/default": {
+      "get": {
+        "operationId": "DashboardController_getDefault",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get default dashboard",
+        "tags": [
+          "Analytics - Dashboards"
+        ]
+      }
+    },
+    "/analytics/dashboards/{id}": {
+      "get": {
+        "operationId": "DashboardController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a dashboard by ID",
+        "tags": [
+          "Analytics - Dashboards"
+        ]
+      },
+      "put": {
+        "operationId": "DashboardController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDashboardDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a dashboard",
+        "tags": [
+          "Analytics - Dashboards"
+        ]
+      },
+      "delete": {
+        "operationId": "DashboardController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a dashboard",
+        "tags": [
+          "Analytics - Dashboards"
+        ]
+      }
+    },
+    "/analytics/dashboards/{id}/data": {
+      "get": {
+        "operationId": "DashboardController_getDashboardData",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardDataResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get dashboard data with all widgets",
+        "tags": [
+          "Analytics - Dashboards"
+        ]
+      }
+    },
+    "/analytics/dashboards/{id}/duplicate": {
+      "post": {
+        "operationId": "DashboardController_duplicate",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Duplicate a dashboard",
+        "tags": [
+          "Analytics - Dashboards"
+        ]
+      }
+    },
+    "/analytics/metrics/employees": {
+      "get": {
+        "operationId": "AnalyticsController_getEmployeeMetrics",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get employee metrics",
+        "tags": [
+          "Analytics"
+        ]
+      }
+    },
+    "/analytics/metrics/departments": {
+      "get": {
+        "operationId": "AnalyticsController_getDepartmentMetrics",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get department metrics",
+        "tags": [
+          "Analytics"
+        ]
+      }
+    },
+    "/analytics/metrics/payroll": {
+      "get": {
+        "operationId": "AnalyticsController_getPayrollMetrics",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get payroll metrics",
+        "tags": [
+          "Analytics"
+        ]
+      }
+    },
+    "/analytics/metrics/attendance": {
+      "get": {
+        "operationId": "AnalyticsController_getAttendanceMetrics",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get attendance metrics",
+        "tags": [
+          "Analytics"
+        ]
+      }
+    },
+    "/analytics/metrics/performance": {
+      "get": {
+        "operationId": "AnalyticsController_getPerformanceMetrics",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get performance metrics",
+        "tags": [
+          "Analytics"
+        ]
+      }
+    },
+    "/analytics/cache/clear": {
+      "post": {
+        "operationId": "AnalyticsController_clearCache",
+        "parameters": [
+          {
+            "name": "pattern",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Clear analytics cache",
+        "tags": [
+          "Analytics"
+        ]
+      }
+    },
+    "/analytics/cache/stats": {
+      "get": {
+        "operationId": "AnalyticsController_getCacheStats",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get cache statistics",
+        "tags": [
+          "Analytics"
+        ]
+      }
+    },
+    "/analytics/templates/initialize": {
+      "post": {
+        "operationId": "AnalyticsController_initializeTemplates",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Initialize predefined report templates",
+        "tags": [
+          "Analytics"
+        ]
+      }
+    },
+    "/case-management/cases": {
+      "post": {
+        "operationId": "CaseController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCaseDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new case",
+        "tags": [
+          "Case Management"
+        ]
+      },
+      "get": {
+        "operationId": "CaseController_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "default": 1,
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "default": 20,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "OPEN",
+              "type": "string",
+              "enum": [
+                "OPEN",
+                "IN_PROGRESS",
+                "RESOLVED",
+                "CLOSED",
+                "CANCELLED"
+              ]
+            }
+          },
+          {
+            "name": "priority",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "HIGH",
+              "type": "string",
+              "enum": [
+                "LOW",
+                "MEDIUM",
+                "HIGH",
+                "CRITICAL"
+              ]
+            }
+          },
+          {
+            "name": "category_id",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "uuid-of-category",
+              "type": "string"
+            }
+          },
+          {
+            "name": "assigned_to",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "uuid-of-assignee",
+              "type": "string"
+            }
+          },
+          {
+            "name": "reported_by",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "uuid-of-reporter",
+              "type": "string"
+            }
+          },
+          {
+            "name": "created_from",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "2024-01-01",
+              "type": "string"
+            }
+          },
+          {
+            "name": "created_to",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "2024-12-31",
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "search term",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all cases with filters",
+        "tags": [
+          "Case Management"
+        ]
+      }
+    },
+    "/case-management/cases/statistics": {
+      "get": {
+        "operationId": "CaseController_getStatistics",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get case statistics",
+        "tags": [
+          "Case Management"
+        ]
+      }
+    },
+    "/case-management/cases/{id}": {
+      "get": {
+        "operationId": "CaseController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a case by ID",
+        "tags": [
+          "Case Management"
+        ]
+      },
+      "patch": {
+        "operationId": "CaseController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCaseDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a case",
+        "tags": [
+          "Case Management"
+        ]
+      }
+    },
+    "/case-management/cases/{id}/resolve": {
+      "post": {
+        "operationId": "CaseController_resolve",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResolveCaseDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Resolve and close a case",
+        "tags": [
+          "Case Management"
+        ]
+      }
+    },
+    "/case-management/cases/{id}/assign": {
+      "post": {
+        "operationId": "CaseController_assignCase",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Assign a case to an employee",
+        "tags": [
+          "Case Management"
+        ]
+      }
+    },
+    "/case-management/cases/{id}/escalate": {
+      "post": {
+        "operationId": "CaseController_escalateCase",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Escalate case priority",
+        "tags": [
+          "Case Management"
+        ]
+      }
+    },
+    "/case-management/activities": {
+      "post": {
+        "operationId": "CaseActivityController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCaseActivityDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new case activity",
+        "tags": [
+          "Case Management - Activities"
+        ]
+      },
+      "get": {
+        "operationId": "CaseActivityController_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "default": 1,
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "default": 20,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "case_id",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "example": "uuid-of-case",
+              "type": "string"
+            }
+          },
+          {
+            "name": "activity_type",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "MEETING",
+              "type": "string",
+              "enum": [
+                "NOTE",
+                "MEETING",
+                "DOCUMENT",
+                "DECISION",
+                "INVESTIGATION",
+                "INTERVIEW",
+                "EVIDENCE",
+                "ESCALATION"
+              ]
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "search term",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all activities for a case",
+        "tags": [
+          "Case Management - Activities"
+        ]
+      }
+    },
+    "/case-management/activities/timeline/{caseId}": {
+      "get": {
+        "operationId": "CaseActivityController_getTimeline",
+        "parameters": [
+          {
+            "name": "caseId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get activity timeline for a case",
+        "tags": [
+          "Case Management - Activities"
+        ]
+      }
+    },
+    "/case-management/activities/{id}": {
+      "get": {
+        "operationId": "CaseActivityController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a case activity by ID",
+        "tags": [
+          "Case Management - Activities"
+        ]
+      },
+      "patch": {
+        "operationId": "CaseActivityController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCaseActivityDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a case activity",
+        "tags": [
+          "Case Management - Activities"
+        ]
+      },
+      "delete": {
+        "operationId": "CaseActivityController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a case activity",
+        "tags": [
+          "Case Management - Activities"
+        ]
+      }
+    },
+    "/case-management/activities/bulk/{caseId}": {
+      "post": {
+        "operationId": "CaseActivityController_addBulkActivities",
+        "parameters": [
+          {
+            "name": "caseId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Add multiple activities to a case",
+        "tags": [
+          "Case Management - Activities"
+        ]
+      }
+    },
+    "/case-management/categories": {
+      "post": {
+        "operationId": "CaseCategoryController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCaseCategoryDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new case category",
+        "tags": [
+          "Case Management - Categories"
+        ]
+      },
+      "get": {
+        "operationId": "CaseCategoryController_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "default": 1,
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "default": 20,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "is_active",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": true,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "disciplinary",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all case categories",
+        "tags": [
+          "Case Management - Categories"
+        ]
+      }
+    },
+    "/case-management/categories/active": {
+      "get": {
+        "operationId": "CaseCategoryController_getActiveCategories",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all active categories",
+        "tags": [
+          "Case Management - Categories"
+        ]
+      }
+    },
+    "/case-management/categories/statistics": {
+      "get": {
+        "operationId": "CaseCategoryController_getStatistics",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get category statistics",
+        "tags": [
+          "Case Management - Categories"
+        ]
+      }
+    },
+    "/case-management/categories/{id}": {
+      "get": {
+        "operationId": "CaseCategoryController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a case category by ID",
+        "tags": [
+          "Case Management - Categories"
+        ]
+      },
+      "patch": {
+        "operationId": "CaseCategoryController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCaseCategoryDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a case category",
+        "tags": [
+          "Case Management - Categories"
+        ]
+      },
+      "delete": {
+        "operationId": "CaseCategoryController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a case category",
+        "tags": [
+          "Case Management - Categories"
+        ]
+      }
+    },
+    "/notifications/templates": {
+      "post": {
+        "operationId": "NotificationTemplateController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateNotificationTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new notification template",
+        "tags": [
+          "Notifications - Templates"
+        ]
+      },
+      "get": {
+        "operationId": "NotificationTemplateController_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "default": 1,
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "default": 20,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "template_type",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "PERFORMANCE_REVIEW",
+              "type": "string"
+            }
+          },
+          {
+            "name": "channel",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "EMAIL",
+              "type": "string",
+              "enum": [
+                "EMAIL",
+                "IN_APP",
+                "SMS",
+                "SLACK"
+              ]
+            }
+          },
+          {
+            "name": "is_active",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": true,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "review",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all notification templates",
+        "tags": [
+          "Notifications - Templates"
+        ]
+      }
+    },
+    "/notifications/templates/by-type/{type}": {
+      "get": {
+        "operationId": "NotificationTemplateController_getByType",
+        "parameters": [
+          {
+            "name": "type",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get active templates by type",
+        "tags": [
+          "Notifications - Templates"
+        ]
+      }
+    },
+    "/notifications/templates/by-name/{name}": {
+      "get": {
+        "operationId": "NotificationTemplateController_getByName",
+        "parameters": [
+          {
+            "name": "name",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get template by name",
+        "tags": [
+          "Notifications - Templates"
+        ]
+      }
+    },
+    "/notifications/templates/{id}": {
+      "get": {
+        "operationId": "NotificationTemplateController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a notification template by ID",
+        "tags": [
+          "Notifications - Templates"
+        ]
+      },
+      "patch": {
+        "operationId": "NotificationTemplateController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateNotificationTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a notification template",
+        "tags": [
+          "Notifications - Templates"
+        ]
+      },
+      "delete": {
+        "operationId": "NotificationTemplateController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a notification template",
+        "tags": [
+          "Notifications - Templates"
+        ]
+      }
+    },
+    "/notifications/templates/{id}/duplicate": {
+      "post": {
+        "operationId": "NotificationTemplateController_duplicate",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Duplicate a notification template",
+        "tags": [
+          "Notifications - Templates"
+        ]
+      }
+    },
+    "/notifications/templates/{id}/preview": {
+      "post": {
+        "operationId": "NotificationTemplateController_preview",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Preview rendered template with variables",
+        "tags": [
+          "Notifications - Templates"
+        ]
+      }
+    },
+    "/notifications/queue/send": {
+      "post": {
+        "operationId": "NotificationQueueController_sendNotification",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendNotificationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Send a notification",
+        "tags": [
+          "Notifications - Queue"
+        ]
+      }
+    },
+    "/notifications/queue/send-bulk": {
+      "post": {
+        "operationId": "NotificationQueueController_sendBulkNotifications",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkSendNotificationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Send notifications to multiple recipients",
+        "tags": [
+          "Notifications - Queue"
+        ]
+      }
+    },
+    "/notifications/queue": {
+      "get": {
+        "operationId": "NotificationQueueController_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "default": 1,
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "default": 20,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "PENDING",
+              "type": "string",
+              "enum": [
+                "PENDING",
+                "SENT",
+                "FAILED",
+                "DELIVERED",
+                "READ"
+              ]
+            }
+          },
+          {
+            "name": "channel",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "EMAIL",
+              "type": "string",
+              "enum": [
+                "EMAIL",
+                "IN_APP",
+                "SMS",
+                "SLACK"
+              ]
+            }
+          },
+          {
+            "name": "priority",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "HIGH",
+              "type": "string",
+              "enum": [
+                "LOW",
+                "MEDIUM",
+                "HIGH",
+                "CRITICAL"
+              ]
+            }
+          },
+          {
+            "name": "recipient_id",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "uuid-of-recipient",
+              "type": "string"
+            }
+          },
+          {
+            "name": "created_from",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "2024-01-01",
+              "type": "string"
+            }
+          },
+          {
+            "name": "created_to",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "2024-12-31",
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "search term",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all notifications in queue",
+        "tags": [
+          "Notifications - Queue"
+        ]
+      }
+    },
+    "/notifications/queue/statistics": {
+      "get": {
+        "operationId": "NotificationQueueController_getStatistics",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get notification statistics",
+        "tags": [
+          "Notifications - Queue"
+        ]
+      }
+    },
+    "/notifications/queue/recipient/{recipientId}": {
+      "get": {
+        "operationId": "NotificationQueueController_getRecipientNotifications",
+        "parameters": [
+          {
+            "name": "recipientId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get notifications for a specific recipient",
+        "tags": [
+          "Notifications - Queue"
+        ]
+      }
+    },
+    "/notifications/queue/{id}": {
+      "get": {
+        "operationId": "NotificationQueueController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a notification by ID",
+        "tags": [
+          "Notifications - Queue"
+        ]
+      },
+      "delete": {
+        "operationId": "NotificationQueueController_cancelNotification",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Cancel a pending notification",
+        "tags": [
+          "Notifications - Queue"
+        ]
+      }
+    },
+    "/notifications/queue/{id}/retry": {
+      "post": {
+        "operationId": "NotificationQueueController_retryNotification",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RetryNotificationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Retry a failed notification",
+        "tags": [
+          "Notifications - Queue"
+        ]
+      }
     }
   },
   "info": {
@@ -22737,6 +27238,2672 @@
           "final_assessment": {
             "type": "string",
             "description": "Final assessment"
+          }
+        }
+      },
+      "CreateSkillCategoryDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Technical Skills"
+          },
+          "description": {
+            "type": "string",
+            "example": "Technical competencies required for engineering roles"
+          },
+          "parent_id": {
+            "type": "string",
+            "example": "uuid-of-parent-category"
+          },
+          "display_order": {
+            "type": "number",
+            "example": 1
+          },
+          "active": {
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "SkillCategoryResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "tenant_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "object"
+          },
+          "parent_id": {
+            "type": "object"
+          },
+          "display_order": {
+            "type": "number"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "parent": {
+            "type": "object"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SkillCategoryResponseDto"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "tenant_id",
+          "name",
+          "display_order",
+          "active",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "PaginatedSkillCategoryResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of data items",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SkillCategoryResponseDto"
+            }
+          },
+          "pagination": {
+            "description": "Pagination metadata",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationMetaDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "data",
+          "pagination"
+        ]
+      },
+      "UpdateSkillCategoryDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Technical Skills"
+          },
+          "description": {
+            "type": "string",
+            "example": "Technical competencies required for engineering roles"
+          },
+          "parent_id": {
+            "type": "string",
+            "example": "uuid-of-parent-category"
+          },
+          "display_order": {
+            "type": "number",
+            "example": 1
+          },
+          "active": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "CreateSkillDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "TypeScript"
+          },
+          "category_id": {
+            "type": "string",
+            "example": "uuid-of-category"
+          },
+          "description": {
+            "type": "string",
+            "example": "JavaScript superset with static typing"
+          },
+          "skill_type": {
+            "type": "string",
+            "example": "TECHNICAL",
+            "enum": [
+              "TECHNICAL",
+              "SOFT",
+              "LEADERSHIP",
+              "FUNCTIONAL",
+              "COMPLIANCE"
+            ]
+          },
+          "proficiency_levels": {
+            "type": "object",
+            "example": {
+              "levels": [
+                {
+                  "level": 1,
+                  "name": "Beginner",
+                  "description": "Basic understanding"
+                },
+                {
+                  "level": 2,
+                  "name": "Intermediate",
+                  "description": "Working knowledge"
+                },
+                {
+                  "level": 3,
+                  "name": "Advanced",
+                  "description": "Expert knowledge"
+                }
+              ]
+            }
+          },
+          "assessment_criteria": {
+            "type": "object",
+            "example": {
+              "criteria": [
+                "Can write basic TypeScript code",
+                "Understands type system",
+                "Can create complex types"
+              ]
+            }
+          },
+          "market_demand": {
+            "type": "string",
+            "example": "HIGH",
+            "enum": [
+              "HIGH",
+              "MEDIUM",
+              "LOW"
+            ]
+          },
+          "active": {
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "SkillResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "tenant_id": {
+            "type": "string"
+          },
+          "category_id": {
+            "type": "object"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "object"
+          },
+          "skill_type": {
+            "type": "string",
+            "enum": [
+              "TECHNICAL",
+              "SOFT",
+              "LEADERSHIP",
+              "FUNCTIONAL",
+              "COMPLIANCE"
+            ]
+          },
+          "proficiency_levels": {
+            "type": "object"
+          },
+          "assessment_criteria": {
+            "type": "object"
+          },
+          "market_demand": {
+            "type": "string",
+            "enum": [
+              "HIGH",
+              "MEDIUM",
+              "LOW"
+            ]
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "category": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "tenant_id",
+          "name",
+          "skill_type",
+          "market_demand",
+          "active",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "PaginatedSkillResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of data items",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SkillResponseDto"
+            }
+          },
+          "pagination": {
+            "description": "Pagination metadata",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationMetaDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "data",
+          "pagination"
+        ]
+      },
+      "UpdateSkillDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "TypeScript"
+          },
+          "category_id": {
+            "type": "string",
+            "example": "uuid-of-category"
+          },
+          "description": {
+            "type": "string",
+            "example": "JavaScript superset with static typing"
+          },
+          "skill_type": {
+            "type": "string",
+            "example": "TECHNICAL",
+            "enum": [
+              "TECHNICAL",
+              "SOFT",
+              "LEADERSHIP",
+              "FUNCTIONAL",
+              "COMPLIANCE"
+            ]
+          },
+          "proficiency_levels": {
+            "type": "object"
+          },
+          "assessment_criteria": {
+            "type": "object"
+          },
+          "market_demand": {
+            "type": "string",
+            "example": "HIGH",
+            "enum": [
+              "HIGH",
+              "MEDIUM",
+              "LOW"
+            ]
+          },
+          "active": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "CreateEmployeeSkillDto": {
+        "type": "object",
+        "properties": {
+          "employee_id": {
+            "type": "string",
+            "example": "uuid-of-employee"
+          },
+          "skill_id": {
+            "type": "string",
+            "example": "uuid-of-skill"
+          },
+          "current_level": {
+            "type": "string",
+            "example": "BEGINNER",
+            "enum": [
+              "BEGINNER",
+              "DEVELOPING",
+              "COMPETENT",
+              "PROFICIENT",
+              "EXPERT"
+            ]
+          },
+          "target_level": {
+            "type": "string",
+            "example": "COMPETENT",
+            "enum": [
+              "BEGINNER",
+              "DEVELOPING",
+              "COMPETENT",
+              "PROFICIENT",
+              "EXPERT"
+            ]
+          },
+          "notes": {
+            "type": "string",
+            "example": "Employee has demonstrated strong skills in this area"
+          }
+        },
+        "required": [
+          "employee_id",
+          "skill_id"
+        ]
+      },
+      "EmployeeSkillResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "tenant_id": {
+            "type": "string"
+          },
+          "employee_id": {
+            "type": "string"
+          },
+          "skill_id": {
+            "type": "string"
+          },
+          "current_level": {
+            "type": "string",
+            "enum": [
+              "BEGINNER",
+              "DEVELOPING",
+              "COMPETENT",
+              "PROFICIENT",
+              "EXPERT"
+            ]
+          },
+          "target_level": {
+            "type": "string",
+            "enum": [
+              "BEGINNER",
+              "DEVELOPING",
+              "COMPETENT",
+              "PROFICIENT",
+              "EXPERT"
+            ]
+          },
+          "self_assessment": {
+            "type": "string",
+            "enum": [
+              "BEGINNER",
+              "DEVELOPING",
+              "COMPETENT",
+              "PROFICIENT",
+              "EXPERT"
+            ]
+          },
+          "manager_assessment": {
+            "type": "string",
+            "enum": [
+              "BEGINNER",
+              "DEVELOPING",
+              "COMPETENT",
+              "PROFICIENT",
+              "EXPERT"
+            ]
+          },
+          "verified_level": {
+            "type": "string",
+            "enum": [
+              "BEGINNER",
+              "DEVELOPING",
+              "COMPETENT",
+              "PROFICIENT",
+              "EXPERT"
+            ]
+          },
+          "last_assessed_date": {
+            "type": "object"
+          },
+          "notes": {
+            "type": "object"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "employee": {
+            "type": "object"
+          },
+          "skill": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "tenant_id",
+          "employee_id",
+          "skill_id",
+          "current_level",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "PaginatedEmployeeSkillResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of data items",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmployeeSkillResponseDto"
+            }
+          },
+          "pagination": {
+            "description": "Pagination metadata",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationMetaDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "data",
+          "pagination"
+        ]
+      },
+      "EmployeeSkillMatrixDto": {
+        "type": "object",
+        "properties": {
+          "employee_id": {
+            "type": "string"
+          },
+          "employee_name": {
+            "type": "string"
+          },
+          "department": {
+            "type": "string"
+          },
+          "job_title": {
+            "type": "string"
+          },
+          "skills": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmployeeSkillResponseDto"
+            }
+          },
+          "skill_summary": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "employee_id",
+          "employee_name",
+          "department",
+          "job_title",
+          "skills",
+          "skill_summary"
+        ]
+      },
+      "UpdateEmployeeSkillDto": {
+        "type": "object",
+        "properties": {
+          "current_level": {
+            "type": "string",
+            "example": "DEVELOPING",
+            "enum": [
+              "BEGINNER",
+              "DEVELOPING",
+              "COMPETENT",
+              "PROFICIENT",
+              "EXPERT"
+            ]
+          },
+          "target_level": {
+            "type": "string",
+            "example": "PROFICIENT",
+            "enum": [
+              "BEGINNER",
+              "DEVELOPING",
+              "COMPETENT",
+              "PROFICIENT",
+              "EXPERT"
+            ]
+          },
+          "self_assessment": {
+            "type": "string",
+            "example": "DEVELOPING",
+            "enum": [
+              "BEGINNER",
+              "DEVELOPING",
+              "COMPETENT",
+              "PROFICIENT",
+              "EXPERT"
+            ]
+          },
+          "manager_assessment": {
+            "type": "string",
+            "example": "COMPETENT",
+            "enum": [
+              "BEGINNER",
+              "DEVELOPING",
+              "COMPETENT",
+              "PROFICIENT",
+              "EXPERT"
+            ]
+          },
+          "verified_level": {
+            "type": "string",
+            "example": "COMPETENT",
+            "enum": [
+              "BEGINNER",
+              "DEVELOPING",
+              "COMPETENT",
+              "PROFICIENT",
+              "EXPERT"
+            ]
+          },
+          "last_assessed_date": {
+            "type": "string",
+            "example": "2024-01-15"
+          },
+          "notes": {
+            "type": "string",
+            "example": "Updated assessment notes"
+          }
+        }
+      },
+      "EmployeeSkillAssessmentDto": {
+        "type": "object",
+        "properties": {
+          "assessment_level": {
+            "type": "string",
+            "example": "COMPETENT",
+            "enum": [
+              "BEGINNER",
+              "DEVELOPING",
+              "COMPETENT",
+              "PROFICIENT",
+              "EXPERT"
+            ]
+          },
+          "assessment_type": {
+            "type": "string",
+            "example": "self",
+            "enum": [
+              "self",
+              "manager",
+              "verified"
+            ]
+          },
+          "notes": {
+            "type": "string",
+            "example": "Assessment notes and comments"
+          }
+        },
+        "required": [
+          "assessment_level",
+          "assessment_type"
+        ]
+      },
+      "CreateCourseDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Introduction to TypeScript"
+          },
+          "description": {
+            "type": "string",
+            "example": "Learn the fundamentals of TypeScript programming"
+          },
+          "course_type": {
+            "type": "string",
+            "example": "INTERNAL",
+            "enum": [
+              "INTERNAL",
+              "EXTERNAL",
+              "ONLINE",
+              "VENDOR"
+            ]
+          },
+          "delivery_method": {
+            "type": "string",
+            "example": "CLASSROOM",
+            "enum": [
+              "CLASSROOM",
+              "ONLINE",
+              "BLENDED",
+              "SELF_PACED",
+              "ON_THE_JOB"
+            ]
+          },
+          "duration_hours": {
+            "type": "number",
+            "example": 16.5
+          },
+          "max_participants": {
+            "type": "number",
+            "example": 20
+          },
+          "prerequisites": {
+            "example": [
+              "Basic JavaScript knowledge",
+              "Computer with Node.js installed"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "learning_objectives": {
+            "example": [
+              "Understand TypeScript basics",
+              "Write type-safe code",
+              "Use interfaces and generics"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "target_skills": {
+            "example": [
+              "skill-uuid-1",
+              "skill-uuid-2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "content_outline": {
+            "type": "string",
+            "example": "Module 1: Introduction\nModule 2: Types\nModule 3: Advanced Features"
+          },
+          "materials_required": {
+            "example": [
+              "Laptop",
+              "Course materials",
+              "Notebook"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "cost_per_person": {
+            "type": "number",
+            "example": 250
+          },
+          "currency": {
+            "type": "string",
+            "example": "GBP"
+          },
+          "provider_name": {
+            "type": "string",
+            "example": "Tech Training Ltd"
+          },
+          "provider_contact": {
+            "type": "object",
+            "example": {
+              "name": "John Doe",
+              "email": "john@techtraining.com",
+              "phone": "+44 20 1234 5678"
+            }
+          },
+          "status": {
+            "type": "string",
+            "example": "DRAFT",
+            "enum": [
+              "DRAFT",
+              "ACTIVE",
+              "PAUSED",
+              "RETIRED",
+              "ARCHIVED"
+            ]
+          },
+          "approval_required": {
+            "type": "boolean",
+            "example": true
+          },
+          "certificate_awarded": {
+            "type": "boolean",
+            "example": true
+          },
+          "cpd_points": {
+            "type": "number",
+            "example": 12.5
+          }
+        },
+        "required": [
+          "title"
+        ]
+      },
+      "CourseResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "tenant_id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "object"
+          },
+          "course_type": {
+            "type": "string",
+            "enum": [
+              "INTERNAL",
+              "EXTERNAL",
+              "ONLINE",
+              "VENDOR"
+            ]
+          },
+          "delivery_method": {
+            "type": "string",
+            "enum": [
+              "CLASSROOM",
+              "ONLINE",
+              "BLENDED",
+              "SELF_PACED",
+              "ON_THE_JOB"
+            ]
+          },
+          "duration_hours": {
+            "type": "object"
+          },
+          "max_participants": {
+            "type": "object"
+          },
+          "prerequisites": {
+            "type": "object"
+          },
+          "learning_objectives": {
+            "type": "object"
+          },
+          "target_skills": {
+            "type": "object"
+          },
+          "content_outline": {
+            "type": "object"
+          },
+          "materials_required": {
+            "type": "object"
+          },
+          "cost_per_person": {
+            "type": "object"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "provider_name": {
+            "type": "object"
+          },
+          "provider_contact": {
+            "type": "object"
+          },
+          "provider_website": {
+            "type": "object"
+          },
+          "accreditation_body": {
+            "type": "object"
+          },
+          "certification_validity_months": {
+            "type": "object"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "DRAFT",
+              "ACTIVE",
+              "PAUSED",
+              "RETIRED",
+              "ARCHIVED"
+            ]
+          },
+          "approval_required": {
+            "type": "boolean"
+          },
+          "certificate_awarded": {
+            "type": "boolean"
+          },
+          "cpd_points": {
+            "type": "object"
+          },
+          "target_audience": {
+            "type": "object"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "sessions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "tenant_id",
+          "title",
+          "course_type",
+          "delivery_method",
+          "currency",
+          "status",
+          "approval_required",
+          "certificate_awarded",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "PaginatedCourseResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of data items",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CourseResponseDto"
+            }
+          },
+          "pagination": {
+            "description": "Pagination metadata",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationMetaDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "data",
+          "pagination"
+        ]
+      },
+      "CourseCatalogDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "course_type": {
+            "type": "string",
+            "enum": [
+              "INTERNAL",
+              "EXTERNAL",
+              "ONLINE",
+              "VENDOR"
+            ]
+          },
+          "delivery_method": {
+            "type": "string",
+            "enum": [
+              "CLASSROOM",
+              "ONLINE",
+              "BLENDED",
+              "SELF_PACED",
+              "ON_THE_JOB"
+            ]
+          },
+          "duration_hours": {
+            "type": "number"
+          },
+          "cost_per_person": {
+            "type": "number"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "certificate_awarded": {
+            "type": "boolean"
+          },
+          "cpd_points": {
+            "type": "number"
+          },
+          "upcoming_sessions": {
+            "type": "number"
+          },
+          "next_session_date": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "description",
+          "course_type",
+          "delivery_method",
+          "duration_hours",
+          "cost_per_person",
+          "currency",
+          "certificate_awarded",
+          "cpd_points",
+          "upcoming_sessions",
+          "next_session_date"
+        ]
+      },
+      "UpdateCourseDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Advanced TypeScript"
+          },
+          "description": {
+            "type": "string",
+            "example": "Master advanced TypeScript concepts"
+          },
+          "course_type": {
+            "type": "string",
+            "example": "INTERNAL",
+            "enum": [
+              "INTERNAL",
+              "EXTERNAL",
+              "ONLINE",
+              "VENDOR"
+            ]
+          },
+          "delivery_method": {
+            "type": "string",
+            "example": "ONLINE",
+            "enum": [
+              "CLASSROOM",
+              "ONLINE",
+              "BLENDED",
+              "SELF_PACED",
+              "ON_THE_JOB"
+            ]
+          },
+          "duration_hours": {
+            "type": "number",
+            "example": 24
+          },
+          "max_participants": {
+            "type": "number",
+            "example": 30
+          },
+          "prerequisites": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "learning_objectives": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "target_skills": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "content_outline": {
+            "type": "string"
+          },
+          "materials_required": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "cost_per_person": {
+            "type": "number",
+            "example": 350
+          },
+          "currency": {
+            "type": "string",
+            "example": "GBP"
+          },
+          "provider_name": {
+            "type": "string"
+          },
+          "provider_contact": {
+            "type": "object"
+          },
+          "status": {
+            "type": "string",
+            "example": "ACTIVE",
+            "enum": [
+              "DRAFT",
+              "ACTIVE",
+              "PAUSED",
+              "RETIRED",
+              "ARCHIVED"
+            ]
+          },
+          "approval_required": {
+            "type": "boolean",
+            "example": false
+          },
+          "certificate_awarded": {
+            "type": "boolean",
+            "example": true
+          },
+          "cpd_points": {
+            "type": "number",
+            "example": 15
+          }
+        }
+      },
+      "CreateSessionDto": {
+        "type": "object",
+        "properties": {
+          "course_id": {
+            "type": "string",
+            "example": "uuid-of-course"
+          },
+          "session_name": {
+            "type": "string",
+            "example": "January 2024 Session"
+          },
+          "start_date": {
+            "type": "string",
+            "example": "2024-01-15T09:00:00Z"
+          },
+          "end_date": {
+            "type": "string",
+            "example": "2024-01-17T17:00:00Z"
+          },
+          "location": {
+            "type": "string",
+            "example": "Training Room A, Building 2"
+          },
+          "virtual_meeting_link": {
+            "type": "string",
+            "example": "https://teams.microsoft.com/meet/xxx"
+          },
+          "instructor_id": {
+            "type": "string",
+            "example": "uuid-of-instructor"
+          },
+          "external_instructor_name": {
+            "type": "string",
+            "example": "Dr. Jane Smith"
+          },
+          "max_capacity": {
+            "type": "number",
+            "example": 20
+          },
+          "status": {
+            "type": "string",
+            "example": "SCHEDULED",
+            "enum": [
+              "SCHEDULED",
+              "IN_PROGRESS",
+              "COMPLETED",
+              "CANCELLED",
+              "POSTPONED"
+            ]
+          },
+          "session_notes": {
+            "type": "string",
+            "example": "Please bring laptops with Node.js installed"
+          }
+        },
+        "required": [
+          "course_id",
+          "start_date",
+          "end_date"
+        ]
+      },
+      "SessionResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "tenant_id": {
+            "type": "string"
+          },
+          "course_id": {
+            "type": "string"
+          },
+          "session_name": {
+            "type": "object"
+          },
+          "start_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "end_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "location": {
+            "type": "object"
+          },
+          "virtual_meeting_link": {
+            "type": "object"
+          },
+          "instructor_id": {
+            "type": "object"
+          },
+          "external_instructor_name": {
+            "type": "object"
+          },
+          "max_capacity": {
+            "type": "object"
+          },
+          "current_enrollment": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "SCHEDULED",
+              "IN_PROGRESS",
+              "COMPLETED",
+              "CANCELLED",
+              "POSTPONED"
+            ]
+          },
+          "session_notes": {
+            "type": "object"
+          },
+          "evaluation_form_id": {
+            "type": "object"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "course": {
+            "type": "object"
+          },
+          "instructor": {
+            "type": "object"
+          },
+          "session_enrollments": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "tenant_id",
+          "course_id",
+          "start_date",
+          "end_date",
+          "current_enrollment",
+          "status",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "PaginatedSessionResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of data items",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SessionResponseDto"
+            }
+          },
+          "pagination": {
+            "description": "Pagination metadata",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationMetaDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "data",
+          "pagination"
+        ]
+      },
+      "SessionAvailabilityDto": {
+        "type": "object",
+        "properties": {
+          "session_id": {
+            "type": "string"
+          },
+          "course_title": {
+            "type": "string"
+          },
+          "start_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "end_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "location": {
+            "type": "object"
+          },
+          "virtual_meeting_link": {
+            "type": "object"
+          },
+          "max_capacity": {
+            "type": "number"
+          },
+          "current_enrollment": {
+            "type": "number"
+          },
+          "available_seats": {
+            "type": "number"
+          },
+          "is_full": {
+            "type": "boolean"
+          },
+          "is_waitlist_available": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "session_id",
+          "course_title",
+          "start_date",
+          "end_date",
+          "max_capacity",
+          "current_enrollment",
+          "available_seats",
+          "is_full",
+          "is_waitlist_available"
+        ]
+      },
+      "UpdateSessionDto": {
+        "type": "object",
+        "properties": {
+          "session_name": {
+            "type": "string",
+            "example": "February 2024 Session"
+          },
+          "start_date": {
+            "type": "string",
+            "example": "2024-02-15T09:00:00Z"
+          },
+          "end_date": {
+            "type": "string",
+            "example": "2024-02-17T17:00:00Z"
+          },
+          "location": {
+            "type": "string",
+            "example": "Conference Room B"
+          },
+          "virtual_meeting_link": {
+            "type": "string",
+            "example": "https://zoom.us/j/xxx"
+          },
+          "instructor_id": {
+            "type": "string",
+            "example": "uuid-of-instructor"
+          },
+          "external_instructor_name": {
+            "type": "string",
+            "example": "Prof. John Doe"
+          },
+          "max_capacity": {
+            "type": "number",
+            "example": 25
+          },
+          "status": {
+            "type": "string",
+            "example": "IN_PROGRESS",
+            "enum": [
+              "SCHEDULED",
+              "IN_PROGRESS",
+              "COMPLETED",
+              "CANCELLED",
+              "POSTPONED"
+            ]
+          },
+          "session_notes": {
+            "type": "string",
+            "example": "Session rescheduled due to instructor availability"
+          }
+        }
+      },
+      "CreateReportTemplateDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Monthly Payroll Report"
+          },
+          "category": {
+            "type": "string",
+            "example": "PAYROLL",
+            "enum": [
+              "EMPLOYEE",
+              "PERFORMANCE",
+              "PAYROLL",
+              "RECRUITMENT",
+              "ATTENDANCE",
+              "LEAVE",
+              "TRAINING",
+              "CUSTOM"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "example": "Monthly payroll summary with department breakdown"
+          },
+          "report_type": {
+            "type": "string",
+            "example": "STANDARD",
+            "enum": [
+              "STANDARD",
+              "CUSTOM",
+              "DASHBOARD"
+            ]
+          },
+          "data_sources": {
+            "type": "object",
+            "example": {
+              "tables": [
+                "employees",
+                "payroll_runs"
+              ],
+              "joins": [
+                "department",
+                "job"
+              ]
+            }
+          },
+          "fields": {
+            "type": "object",
+            "example": {
+              "columns": [
+                "employee_name",
+                "department",
+                "salary",
+                "deductions"
+              ]
+            }
+          },
+          "filters": {
+            "type": "object",
+            "example": {
+              "date_range": "last_month",
+              "department_id": null
+            }
+          },
+          "chart_config": {
+            "type": "object",
+            "example": {
+              "type": "bar",
+              "x_axis": "department",
+              "y_axis": "total_salary"
+            }
+          },
+          "layout_config": {
+            "type": "object",
+            "example": {
+              "orientation": "portrait",
+              "include_logo": true
+            }
+          },
+          "schedule_config": {
+            "type": "object",
+            "example": {
+              "frequency": "monthly",
+              "day_of_month": 1
+            }
+          },
+          "access_level": {
+            "type": "string",
+            "example": "DEPARTMENT",
+            "enum": [
+              "PRIVATE",
+              "DEPARTMENT",
+              "COMPANY",
+              "PUBLIC"
+            ]
+          },
+          "active": {
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "ReportTemplateResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "tenant_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "EMPLOYEE",
+              "PERFORMANCE",
+              "PAYROLL",
+              "RECRUITMENT",
+              "ATTENDANCE",
+              "LEAVE",
+              "TRAINING",
+              "CUSTOM"
+            ]
+          },
+          "description": {
+            "type": "object"
+          },
+          "report_type": {
+            "type": "string",
+            "enum": [
+              "STANDARD",
+              "CUSTOM",
+              "DASHBOARD"
+            ]
+          },
+          "data_sources": {
+            "type": "object"
+          },
+          "fields": {
+            "type": "object"
+          },
+          "filters": {
+            "type": "object"
+          },
+          "chart_config": {
+            "type": "object"
+          },
+          "layout_config": {
+            "type": "object"
+          },
+          "schedule_config": {
+            "type": "object"
+          },
+          "access_level": {
+            "type": "string",
+            "enum": [
+              "PRIVATE",
+              "DEPARTMENT",
+              "COMPANY",
+              "PUBLIC"
+            ]
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "created_by_id": {
+            "type": "object"
+          },
+          "updated_by_id": {
+            "type": "object"
+          },
+          "created_by": {
+            "type": "object"
+          },
+          "updated_by": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "tenant_id",
+          "name",
+          "category",
+          "report_type",
+          "access_level",
+          "active",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "PaginatedReportTemplateResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of data items",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReportTemplateResponseDto"
+            }
+          },
+          "pagination": {
+            "description": "Pagination metadata",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationMetaDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "data",
+          "pagination"
+        ]
+      },
+      "UpdateReportTemplateDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Updated Report Name"
+          },
+          "category": {
+            "type": "string",
+            "example": "EMPLOYEE",
+            "enum": [
+              "EMPLOYEE",
+              "PERFORMANCE",
+              "PAYROLL",
+              "RECRUITMENT",
+              "ATTENDANCE",
+              "LEAVE",
+              "TRAINING",
+              "CUSTOM"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "report_type": {
+            "type": "string",
+            "example": "CUSTOM",
+            "enum": [
+              "STANDARD",
+              "CUSTOM",
+              "DASHBOARD"
+            ]
+          },
+          "data_sources": {
+            "type": "object"
+          },
+          "fields": {
+            "type": "object"
+          },
+          "filters": {
+            "type": "object"
+          },
+          "chart_config": {
+            "type": "object"
+          },
+          "layout_config": {
+            "type": "object"
+          },
+          "schedule_config": {
+            "type": "object"
+          },
+          "access_level": {
+            "type": "string",
+            "example": "COMPANY",
+            "enum": [
+              "PRIVATE",
+              "DEPARTMENT",
+              "COMPANY",
+              "PUBLIC"
+            ]
+          },
+          "active": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "GenerateReportInstanceDto": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "example": "uuid-of-template"
+          },
+          "report_name": {
+            "type": "string",
+            "example": "Q1 Sales Report 2024"
+          },
+          "parameters": {
+            "type": "object",
+            "example": {
+              "date_from": "2024-01-01",
+              "date_to": "2024-03-31",
+              "department_id": "uuid"
+            }
+          },
+          "file_format": {
+            "type": "string",
+            "example": "PDF",
+            "enum": [
+              "PDF",
+              "EXCEL",
+              "CSV",
+              "JSON"
+            ]
+          },
+          "expires_at": {
+            "type": "string",
+            "example": "2024-12-31T23:59:59Z"
+          }
+        },
+        "required": [
+          "report_name"
+        ]
+      },
+      "ReportInstanceResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "tenant_id": {
+            "type": "string"
+          },
+          "template_id": {
+            "type": "object"
+          },
+          "report_name": {
+            "type": "string"
+          },
+          "parameters": {
+            "type": "object"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "GENERATING",
+              "COMPLETED",
+              "FAILED",
+              "EXPIRED"
+            ]
+          },
+          "file_path": {
+            "type": "object"
+          },
+          "file_format": {
+            "type": "string",
+            "enum": [
+              "PDF",
+              "EXCEL",
+              "CSV",
+              "JSON"
+            ]
+          },
+          "file_size": {
+            "type": "object"
+          },
+          "generated_at": {
+            "type": "object"
+          },
+          "generated_by_id": {
+            "type": "object"
+          },
+          "generated_by": {
+            "type": "object"
+          },
+          "expires_at": {
+            "type": "object"
+          },
+          "download_count": {
+            "type": "number"
+          },
+          "last_downloaded": {
+            "type": "object"
+          },
+          "error_message": {
+            "type": "object"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "template": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "tenant_id",
+          "report_name",
+          "status",
+          "file_format",
+          "download_count",
+          "created_at"
+        ]
+      },
+      "PaginatedReportInstanceResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of data items",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReportInstanceResponseDto"
+            }
+          },
+          "pagination": {
+            "description": "Pagination metadata",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationMetaDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "data",
+          "pagination"
+        ]
+      },
+      "ReportGenerationStatusDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "GENERATING",
+              "COMPLETED",
+              "FAILED",
+              "EXPIRED"
+            ]
+          },
+          "progress": {
+            "type": "number"
+          },
+          "message": {
+            "type": "string"
+          },
+          "file_path": {
+            "type": "string"
+          },
+          "download_url": {
+            "type": "string"
+          },
+          "error_message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "status"
+        ]
+      },
+      "CreateDashboardDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "HR Overview Dashboard"
+          },
+          "description": {
+            "type": "string",
+            "example": "Main HR metrics and KPIs dashboard"
+          },
+          "dashboard_type": {
+            "type": "string",
+            "example": "OVERVIEW",
+            "enum": [
+              "OVERVIEW",
+              "DEPARTMENT",
+              "EXECUTIVE",
+              "OPERATIONAL",
+              "CUSTOM"
+            ]
+          },
+          "layout": {
+            "type": "object",
+            "example": {
+              "rows": 3,
+              "columns": 4,
+              "breakpoints": {
+                "lg": 1200,
+                "md": 996,
+                "sm": 768
+              }
+            }
+          },
+          "widgets": {
+            "type": "object",
+            "example": [
+              {
+                "id": "widget1",
+                "type": "chart",
+                "title": "Employee Count",
+                "config": {
+                  "chartType": "line"
+                }
+              }
+            ]
+          },
+          "refresh_interval": {
+            "type": "number",
+            "example": 300
+          },
+          "access_permissions": {
+            "type": "object",
+            "example": {
+              "roles": [
+                "HR_MANAGER",
+                "ADMIN"
+              ],
+              "departments": [
+                "HR"
+              ]
+            }
+          },
+          "is_default": {
+            "type": "boolean",
+            "example": false
+          },
+          "active": {
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "required": [
+          "name",
+          "layout",
+          "widgets"
+        ]
+      },
+      "DashboardResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "tenant_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "object"
+          },
+          "dashboard_type": {
+            "type": "string",
+            "enum": [
+              "OVERVIEW",
+              "DEPARTMENT",
+              "EXECUTIVE",
+              "OPERATIONAL",
+              "CUSTOM"
+            ]
+          },
+          "layout": {
+            "type": "object"
+          },
+          "widgets": {
+            "type": "object"
+          },
+          "refresh_interval": {
+            "type": "number"
+          },
+          "access_permissions": {
+            "type": "object"
+          },
+          "is_default": {
+            "type": "boolean"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "created_by_id": {
+            "type": "object"
+          },
+          "created_by": {
+            "type": "object"
+          },
+          "updated_by_id": {
+            "type": "object"
+          },
+          "updated_by": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "tenant_id",
+          "name",
+          "dashboard_type",
+          "layout",
+          "widgets",
+          "refresh_interval",
+          "is_default",
+          "active",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "PaginatedDashboardResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of data items",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DashboardResponseDto"
+            }
+          },
+          "pagination": {
+            "description": "Pagination metadata",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationMetaDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "data",
+          "pagination"
+        ]
+      },
+      "DashboardWidgetDataDto": {
+        "type": "object",
+        "properties": {
+          "widget_id": {
+            "type": "string"
+          },
+          "widget_type": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object"
+          },
+          "last_updated": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "widget_id",
+          "widget_type",
+          "title",
+          "data"
+        ]
+      },
+      "DashboardDataResponseDto": {
+        "type": "object",
+        "properties": {
+          "dashboard_id": {
+            "type": "string"
+          },
+          "dashboard_name": {
+            "type": "string"
+          },
+          "widgets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DashboardWidgetDataDto"
+            }
+          },
+          "generated_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "next_refresh": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "dashboard_id",
+          "dashboard_name",
+          "widgets",
+          "generated_at"
+        ]
+      },
+      "UpdateDashboardDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Updated Dashboard Name"
+          },
+          "description": {
+            "type": "string"
+          },
+          "dashboard_type": {
+            "type": "string",
+            "example": "EXECUTIVE",
+            "enum": [
+              "OVERVIEW",
+              "DEPARTMENT",
+              "EXECUTIVE",
+              "OPERATIONAL",
+              "CUSTOM"
+            ]
+          },
+          "layout": {
+            "type": "object"
+          },
+          "widgets": {
+            "type": "object"
+          },
+          "refresh_interval": {
+            "type": "number"
+          },
+          "access_permissions": {
+            "type": "object"
+          },
+          "is_default": {
+            "type": "boolean"
+          },
+          "active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CreateCaseDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Employee Grievance - Workplace Conflict"
+          },
+          "description": {
+            "type": "string",
+            "example": "Detailed description of the case..."
+          },
+          "category_id": {
+            "type": "string",
+            "example": "uuid-of-category"
+          },
+          "priority": {
+            "type": "string",
+            "example": "HIGH",
+            "enum": [
+              "LOW",
+              "MEDIUM",
+              "HIGH",
+              "CRITICAL"
+            ]
+          },
+          "severity": {
+            "type": "string",
+            "example": "high"
+          },
+          "reported_by": {
+            "type": "string",
+            "example": "uuid-of-reporter"
+          },
+          "assigned_to": {
+            "type": "string",
+            "example": "uuid-of-assignee"
+          },
+          "affected_employees": {
+            "example": [
+              "uuid1",
+              "uuid2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "case_data": {
+            "type": "object",
+            "example": {
+              "additional_info": "value"
+            }
+          },
+          "due_date": {
+            "type": "string",
+            "example": "2024-12-31"
+          }
+        },
+        "required": [
+          "title",
+          "description",
+          "category_id",
+          "reported_by"
+        ]
+      },
+      "UpdateCaseDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Updated title"
+          },
+          "description": {
+            "type": "string",
+            "example": "Updated description"
+          },
+          "priority": {
+            "type": "string",
+            "example": "MEDIUM",
+            "enum": [
+              "LOW",
+              "MEDIUM",
+              "HIGH",
+              "CRITICAL"
+            ]
+          },
+          "severity": {
+            "type": "string",
+            "example": "medium"
+          },
+          "status": {
+            "type": "string",
+            "example": "IN_PROGRESS",
+            "enum": [
+              "OPEN",
+              "IN_PROGRESS",
+              "RESOLVED",
+              "CLOSED",
+              "CANCELLED"
+            ]
+          },
+          "assigned_to": {
+            "type": "string",
+            "example": "uuid-of-assignee"
+          },
+          "affected_employees": {
+            "example": [
+              "uuid1",
+              "uuid2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "case_data": {
+            "type": "object",
+            "example": {
+              "additional_info": "value"
+            }
+          },
+          "due_date": {
+            "type": "string",
+            "example": "2024-12-31"
+          }
+        }
+      },
+      "ResolveCaseDto": {
+        "type": "object",
+        "properties": {
+          "resolution": {
+            "type": "string",
+            "example": "Case resolved with warning issued"
+          },
+          "outcome_details": {
+            "type": "string",
+            "example": "Detailed outcome of the case..."
+          }
+        },
+        "required": [
+          "resolution"
+        ]
+      },
+      "CreateCaseActivityDto": {
+        "type": "object",
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "example": "uuid-of-case"
+          },
+          "activity_type": {
+            "type": "string",
+            "example": "NOTE"
+          },
+          "title": {
+            "type": "string",
+            "example": "Initial meeting with involved parties"
+          },
+          "description": {
+            "type": "string",
+            "example": "Detailed description of the activity..."
+          },
+          "performed_by": {
+            "type": "string",
+            "example": "uuid-of-performer"
+          },
+          "activity_data": {
+            "type": "object",
+            "example": {
+              "participants": [
+                "John Doe",
+                "Jane Smith"
+              ]
+            }
+          },
+          "is_internal": {
+            "type": "boolean",
+            "example": false
+          }
+        },
+        "required": [
+          "case_id",
+          "activity_type",
+          "performed_by"
+        ]
+      },
+      "UpdateCaseActivityDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Updated title"
+          },
+          "description": {
+            "type": "string",
+            "example": "Updated description"
+          },
+          "activity_data": {
+            "type": "object",
+            "example": {
+              "participants": [
+                "John Doe"
+              ]
+            }
+          },
+          "is_internal": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "CreateCaseCategoryDto": {
+        "type": "object",
+        "properties": {
+          "category_name": {
+            "type": "string",
+            "example": "Disciplinary"
+          },
+          "description": {
+            "type": "string",
+            "example": "Cases related to disciplinary actions"
+          },
+          "severity_levels": {
+            "example": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "default_priority": {
+            "type": "string",
+            "example": "medium"
+          },
+          "sla_hours": {
+            "type": "number",
+            "example": 48
+          },
+          "escalation_rules": {
+            "type": "object",
+            "example": {
+              "escalate_after": 24
+            }
+          },
+          "required_fields": {
+            "type": "object",
+            "example": [
+              "description",
+              "incident_date"
+            ]
+          },
+          "is_active": {
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "required": [
+          "category_name"
+        ]
+      },
+      "UpdateCaseCategoryDto": {
+        "type": "object",
+        "properties": {
+          "category_name": {
+            "type": "string",
+            "example": "Updated Category Name"
+          },
+          "description": {
+            "type": "string",
+            "example": "Updated description"
+          },
+          "severity_levels": {
+            "example": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "default_priority": {
+            "type": "string",
+            "example": "high"
+          },
+          "sla_hours": {
+            "type": "number",
+            "example": 72
+          },
+          "escalation_rules": {
+            "type": "object",
+            "example": {
+              "escalate_after": 48
+            }
+          },
+          "required_fields": {
+            "type": "object",
+            "example": [
+              "description"
+            ]
+          },
+          "is_active": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "CreateNotificationTemplateDto": {
+        "type": "object",
+        "properties": {
+          "template_name": {
+            "type": "string",
+            "example": "performance_review_reminder"
+          },
+          "template_type": {
+            "type": "string",
+            "example": "PERFORMANCE_REVIEW"
+          },
+          "channel": {
+            "type": "string",
+            "example": "EMAIL",
+            "enum": [
+              "EMAIL",
+              "IN_APP",
+              "SMS",
+              "SLACK"
+            ]
+          },
+          "subject_template": {
+            "type": "string",
+            "example": "Performance Review Due: {{employeeName}}"
+          },
+          "body_template": {
+            "type": "string",
+            "example": "Dear {{managerName}}, Performance review for {{employeeName}} is due on {{dueDate}}."
+          },
+          "variables": {
+            "example": [
+              "employeeName",
+              "managerName",
+              "dueDate"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "conditions": {
+            "type": "object",
+            "example": {
+              "department": "HR",
+              "role": "MANAGER"
+            }
+          },
+          "is_active": {
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "required": [
+          "template_name",
+          "template_type",
+          "channel",
+          "body_template"
+        ]
+      },
+      "UpdateNotificationTemplateDto": {
+        "type": "object",
+        "properties": {
+          "template_name": {
+            "type": "string",
+            "example": "updated_template_name"
+          },
+          "template_type": {
+            "type": "string",
+            "example": "UPDATED_TYPE"
+          },
+          "channel": {
+            "type": "string",
+            "example": "SMS",
+            "enum": [
+              "EMAIL",
+              "IN_APP",
+              "SMS",
+              "SLACK"
+            ]
+          },
+          "subject_template": {
+            "type": "string",
+            "example": "Updated Subject"
+          },
+          "body_template": {
+            "type": "string",
+            "example": "Updated body template"
+          },
+          "variables": {
+            "example": [
+              "var1",
+              "var2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "conditions": {
+            "type": "object",
+            "example": {
+              "updated": true
+            }
+          },
+          "is_active": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "SendNotificationDto": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "example": "uuid-of-template"
+          },
+          "recipient_id": {
+            "type": "string",
+            "example": "uuid-of-recipient"
+          },
+          "variables": {
+            "type": "object",
+            "example": {
+              "employeeName": "John Doe",
+              "dueDate": "2024-12-31"
+            }
+          },
+          "priority": {
+            "type": "string",
+            "example": "HIGH",
+            "enum": [
+              "LOW",
+              "MEDIUM",
+              "HIGH",
+              "CRITICAL"
+            ]
+          },
+          "scheduled_at": {
+            "type": "string",
+            "example": "2024-12-25T10:00:00Z"
+          },
+          "metadata": {
+            "type": "object",
+            "example": {
+              "cc": [
+                "manager@example.com"
+              ]
+            }
+          }
+        },
+        "required": [
+          "template_id",
+          "recipient_id",
+          "variables"
+        ]
+      },
+      "BulkSendNotificationDto": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "example": "uuid-of-template"
+          },
+          "recipient_ids": {
+            "example": [
+              "uuid1",
+              "uuid2",
+              "uuid3"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "variables": {
+            "type": "object",
+            "example": {
+              "defaultVar": "value"
+            }
+          },
+          "priority": {
+            "type": "string",
+            "example": "MEDIUM",
+            "enum": [
+              "LOW",
+              "MEDIUM",
+              "HIGH",
+              "CRITICAL"
+            ]
+          },
+          "scheduled_at": {
+            "type": "string",
+            "example": "2024-12-25T10:00:00Z"
+          }
+        },
+        "required": [
+          "template_id",
+          "recipient_ids",
+          "variables"
+        ]
+      },
+      "RetryNotificationDto": {
+        "type": "object",
+        "properties": {
+          "max_retries": {
+            "type": "number",
+            "example": 3
+          },
+          "retry_delay": {
+            "type": "number",
+            "example": 5000
           }
         }
       }
