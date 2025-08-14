@@ -10902,6 +10902,1709 @@
         ]
       }
     },
+    "/admin/leave-type-templates": {
+      "get": {
+        "operationId": "AdminController_getLeaveTypeTemplates",
+        "parameters": [
+          {
+            "name": "code",
+            "required": false,
+            "in": "query",
+            "description": "Filter by code (partial match)",
+            "schema": {
+              "example": "ANNUAL",
+              "type": "string"
+            }
+          },
+          {
+            "name": "name",
+            "required": false,
+            "in": "query",
+            "description": "Filter by name (partial match)",
+            "schema": {
+              "example": "Leave",
+              "type": "string"
+            }
+          },
+          {
+            "name": "statutory",
+            "required": false,
+            "in": "query",
+            "description": "Filter by statutory status",
+            "schema": {
+              "example": true,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "paid",
+            "required": false,
+            "in": "query",
+            "description": "Filter by paid status",
+            "schema": {
+              "example": true,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "jurisdiction",
+            "required": false,
+            "in": "query",
+            "description": "Filter by jurisdiction",
+            "schema": {
+              "example": "England",
+              "type": "string"
+            }
+          },
+          {
+            "name": "is_active",
+            "required": false,
+            "in": "query",
+            "description": "Filter by active status",
+            "schema": {
+              "example": true,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Leave type templates retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminPaginatedLeaveTypeTemplateResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get all leave type templates",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "post": {
+        "operationId": "AdminController_createLeaveTypeTemplate",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminCreateLeaveTypeTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Leave type template created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminLeaveTypeTemplateResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Create leave type template",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/leave-type-templates/{id}": {
+      "get": {
+        "operationId": "AdminController_getLeaveTypeTemplate",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Leave type template retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminLeaveTypeTemplateResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get leave type template by ID",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "put": {
+        "operationId": "AdminController_updateLeaveTypeTemplate",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminUpdateLeaveTypeTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Leave type template updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminLeaveTypeTemplateResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Update leave type template",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "delete": {
+        "operationId": "AdminController_deleteLeaveTypeTemplate",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Leave type template deleted successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Delete leave type template",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/leave-type-templates/import": {
+      "post": {
+        "operationId": "AdminController_importLeaveTypeTemplates",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminBulkImportLeaveTypeTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Leave type templates imported successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Import leave type templates from Excel/CSV file",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/leave-type-templates/export/{format}": {
+      "get": {
+        "operationId": "AdminController_exportLeaveTypeTemplates",
+        "parameters": [
+          {
+            "name": "format",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "code",
+            "required": false,
+            "in": "query",
+            "description": "Filter by code (partial match)",
+            "schema": {
+              "example": "ANNUAL",
+              "type": "string"
+            }
+          },
+          {
+            "name": "name",
+            "required": false,
+            "in": "query",
+            "description": "Filter by name (partial match)",
+            "schema": {
+              "example": "Leave",
+              "type": "string"
+            }
+          },
+          {
+            "name": "statutory",
+            "required": false,
+            "in": "query",
+            "description": "Filter by statutory status",
+            "schema": {
+              "example": true,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "paid",
+            "required": false,
+            "in": "query",
+            "description": "Filter by paid status",
+            "schema": {
+              "example": true,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "jurisdiction",
+            "required": false,
+            "in": "query",
+            "description": "Filter by jurisdiction",
+            "schema": {
+              "example": "England",
+              "type": "string"
+            }
+          },
+          {
+            "name": "is_active",
+            "required": false,
+            "in": "query",
+            "description": "Filter by active status",
+            "schema": {
+              "example": true,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Leave type templates exported successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Export leave type templates to Excel/CSV",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/leave-type-templates/template/{format}": {
+      "get": {
+        "operationId": "AdminController_downloadLeaveTypeTemplateTemplate",
+        "parameters": [
+          {
+            "name": "format",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Template downloaded successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Download leave type template import template",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/leave-type-templates/{id}/deploy": {
+      "post": {
+        "operationId": "AdminController_deployLeaveTypeTemplate",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminDeployLeaveTypeTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Leave type template deployed successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Deploy leave type template to specified tenants",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/leave-type-templates/{id}/usage": {
+      "get": {
+        "operationId": "AdminController_getLeaveTypeTemplateUsage",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usage statistics retrieved successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get usage statistics for leave type template",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/learning-content-templates": {
+      "get": {
+        "operationId": "AdminController_getLearningContentTemplates",
+        "parameters": [
+          {
+            "name": "code",
+            "required": false,
+            "in": "query",
+            "description": "Filter by code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "title",
+            "required": false,
+            "in": "query",
+            "description": "Filter by title",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "content_type",
+            "required": false,
+            "in": "query",
+            "description": "Filter by content type",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "VIDEO",
+                "DOCUMENT",
+                "PRESENTATION",
+                "INTERACTIVE",
+                "ASSESSMENT",
+                "WEBINAR",
+                "COURSE"
+              ]
+            }
+          },
+          {
+            "name": "category",
+            "required": false,
+            "in": "query",
+            "description": "Filter by category",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "learning_level",
+            "required": false,
+            "in": "query",
+            "description": "Filter by learning level",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "BEGINNER",
+                "INTERMEDIATE",
+                "ADVANCED",
+                "EXPERT"
+              ]
+            }
+          },
+          {
+            "name": "compliance_requirement",
+            "required": false,
+            "in": "query",
+            "description": "Filter by compliance requirement",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "is_active",
+            "required": false,
+            "in": "query",
+            "description": "Filter by active status",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Learning content templates retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminPaginatedLearningContentTemplateResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get all learning content templates",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "post": {
+        "operationId": "AdminController_createLearningContentTemplate",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminCreateLearningContentTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Learning content template created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminLearningContentTemplateResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Create learning content template",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/learning-content-templates/{id}": {
+      "get": {
+        "operationId": "AdminController_getLearningContentTemplate",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Learning content template retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminLearningContentTemplateResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get learning content template by ID",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "put": {
+        "operationId": "AdminController_updateLearningContentTemplate",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminUpdateLearningContentTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Learning content template updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminLearningContentTemplateResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Update learning content template",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "delete": {
+        "operationId": "AdminController_deleteLearningContentTemplate",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Learning content template deleted successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Delete learning content template",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/learning-path-templates": {
+      "get": {
+        "operationId": "AdminController_getLearningPathTemplates",
+        "parameters": [
+          {
+            "name": "code",
+            "required": false,
+            "in": "query",
+            "description": "Filter by code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "title",
+            "required": false,
+            "in": "query",
+            "description": "Filter by title",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "path_type",
+            "required": false,
+            "in": "query",
+            "description": "Filter by path type",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mandatory",
+            "required": false,
+            "in": "query",
+            "description": "Filter by mandatory status",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "certification_available",
+            "required": false,
+            "in": "query",
+            "description": "Filter by certification availability",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "is_active",
+            "required": false,
+            "in": "query",
+            "description": "Filter by active status",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Learning path templates retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminPaginatedLearningPathTemplateResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get all learning path templates",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "post": {
+        "operationId": "AdminController_createLearningPathTemplate",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminCreateLearningPathTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Learning path template created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminLearningPathTemplateResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Create learning path template",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/learning-path-templates/{id}": {
+      "get": {
+        "operationId": "AdminController_getLearningPathTemplate",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Learning path template retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminLearningPathTemplateResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get learning path template by ID",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "put": {
+        "operationId": "AdminController_updateLearningPathTemplate",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminUpdateLearningPathTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Learning path template updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminLearningPathTemplateResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Update learning path template",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "delete": {
+        "operationId": "AdminController_deleteLearningPathTemplate",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Learning path template deleted successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Delete learning path template",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/compliance-check-templates": {
+      "get": {
+        "operationId": "AdminController_getComplianceCheckTemplates",
+        "parameters": [
+          {
+            "name": "template_code",
+            "required": false,
+            "in": "query",
+            "description": "Filter by template code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "template_name",
+            "required": false,
+            "in": "query",
+            "description": "Filter by template name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "is_system_template",
+            "required": false,
+            "in": "query",
+            "description": "Filter by system template status",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "is_active",
+            "required": false,
+            "in": "query",
+            "description": "Filter by active status",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Compliance check templates retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminPaginatedComplianceCheckTemplateResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get all compliance check templates",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "post": {
+        "operationId": "AdminController_createComplianceCheckTemplate",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminCreateComplianceCheckTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Compliance check template created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminComplianceCheckTemplateResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Create compliance check template",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/compliance-check-templates/{id}": {
+      "get": {
+        "operationId": "AdminController_getComplianceCheckTemplate",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Compliance check template retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminComplianceCheckTemplateResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get compliance check template by ID",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "put": {
+        "operationId": "AdminController_updateComplianceCheckTemplate",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminUpdateComplianceCheckTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Compliance check template updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminComplianceCheckTemplateResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Update compliance check template",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "delete": {
+        "operationId": "AdminController_deleteComplianceCheckTemplate",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Compliance check template deleted successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Delete compliance check template",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/analytics/dashboard": {
+      "get": {
+        "operationId": "AdminController_getAdminDashboard",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Dashboard summary retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminDashboardSummaryDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get comprehensive admin dashboard summary",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/analytics/system-metrics": {
+      "get": {
+        "operationId": "AdminController_getSystemMetrics",
+        "parameters": [
+          {
+            "name": "start_date",
+            "required": false,
+            "in": "query",
+            "description": "Start date for analytics",
+            "schema": {
+              "example": "2024-01-01",
+              "type": "string"
+            }
+          },
+          {
+            "name": "end_date",
+            "required": false,
+            "in": "query",
+            "description": "End date for analytics",
+            "schema": {
+              "example": "2024-12-31",
+              "type": "string"
+            }
+          },
+          {
+            "name": "period",
+            "required": false,
+            "in": "query",
+            "description": "Period for grouping analytics",
+            "schema": {
+              "default": "MONTHLY",
+              "type": "string",
+              "enum": [
+                "DAILY",
+                "WEEKLY",
+                "MONTHLY",
+                "QUARTERLY",
+                "YEARLY"
+              ]
+            }
+          },
+          {
+            "name": "metric",
+            "required": false,
+            "in": "query",
+            "description": "Specific metric to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "System metrics retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SystemMetricDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get system-wide metrics and analytics",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/analytics/system-health": {
+      "get": {
+        "operationId": "AdminController_getSystemHealth",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "System health status retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SystemHealthDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get system health status",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/analytics/tenant-statistics": {
+      "get": {
+        "operationId": "AdminController_getTenantStatistics",
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "required": false,
+            "in": "query",
+            "description": "Filter by tenant ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "active_only",
+            "required": false,
+            "in": "query",
+            "description": "Filter by active status",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "include_details",
+            "required": false,
+            "in": "query",
+            "description": "Include detailed breakdown",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tenant statistics retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CrossTenantStatisticsDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get cross-tenant statistics",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/analytics/tenant-usage/{tenantId}": {
+      "get": {
+        "operationId": "AdminController_getTenantUsage",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tenant usage statistics retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TenantUsageStatisticsDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get specific tenant usage statistics",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/analytics/template-usage": {
+      "get": {
+        "operationId": "AdminController_getTemplateUsageStatistics",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Template usage statistics retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TemplateUsageStatisticsDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get template usage statistics across tenants",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/analytics/compliance-overview": {
+      "get": {
+        "operationId": "AdminController_getComplianceStatistics",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Compliance statistics retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ComplianceStatisticsDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get compliance statistics overview",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/analytics/payroll-statistics": {
+      "get": {
+        "operationId": "AdminController_getPayrollStatistics",
+        "parameters": [
+          {
+            "name": "start_date",
+            "required": false,
+            "in": "query",
+            "description": "Start date for analytics",
+            "schema": {
+              "example": "2024-01-01",
+              "type": "string"
+            }
+          },
+          {
+            "name": "end_date",
+            "required": false,
+            "in": "query",
+            "description": "End date for analytics",
+            "schema": {
+              "example": "2024-12-31",
+              "type": "string"
+            }
+          },
+          {
+            "name": "period",
+            "required": false,
+            "in": "query",
+            "description": "Period for grouping analytics",
+            "schema": {
+              "default": "MONTHLY",
+              "type": "string",
+              "enum": [
+                "DAILY",
+                "WEEKLY",
+                "MONTHLY",
+                "QUARTERLY",
+                "YEARLY"
+              ]
+            }
+          },
+          {
+            "name": "metric",
+            "required": false,
+            "in": "query",
+            "description": "Specific metric to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Payroll statistics retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PayrollStatisticsDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get payroll statistics across all tenants",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/analytics/growth-metrics": {
+      "get": {
+        "operationId": "AdminController_getGrowthMetrics",
+        "parameters": [
+          {
+            "name": "start_date",
+            "required": false,
+            "in": "query",
+            "description": "Start date for analytics",
+            "schema": {
+              "example": "2024-01-01",
+              "type": "string"
+            }
+          },
+          {
+            "name": "end_date",
+            "required": false,
+            "in": "query",
+            "description": "End date for analytics",
+            "schema": {
+              "example": "2024-12-31",
+              "type": "string"
+            }
+          },
+          {
+            "name": "period",
+            "required": false,
+            "in": "query",
+            "description": "Period for grouping analytics",
+            "schema": {
+              "default": "MONTHLY",
+              "type": "string",
+              "enum": [
+                "DAILY",
+                "WEEKLY",
+                "MONTHLY",
+                "QUARTERLY",
+                "YEARLY"
+              ]
+            }
+          },
+          {
+            "name": "metric",
+            "required": false,
+            "in": "query",
+            "description": "Specific metric to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Growth metrics retrieved successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get platform growth metrics",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/analytics/generate-report": {
+      "post": {
+        "operationId": "AdminController_generateAnalyticsReport",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Report generated successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Generate custom analytics report",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
     "/ess/profile": {
       "get": {
         "description": "Retrieve the authenticated employee's profile information for self-service access",
@@ -28916,6 +30619,1585 @@
         },
         "required": [
           "duplicateHandling"
+        ]
+      },
+      "AdminLeaveTypeTemplateResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "code": {
+            "type": "string",
+            "description": "Short code for the leave type",
+            "example": "ANNUAL"
+          },
+          "name": {
+            "type": "string",
+            "description": "Human-readable name",
+            "example": "Annual Leave"
+          },
+          "statutory": {
+            "type": "boolean",
+            "description": "Whether the leave is statutory under UK law"
+          },
+          "max_days_per_year": {
+            "type": "object",
+            "description": "Maximum entitlement in days per leave year",
+            "example": 28
+          },
+          "accrual_based": {
+            "type": "boolean",
+            "description": "Whether entitlement accrues over time"
+          },
+          "paid": {
+            "type": "boolean",
+            "description": "Whether the leave is normally paid"
+          },
+          "hr_rate_code": {
+            "type": "object",
+            "description": "Reference into HR_RATE table for pay calculation",
+            "example": "STATUTORY_SICK_PAY"
+          },
+          "description": {
+            "type": "object",
+            "description": "Description of the leave type"
+          },
+          "jurisdictions": {
+            "description": "Which jurisdictions this applies to",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "version": {
+            "type": "string",
+            "description": "Version tracking for regulatory updates",
+            "example": "1.0.0"
+          },
+          "last_review_date": {
+            "type": "object",
+            "description": "When this template was last reviewed for compliance",
+            "example": "2024-01-01T00:00:00.000Z"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Whether the template is active"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Creation timestamp",
+            "example": "2024-01-01T00:00:00.000Z"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Last update timestamp",
+            "example": "2024-01-01T00:00:00.000Z"
+          },
+          "tenant_usage_count": {
+            "type": "number",
+            "description": "Number of tenants using this template",
+            "example": 10
+          }
+        },
+        "required": [
+          "id",
+          "code",
+          "name",
+          "statutory",
+          "accrual_based",
+          "paid",
+          "jurisdictions",
+          "version",
+          "is_active",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "AdminPaginatedLeaveTypeTemplateResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of leave type templates",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AdminLeaveTypeTemplateResponseDto"
+            }
+          },
+          "pagination": {
+            "description": "Pagination metadata",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationMetaDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "data",
+          "pagination"
+        ]
+      },
+      "AdminCreateLeaveTypeTemplateDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Short code for the leave type (e.g. \"ANNUAL\", \"SICK\")",
+            "example": "ANNUAL"
+          },
+          "name": {
+            "type": "string",
+            "description": "Human-readable name",
+            "example": "Annual Leave"
+          },
+          "statutory": {
+            "type": "boolean",
+            "description": "Whether the leave is statutory under UK law",
+            "default": false
+          },
+          "max_days_per_year": {
+            "type": "number",
+            "description": "Maximum entitlement in days per leave year",
+            "example": 28
+          },
+          "accrual_based": {
+            "type": "boolean",
+            "description": "Whether entitlement accrues over time",
+            "default": false
+          },
+          "paid": {
+            "type": "boolean",
+            "description": "Whether the leave is normally paid",
+            "default": true
+          },
+          "hr_rate_code": {
+            "type": "string",
+            "description": "Reference into HR_RATE table for pay calculation",
+            "example": "STATUTORY_SICK_PAY"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the leave type",
+            "example": "Standard annual leave entitlement for UK employees"
+          },
+          "jurisdictions": {
+            "description": "Which jurisdictions this applies to",
+            "default": [
+              "UK"
+            ],
+            "example": [
+              "England",
+              "Scotland",
+              "Wales",
+              "Northern Ireland"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "version": {
+            "type": "string",
+            "description": "Version tracking for regulatory updates",
+            "default": "1.0.0",
+            "example": "1.0.0"
+          },
+          "last_review_date": {
+            "type": "string",
+            "description": "When this template was last reviewed for compliance",
+            "example": "2024-01-01"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Whether the template is active",
+            "default": true
+          }
+        },
+        "required": [
+          "code",
+          "name"
+        ]
+      },
+      "AdminUpdateLeaveTypeTemplateDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Human-readable name",
+            "example": "Annual Leave"
+          },
+          "statutory": {
+            "type": "boolean",
+            "description": "Whether the leave is statutory under UK law"
+          },
+          "max_days_per_year": {
+            "type": "number",
+            "description": "Maximum entitlement in days per leave year",
+            "example": 28
+          },
+          "accrual_based": {
+            "type": "boolean",
+            "description": "Whether entitlement accrues over time"
+          },
+          "paid": {
+            "type": "boolean",
+            "description": "Whether the leave is normally paid"
+          },
+          "hr_rate_code": {
+            "type": "string",
+            "description": "Reference into HR_RATE table for pay calculation",
+            "example": "STATUTORY_SICK_PAY"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the leave type"
+          },
+          "jurisdictions": {
+            "description": "Which jurisdictions this applies to",
+            "example": [
+              "England",
+              "Scotland",
+              "Wales",
+              "Northern Ireland"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "version": {
+            "type": "string",
+            "description": "Version tracking for regulatory updates",
+            "example": "1.0.1"
+          },
+          "last_review_date": {
+            "type": "string",
+            "description": "When this template was last reviewed for compliance",
+            "example": "2024-01-01"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Whether the template is active"
+          }
+        }
+      },
+      "AdminBulkImportLeaveTypeTemplateDto": {
+        "type": "object",
+        "properties": {
+          "update_existing": {
+            "type": "boolean",
+            "description": "Whether to update existing templates with the same code",
+            "default": false
+          },
+          "skip_invalid": {
+            "type": "boolean",
+            "description": "Whether to skip invalid rows and continue importing",
+            "default": true
+          }
+        }
+      },
+      "AdminDeployLeaveTypeTemplateDto": {
+        "type": "object",
+        "properties": {
+          "tenant_ids": {
+            "description": "List of tenant IDs to deploy the template to",
+            "example": [
+              "tenant-1",
+              "tenant-2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "overwrite": {
+            "type": "boolean",
+            "description": "Whether to overwrite existing leave types with the same code",
+            "default": false
+          },
+          "activate": {
+            "type": "boolean",
+            "description": "Whether to make the deployed leave type active immediately",
+            "default": true
+          }
+        },
+        "required": [
+          "tenant_ids"
+        ]
+      },
+      "AdminLearningContentTemplateResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "title_en": {
+            "type": "string"
+          },
+          "description_en": {
+            "type": "object"
+          },
+          "content_type": {
+            "type": "string",
+            "enum": [
+              "VIDEO",
+              "DOCUMENT",
+              "PRESENTATION",
+              "INTERACTIVE",
+              "ASSESSMENT",
+              "WEBINAR",
+              "COURSE"
+            ]
+          },
+          "category": {
+            "type": "string"
+          },
+          "learning_level": {
+            "type": "string",
+            "enum": [
+              "BEGINNER",
+              "INTERMEDIATE",
+              "ADVANCED",
+              "EXPERT"
+            ]
+          },
+          "target_audience": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "estimated_duration_minutes": {
+            "type": "number"
+          },
+          "primary_file_path": {
+            "type": "object"
+          },
+          "learning_objectives": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "has_assessment": {
+            "type": "boolean"
+          },
+          "certification_available": {
+            "type": "boolean"
+          },
+          "mandatory_for_roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "compliance_requirement": {
+            "type": "boolean"
+          },
+          "version": {
+            "type": "string"
+          },
+          "last_review_date": {
+            "type": "object"
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "tenant_usage_count": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "code",
+          "title_en",
+          "content_type",
+          "category",
+          "learning_level",
+          "target_audience",
+          "estimated_duration_minutes",
+          "learning_objectives",
+          "has_assessment",
+          "certification_available",
+          "mandatory_for_roles",
+          "compliance_requirement",
+          "version",
+          "is_active",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "AdminPaginatedLearningContentTemplateResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of learning content templates",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AdminLearningContentTemplateResponseDto"
+            }
+          },
+          "pagination": {
+            "description": "Pagination metadata",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationMetaDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "data",
+          "pagination"
+        ]
+      },
+      "AdminCreateLearningContentTemplateDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Unique code for the learning content",
+            "example": "UK_GDPR_BASICS"
+          },
+          "title_en": {
+            "type": "string",
+            "description": "Title in English",
+            "example": "UK GDPR Basics"
+          },
+          "description_en": {
+            "type": "string",
+            "description": "Description in English",
+            "example": "Introduction to UK GDPR compliance requirements"
+          },
+          "content_type": {
+            "type": "string",
+            "enum": [
+              "VIDEO",
+              "DOCUMENT",
+              "PRESENTATION",
+              "INTERACTIVE",
+              "ASSESSMENT",
+              "WEBINAR",
+              "COURSE"
+            ],
+            "description": "Type of learning content",
+            "example": "VIDEO"
+          },
+          "category": {
+            "type": "string",
+            "description": "Category of the content",
+            "example": "Compliance"
+          },
+          "learning_level": {
+            "type": "string",
+            "enum": [
+              "BEGINNER",
+              "INTERMEDIATE",
+              "ADVANCED",
+              "EXPERT"
+            ],
+            "description": "Learning level",
+            "default": "BEGINNER"
+          },
+          "target_audience": {
+            "description": "Target audience roles",
+            "example": [
+              "HR_MANAGER",
+              "EMPLOYEE"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "estimated_duration_minutes": {
+            "type": "number",
+            "description": "Estimated duration in minutes",
+            "default": 30,
+            "example": 45
+          },
+          "primary_file_path": {
+            "type": "string",
+            "description": "Path to primary file",
+            "example": "/content/uk-gdpr-basics.mp4"
+          },
+          "learning_objectives": {
+            "description": "Learning objectives",
+            "example": [
+              "Understand GDPR principles",
+              "Know data subject rights"
+            ],
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "has_assessment": {
+            "type": "boolean",
+            "description": "Whether content has assessment",
+            "default": false
+          },
+          "certification_available": {
+            "type": "boolean",
+            "description": "Whether certification is available",
+            "default": false
+          },
+          "mandatory_for_roles": {
+            "description": "Roles for which this is mandatory",
+            "example": [
+              "DATA_PROCESSOR"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "compliance_requirement": {
+            "type": "boolean",
+            "description": "Whether this is a compliance requirement",
+            "default": false
+          },
+          "version": {
+            "type": "string",
+            "description": "Version of the content",
+            "default": "1.0.0",
+            "example": "1.0.0"
+          },
+          "last_review_date": {
+            "type": "string",
+            "description": "Last review date",
+            "example": "2024-01-01"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Whether the template is active",
+            "default": true
+          }
+        },
+        "required": [
+          "code",
+          "title_en",
+          "content_type",
+          "category",
+          "target_audience",
+          "mandatory_for_roles"
+        ]
+      },
+      "AdminUpdateLearningContentTemplateDto": {
+        "type": "object",
+        "properties": {
+          "title_en": {
+            "type": "string",
+            "description": "Title in English",
+            "example": "UK GDPR Basics"
+          },
+          "description_en": {
+            "type": "string",
+            "description": "Description in English"
+          },
+          "content_type": {
+            "type": "string",
+            "enum": [
+              "VIDEO",
+              "DOCUMENT",
+              "PRESENTATION",
+              "INTERACTIVE",
+              "ASSESSMENT",
+              "WEBINAR",
+              "COURSE"
+            ],
+            "description": "Type of learning content"
+          },
+          "category": {
+            "type": "string",
+            "description": "Category of the content",
+            "example": "Compliance"
+          },
+          "learning_level": {
+            "type": "string",
+            "enum": [
+              "BEGINNER",
+              "INTERMEDIATE",
+              "ADVANCED",
+              "EXPERT"
+            ],
+            "description": "Learning level"
+          },
+          "target_audience": {
+            "description": "Target audience roles",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "estimated_duration_minutes": {
+            "type": "number",
+            "description": "Estimated duration in minutes"
+          },
+          "primary_file_path": {
+            "type": "string",
+            "description": "Path to primary file"
+          },
+          "learning_objectives": {
+            "description": "Learning objectives",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "has_assessment": {
+            "type": "boolean",
+            "description": "Whether content has assessment"
+          },
+          "certification_available": {
+            "type": "boolean",
+            "description": "Whether certification is available"
+          },
+          "mandatory_for_roles": {
+            "description": "Roles for which this is mandatory",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "compliance_requirement": {
+            "type": "boolean",
+            "description": "Whether this is a compliance requirement"
+          },
+          "version": {
+            "type": "string",
+            "description": "Version of the content"
+          },
+          "last_review_date": {
+            "type": "string",
+            "description": "Last review date"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Whether the template is active"
+          }
+        }
+      },
+      "AdminLearningPathTemplateResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "title_en": {
+            "type": "string"
+          },
+          "description_en": {
+            "type": "object"
+          },
+          "path_type": {
+            "type": "string"
+          },
+          "target_audience": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "estimated_duration_hours": {
+            "type": "number"
+          },
+          "certification_available": {
+            "type": "boolean"
+          },
+          "mandatory": {
+            "type": "boolean"
+          },
+          "modules": {
+            "type": "object"
+          },
+          "version": {
+            "type": "string"
+          },
+          "last_review_date": {
+            "type": "object"
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "tenant_usage_count": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "code",
+          "title_en",
+          "path_type",
+          "target_audience",
+          "estimated_duration_hours",
+          "certification_available",
+          "mandatory",
+          "modules",
+          "version",
+          "is_active",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "AdminPaginatedLearningPathTemplateResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of learning path templates",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AdminLearningPathTemplateResponseDto"
+            }
+          },
+          "pagination": {
+            "description": "Pagination metadata",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationMetaDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "data",
+          "pagination"
+        ]
+      },
+      "AdminCreateLearningPathTemplateDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Unique code for the learning path",
+            "example": "UK_HR_ONBOARDING"
+          },
+          "title_en": {
+            "type": "string",
+            "description": "Title in English",
+            "example": "UK HR Onboarding Path"
+          },
+          "description_en": {
+            "type": "string",
+            "description": "Description in English",
+            "example": "Complete onboarding path for new HR employees in UK"
+          },
+          "path_type": {
+            "type": "string",
+            "description": "Type of learning path",
+            "example": "ONBOARDING"
+          },
+          "target_audience": {
+            "description": "Target audience roles",
+            "example": [
+              "HR_MANAGER",
+              "HR_ASSISTANT"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "estimated_duration_hours": {
+            "type": "number",
+            "description": "Estimated duration in hours",
+            "example": 8
+          },
+          "certification_available": {
+            "type": "boolean",
+            "description": "Whether certification is available upon completion",
+            "default": false
+          },
+          "mandatory": {
+            "type": "boolean",
+            "description": "Whether this path is mandatory",
+            "default": false
+          },
+          "modules": {
+            "type": "object",
+            "description": "Learning modules in the path",
+            "example": [
+              {
+                "id": "1",
+                "title": "Introduction",
+                "order": 1,
+                "contentIds": [
+                  "content1",
+                  "content2"
+                ]
+              },
+              {
+                "id": "2",
+                "title": "Core Training",
+                "order": 2,
+                "contentIds": [
+                  "content3"
+                ]
+              }
+            ],
+            "default": []
+          },
+          "version": {
+            "type": "string",
+            "description": "Version of the path",
+            "default": "1.0.0",
+            "example": "1.0.0"
+          },
+          "last_review_date": {
+            "type": "string",
+            "description": "Last review date",
+            "example": "2024-01-01"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Whether the template is active",
+            "default": true
+          }
+        },
+        "required": [
+          "code",
+          "title_en",
+          "path_type",
+          "target_audience",
+          "estimated_duration_hours"
+        ]
+      },
+      "AdminUpdateLearningPathTemplateDto": {
+        "type": "object",
+        "properties": {
+          "title_en": {
+            "type": "string",
+            "description": "Title in English"
+          },
+          "description_en": {
+            "type": "string",
+            "description": "Description in English"
+          },
+          "path_type": {
+            "type": "string",
+            "description": "Type of learning path"
+          },
+          "target_audience": {
+            "description": "Target audience roles",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "estimated_duration_hours": {
+            "type": "number",
+            "description": "Estimated duration in hours"
+          },
+          "certification_available": {
+            "type": "boolean",
+            "description": "Whether certification is available upon completion"
+          },
+          "mandatory": {
+            "type": "boolean",
+            "description": "Whether this path is mandatory"
+          },
+          "modules": {
+            "type": "object",
+            "description": "Learning modules in the path"
+          },
+          "version": {
+            "type": "string",
+            "description": "Version of the path"
+          },
+          "last_review_date": {
+            "type": "string",
+            "description": "Last review date"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Whether the template is active"
+          }
+        }
+      },
+      "AdminComplianceCheckTemplateResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "template_code": {
+            "type": "string"
+          },
+          "template_name": {
+            "type": "string"
+          },
+          "inspection_type_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "checklist_items": {
+            "type": "object"
+          },
+          "evidence_requirements": {
+            "type": "object"
+          },
+          "automation_rules": {
+            "type": "object"
+          },
+          "quality_checks": {
+            "type": "object"
+          },
+          "output_templates": {
+            "type": "object"
+          },
+          "version": {
+            "type": "string"
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "is_system_template": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "created_by": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "template_code",
+          "template_name",
+          "inspection_type_ids",
+          "checklist_items",
+          "evidence_requirements",
+          "version",
+          "is_active",
+          "is_system_template",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "AdminPaginatedComplianceCheckTemplateResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of compliance check templates",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AdminComplianceCheckTemplateResponseDto"
+            }
+          },
+          "pagination": {
+            "description": "Pagination metadata",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationMetaDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "data",
+          "pagination"
+        ]
+      },
+      "AdminCreateComplianceCheckTemplateDto": {
+        "type": "object",
+        "properties": {
+          "template_code": {
+            "type": "string",
+            "description": "Unique template code",
+            "example": "UK_FIRE_SAFETY_CHECK",
+            "maxLength": 100
+          },
+          "template_name": {
+            "type": "string",
+            "description": "Template name",
+            "example": "UK Fire Safety Compliance Check",
+            "maxLength": 200
+          },
+          "inspection_type_ids": {
+            "description": "Applicable inspection type IDs",
+            "example": [
+              "type-1",
+              "type-2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "checklist_items": {
+            "type": "object",
+            "description": "Checklist items configuration",
+            "example": [
+              {
+                "id": "1",
+                "title": "Fire exits clear",
+                "required": true
+              },
+              {
+                "id": "2",
+                "title": "Extinguishers in date",
+                "required": true
+              }
+            ]
+          },
+          "evidence_requirements": {
+            "type": "object",
+            "description": "Evidence requirements configuration",
+            "example": [
+              {
+                "type": "PHOTO",
+                "description": "Photo of fire exit",
+                "required": true
+              },
+              {
+                "type": "DOCUMENT",
+                "description": "Inspection certificate",
+                "required": false
+              }
+            ]
+          },
+          "automation_rules": {
+            "type": "object",
+            "description": "Automation processing rules",
+            "example": {
+              "autoApprove": false,
+              "notificationRules": {}
+            }
+          },
+          "quality_checks": {
+            "type": "object",
+            "description": "Quality check rules",
+            "example": {
+              "minPhotos": 2,
+              "requireSignature": true
+            }
+          },
+          "output_templates": {
+            "type": "object",
+            "description": "Output document templates",
+            "example": {
+              "certificateTemplate": "template-1",
+              "reportTemplate": "template-2"
+            }
+          },
+          "version": {
+            "type": "string",
+            "description": "Version of the template",
+            "default": "1.0.0",
+            "example": "1.0.0",
+            "maxLength": 20
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Whether the template is active",
+            "default": true
+          },
+          "is_system_template": {
+            "type": "boolean",
+            "description": "Whether this is a system template",
+            "default": false
+          }
+        },
+        "required": [
+          "template_code",
+          "template_name",
+          "inspection_type_ids",
+          "checklist_items",
+          "evidence_requirements"
+        ]
+      },
+      "AdminUpdateComplianceCheckTemplateDto": {
+        "type": "object",
+        "properties": {
+          "template_name": {
+            "type": "string",
+            "description": "Template name",
+            "maxLength": 200
+          },
+          "inspection_type_ids": {
+            "description": "Applicable inspection type IDs",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "checklist_items": {
+            "type": "object",
+            "description": "Checklist items configuration"
+          },
+          "evidence_requirements": {
+            "type": "object",
+            "description": "Evidence requirements configuration"
+          },
+          "automation_rules": {
+            "type": "object",
+            "description": "Automation processing rules"
+          },
+          "quality_checks": {
+            "type": "object",
+            "description": "Quality check rules"
+          },
+          "output_templates": {
+            "type": "object",
+            "description": "Output document templates"
+          },
+          "version": {
+            "type": "string",
+            "description": "Version of the template",
+            "maxLength": 20
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Whether the template is active"
+          },
+          "is_system_template": {
+            "type": "boolean",
+            "description": "Whether this is a system template"
+          }
+        }
+      },
+      "SystemHealthDto": {
+        "type": "object",
+        "properties": {
+          "component": {
+            "type": "string",
+            "description": "Component name",
+            "example": "Database"
+          },
+          "status": {
+            "type": "string",
+            "description": "Health status",
+            "example": "healthy"
+          },
+          "response_time_ms": {
+            "type": "number",
+            "description": "Response time in ms",
+            "example": 45
+          },
+          "last_checked": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Last check timestamp"
+          },
+          "details": {
+            "type": "object",
+            "description": "Additional details"
+          }
+        },
+        "required": [
+          "component",
+          "status",
+          "response_time_ms",
+          "last_checked",
+          "details"
+        ]
+      },
+      "SystemMetricDto": {
+        "type": "object",
+        "properties": {
+          "metric_name": {
+            "type": "string",
+            "description": "Metric name",
+            "example": "total_employees"
+          },
+          "value": {
+            "type": "number",
+            "description": "Metric value",
+            "example": 1250
+          },
+          "change_percentage": {
+            "type": "number",
+            "description": "Change from previous period",
+            "example": 12.5
+          },
+          "timestamp": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Timestamp of the metric"
+          }
+        },
+        "required": [
+          "metric_name",
+          "value",
+          "change_percentage",
+          "timestamp"
+        ]
+      },
+      "TenantUsageStatisticsDto": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "description": "Tenant ID"
+          },
+          "tenant_name": {
+            "type": "string",
+            "description": "Tenant name"
+          },
+          "employee_count": {
+            "type": "number",
+            "description": "Total number of employees"
+          },
+          "active_employees": {
+            "type": "number",
+            "description": "Active employees"
+          },
+          "department_count": {
+            "type": "number",
+            "description": "Total departments"
+          },
+          "leave_request_count": {
+            "type": "number",
+            "description": "Total leave requests"
+          },
+          "pending_leave_requests": {
+            "type": "number",
+            "description": "Pending leave requests"
+          },
+          "payroll_run_count": {
+            "type": "number",
+            "description": "Total payroll runs"
+          },
+          "storage_used_mb": {
+            "type": "number",
+            "description": "Storage used in MB"
+          },
+          "last_activity": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Last activity timestamp"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Account created date"
+          }
+        },
+        "required": [
+          "tenant_id",
+          "tenant_name",
+          "employee_count",
+          "active_employees",
+          "department_count",
+          "leave_request_count",
+          "pending_leave_requests",
+          "payroll_run_count",
+          "storage_used_mb",
+          "last_activity",
+          "created_at"
+        ]
+      },
+      "CrossTenantStatisticsDto": {
+        "type": "object",
+        "properties": {
+          "total_tenants": {
+            "type": "number",
+            "description": "Total number of tenants"
+          },
+          "active_tenants": {
+            "type": "number",
+            "description": "Active tenants"
+          },
+          "total_employees": {
+            "type": "number",
+            "description": "Total employees across all tenants"
+          },
+          "total_departments": {
+            "type": "number",
+            "description": "Total departments across all tenants"
+          },
+          "total_leave_requests": {
+            "type": "number",
+            "description": "Total leave requests across all tenants"
+          },
+          "total_payroll_runs": {
+            "type": "number",
+            "description": "Total payroll runs across all tenants"
+          },
+          "avg_employees_per_tenant": {
+            "type": "number",
+            "description": "Average employees per tenant"
+          },
+          "total_storage_gb": {
+            "type": "number",
+            "description": "Total storage used in GB"
+          },
+          "tenant_breakdown": {
+            "description": "Statistics by tenant",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TenantUsageStatisticsDto"
+            }
+          }
+        },
+        "required": [
+          "total_tenants",
+          "active_tenants",
+          "total_employees",
+          "total_departments",
+          "total_leave_requests",
+          "total_payroll_runs",
+          "avg_employees_per_tenant",
+          "total_storage_gb",
+          "tenant_breakdown"
+        ]
+      },
+      "TemplateUsageStatisticsDto": {
+        "type": "object",
+        "properties": {
+          "template_type": {
+            "type": "string",
+            "description": "Template type",
+            "example": "LeaveTypeTemplate"
+          },
+          "template_id": {
+            "type": "string",
+            "description": "Template ID"
+          },
+          "template_code": {
+            "type": "string",
+            "description": "Template code"
+          },
+          "template_name": {
+            "type": "string",
+            "description": "Template name"
+          },
+          "tenant_count": {
+            "type": "number",
+            "description": "Number of tenants using this template"
+          },
+          "usage_percentage": {
+            "type": "number",
+            "description": "Percentage of tenants using this template"
+          },
+          "last_deployed": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Last deployed date"
+          },
+          "tenant_ids": {
+            "description": "List of tenant IDs using this template",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "template_type",
+          "template_id",
+          "template_code",
+          "template_name",
+          "tenant_count",
+          "usage_percentage",
+          "last_deployed",
+          "tenant_ids"
+        ]
+      },
+      "ComplianceStatisticsDto": {
+        "type": "object",
+        "properties": {
+          "total_compliance_checks": {
+            "type": "number",
+            "description": "Total compliance checks configured"
+          },
+          "active_checks": {
+            "type": "number",
+            "description": "Active compliance checks"
+          },
+          "system_checks": {
+            "type": "number",
+            "description": "System-wide compliance checks"
+          },
+          "tenant_checks": {
+            "type": "number",
+            "description": "Tenant-specific checks"
+          },
+          "avg_compliance_score": {
+            "type": "number",
+            "description": "Average compliance score"
+          },
+          "fully_compliant_tenants": {
+            "type": "number",
+            "description": "Tenants with full compliance"
+          },
+          "non_compliant_tenants": {
+            "type": "number",
+            "description": "Tenants with compliance issues"
+          },
+          "common_issues": {
+            "type": "array",
+            "description": "Most common compliance issues",
+            "items": {
+              "type": "object",
+              "properties": {
+                "issue": {
+                  "type": "string"
+                },
+                "count": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "total_compliance_checks",
+          "active_checks",
+          "system_checks",
+          "tenant_checks",
+          "avg_compliance_score",
+          "fully_compliant_tenants",
+          "non_compliant_tenants",
+          "common_issues"
+        ]
+      },
+      "PayrollStatisticsDto": {
+        "type": "object",
+        "properties": {
+          "total_payroll_runs": {
+            "type": "number",
+            "description": "Total payroll runs across all tenants"
+          },
+          "successful_runs": {
+            "type": "number",
+            "description": "Successful payroll runs"
+          },
+          "failed_runs": {
+            "type": "number",
+            "description": "Failed payroll runs"
+          },
+          "total_gross_pay": {
+            "type": "number",
+            "description": "Total gross pay processed"
+          },
+          "total_net_pay": {
+            "type": "number",
+            "description": "Total net pay processed"
+          },
+          "total_tax_deducted": {
+            "type": "number",
+            "description": "Total tax deducted"
+          },
+          "avg_pay_per_employee": {
+            "type": "number",
+            "description": "Average pay per employee"
+          },
+          "frequency_breakdown": {
+            "type": "object",
+            "description": "Payroll frequency breakdown",
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "total_payroll_runs",
+          "successful_runs",
+          "failed_runs",
+          "total_gross_pay",
+          "total_net_pay",
+          "total_tax_deducted",
+          "avg_pay_per_employee",
+          "frequency_breakdown"
+        ]
+      },
+      "AdminDashboardSummaryDto": {
+        "type": "object",
+        "properties": {
+          "system_health": {
+            "description": "System health status",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SystemHealthDto"
+            }
+          },
+          "key_metrics": {
+            "description": "Key system metrics",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SystemMetricDto"
+            }
+          },
+          "tenant_statistics": {
+            "description": "Cross-tenant statistics",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CrossTenantStatisticsDto"
+              }
+            ]
+          },
+          "template_usage": {
+            "description": "Template usage statistics",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TemplateUsageStatisticsDto"
+            }
+          },
+          "compliance_overview": {
+            "description": "Compliance overview",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ComplianceStatisticsDto"
+              }
+            ]
+          },
+          "payroll_statistics": {
+            "description": "Payroll statistics",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PayrollStatisticsDto"
+              }
+            ]
+          },
+          "generated_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Report generated timestamp"
+          }
+        },
+        "required": [
+          "system_health",
+          "key_metrics",
+          "tenant_statistics",
+          "template_usage",
+          "compliance_overview",
+          "payroll_statistics",
+          "generated_at"
         ]
       },
       "EmployeeProfileDto": {
