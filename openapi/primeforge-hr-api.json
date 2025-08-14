@@ -12605,6 +12605,3111 @@
         ]
       }
     },
+    "/admin/template-customization-configs": {
+      "get": {
+        "operationId": "AdminController_getTemplateCustomizationConfigs",
+        "parameters": [
+          {
+            "name": "template_id",
+            "required": false,
+            "in": "query",
+            "description": "Filter by template ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "template_type",
+            "required": false,
+            "in": "query",
+            "description": "Filter by template type",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "customization_level",
+            "required": false,
+            "in": "query",
+            "description": "Filter by customization level",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "BASIC",
+                "INTERMEDIATE",
+                "ADVANCED",
+                "EXPERT"
+              ]
+            }
+          },
+          {
+            "name": "version_control_enabled",
+            "required": false,
+            "in": "query",
+            "description": "Filter by version control enabled",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Template customization configs retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AdminTemplateCustomizationConfigResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get all template customization configs",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "post": {
+        "operationId": "AdminController_createTemplateCustomizationConfig",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminCreateTemplateCustomizationConfigDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Template customization config created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminTemplateCustomizationConfigResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Create template customization config",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/template-customization-configs/{id}": {
+      "get": {
+        "operationId": "AdminController_getTemplateCustomizationConfig",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Template customization config retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminTemplateCustomizationConfigResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get template customization config by ID",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "put": {
+        "operationId": "AdminController_updateTemplateCustomizationConfig",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminUpdateTemplateCustomizationConfigDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Template customization config updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminTemplateCustomizationConfigResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Update template customization config",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "delete": {
+        "operationId": "AdminController_deleteTemplateCustomizationConfig",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Template customization config deleted successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Delete template customization config",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/compliance-inspection-types": {
+      "get": {
+        "operationId": "AdminController_getComplianceInspectionTypes",
+        "parameters": [
+          {
+            "name": "inspection_code",
+            "required": false,
+            "in": "query",
+            "description": "Filter by inspection code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "regulator_name",
+            "required": false,
+            "in": "query",
+            "description": "Filter by regulator name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Search in inspection name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Compliance inspection types retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AdminComplianceInspectionTypeResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get all compliance inspection types",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "post": {
+        "operationId": "AdminController_createComplianceInspectionType",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminCreateComplianceInspectionTypeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Compliance inspection type created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminComplianceInspectionTypeResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Create compliance inspection type",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/compliance-inspection-types/{id}": {
+      "get": {
+        "operationId": "AdminController_getComplianceInspectionType",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Compliance inspection type retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminComplianceInspectionTypeResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get compliance inspection type by ID",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "put": {
+        "operationId": "AdminController_updateComplianceInspectionType",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminUpdateComplianceInspectionTypeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Compliance inspection type updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminComplianceInspectionTypeResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Update compliance inspection type",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "delete": {
+        "operationId": "AdminController_deleteComplianceInspectionType",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Compliance inspection type deleted successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Delete compliance inspection type",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/evidence-types": {
+      "get": {
+        "operationId": "AdminController_getEvidenceTypes",
+        "parameters": [
+          {
+            "name": "evidence_code",
+            "required": false,
+            "in": "query",
+            "description": "Filter by evidence code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "evidence_category",
+            "required": false,
+            "in": "query",
+            "description": "Filter by evidence category",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "legal_significance",
+            "required": false,
+            "in": "query",
+            "description": "Filter by legal significance",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "CRITICAL",
+                "IMPORTANT",
+                "STANDARD",
+                "LOW"
+              ]
+            }
+          },
+          {
+            "name": "processing_complexity",
+            "required": false,
+            "in": "query",
+            "description": "Filter by processing complexity",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "SIMPLE",
+                "MODERATE",
+                "COMPLEX",
+                "VERY_COMPLEX"
+              ]
+            }
+          },
+          {
+            "name": "is_active",
+            "required": false,
+            "in": "query",
+            "description": "Filter by active status",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Search in name and description",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Evidence types retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AdminEvidenceTypeResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get all evidence types",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "post": {
+        "operationId": "AdminController_createEvidenceType",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminCreateEvidenceTypeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Evidence type created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminEvidenceTypeResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Create evidence type",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/evidence-types/{id}": {
+      "get": {
+        "operationId": "AdminController_getEvidenceType",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Evidence type retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminEvidenceTypeResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get evidence type by ID",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "put": {
+        "operationId": "AdminController_updateEvidenceType",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminUpdateEvidenceTypeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Evidence type updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminEvidenceTypeResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Update evidence type",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "delete": {
+        "operationId": "AdminController_deleteEvidenceType",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Evidence type deleted successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Delete evidence type",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/analytics-cache": {
+      "get": {
+        "operationId": "AdminController_getAnalyticsCacheEntries",
+        "parameters": [
+          {
+            "name": "cache_key",
+            "required": false,
+            "in": "query",
+            "description": "Filter by cache key",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "query_hash",
+            "required": false,
+            "in": "query",
+            "description": "Filter by query hash",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Filter by expiration status (active/expired)",
+            "schema": {
+              "default": "all",
+              "type": "string",
+              "enum": [
+                "active",
+                "expired",
+                "all"
+              ]
+            }
+          },
+          {
+            "name": "min_hit_count",
+            "required": false,
+            "in": "query",
+            "description": "Minimum hit count",
+            "schema": {
+              "minimum": 0,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sort_by",
+            "required": false,
+            "in": "query",
+            "description": "Sort by field",
+            "schema": {
+              "default": "last_accessed",
+              "type": "string",
+              "enum": [
+                "created_at",
+                "last_accessed",
+                "hit_count",
+                "expires_at"
+              ]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort order",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Analytics cache entries retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AdminAnalyticsQueryCacheResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get analytics cache entries",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/analytics-cache/statistics": {
+      "get": {
+        "operationId": "AdminController_getAnalyticsCacheStatistics",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Analytics cache statistics retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminCacheStatisticsDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get analytics cache statistics",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/analytics-cache/clear": {
+      "post": {
+        "operationId": "AdminController_clearAnalyticsCache",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminClearCacheDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Analytics cache cleared successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Clear analytics cache",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/analytics-cache/optimize": {
+      "post": {
+        "operationId": "AdminController_optimizeAnalyticsCache",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminOptimizeCacheDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Analytics cache optimized successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Optimize analytics cache",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/data-update-logs": {
+      "get": {
+        "operationId": "AdminController_getDataUpdateLogs",
+        "parameters": [
+          {
+            "name": "component",
+            "required": false,
+            "in": "query",
+            "description": "Filter by component",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "update_type",
+            "required": false,
+            "in": "query",
+            "description": "Filter by update type",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "trigger_type",
+            "required": false,
+            "in": "query",
+            "description": "Filter by trigger type",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "MANUAL",
+                "SCHEDULED",
+                "SYSTEM_UPDATE",
+                "CONTENT_CHANGE",
+                "COMPLIANCE_UPDATE"
+              ]
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Filter by status",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "QUEUED",
+                "RUNNING",
+                "COMPLETED",
+                "FAILED",
+                "CANCELLED"
+              ]
+            }
+          },
+          {
+            "name": "priority",
+            "required": false,
+            "in": "query",
+            "description": "Filter by priority",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "started_after",
+            "required": false,
+            "in": "query",
+            "description": "Filter logs started after this date",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "started_before",
+            "required": false,
+            "in": "query",
+            "description": "Filter logs started before this date",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "with_errors",
+            "required": false,
+            "in": "query",
+            "description": "Include only logs with errors",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "sort_by",
+            "required": false,
+            "in": "query",
+            "description": "Sort by field",
+            "schema": {
+              "default": "started_at",
+              "type": "string",
+              "enum": [
+                "started_at",
+                "completed_at",
+                "status",
+                "priority"
+              ]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort order",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data update logs retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AdminDataUpdateLogResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get data update logs",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/data-update-logs/statistics": {
+      "get": {
+        "operationId": "AdminController_getDataUpdateLogStatistics",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Data update log statistics retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminDataUpdateLogStatisticsDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get data update log statistics",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/data-update-logs/cleanup": {
+      "post": {
+        "operationId": "AdminController_cleanupDataUpdateLogs",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminCleanupDataUpdateLogsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data update logs cleaned up successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Cleanup old data update logs",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/preset-content-queue": {
+      "get": {
+        "operationId": "AdminController_getPresetContentQueueItems",
+        "parameters": [
+          {
+            "name": "content_type",
+            "required": false,
+            "in": "query",
+            "description": "Filter by content type",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "content_code",
+            "required": false,
+            "in": "query",
+            "description": "Filter by content code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "action",
+            "required": false,
+            "in": "query",
+            "description": "Filter by action",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "CREATE",
+                "UPDATE",
+                "DELETE",
+                "DEPLOY"
+              ]
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Filter by status",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "QUEUED",
+                "RUNNING",
+                "COMPLETED",
+                "FAILED",
+                "CANCELLED"
+              ]
+            }
+          },
+          {
+            "name": "priority",
+            "required": false,
+            "in": "query",
+            "description": "Filter by priority",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high",
+                "critical"
+              ]
+            }
+          },
+          {
+            "name": "scheduled_before",
+            "required": false,
+            "in": "query",
+            "description": "Include only items scheduled before this date",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ready_to_process",
+            "required": false,
+            "in": "query",
+            "description": "Include items ready for processing",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "retriable",
+            "required": false,
+            "in": "query",
+            "description": "Include failed items that can be retried",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "sort_by",
+            "required": false,
+            "in": "query",
+            "description": "Sort by field",
+            "schema": {
+              "default": "scheduled_at",
+              "type": "string",
+              "enum": [
+                "scheduled_at",
+                "priority",
+                "created_at",
+                "status"
+              ]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort order",
+            "schema": {
+              "default": "asc",
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Preset content update queue items retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AdminPresetContentUpdateQueueResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get preset content update queue items",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "post": {
+        "operationId": "AdminController_createPresetContentQueueItem",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminCreatePresetContentUpdateQueueDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Item added to preset content queue successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminPresetContentUpdateQueueResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Add item to preset content update queue",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/preset-content-queue/status": {
+      "get": {
+        "operationId": "AdminController_getPresetContentQueueStatus",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Preset content queue status retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminQueueStatusDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get preset content queue status",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/preset-content-queue/{id}": {
+      "get": {
+        "operationId": "AdminController_getPresetContentQueueItem",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Preset content queue item retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminPresetContentUpdateQueueResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get preset content queue item by ID",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "put": {
+        "operationId": "AdminController_updatePresetContentQueueItem",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminUpdatePresetContentUpdateQueueDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Preset content queue item updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminPresetContentUpdateQueueResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Update preset content queue item",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "delete": {
+        "operationId": "AdminController_deletePresetContentQueueItem",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Item removed from preset content queue successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Remove item from preset content queue",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/preset-content-queue/process": {
+      "post": {
+        "operationId": "AdminController_processPresetContentQueue",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminProcessQueueDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Preset content queue processed successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Process preset content update queue",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/preset-content": {
+      "get": {
+        "operationId": "AdminController_getPresetContent",
+        "parameters": [
+          {
+            "name": "content_type",
+            "required": false,
+            "in": "query",
+            "description": "Filter by content type",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "contract",
+                "policy",
+                "document",
+                "form",
+                "training"
+              ]
+            }
+          },
+          {
+            "name": "code",
+            "required": false,
+            "in": "query",
+            "description": "Filter by code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Filter by status",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "DRAFT",
+                "ACTIVE",
+                "ARCHIVED",
+                "DEPRECATED"
+              ]
+            }
+          },
+          {
+            "name": "is_system_default",
+            "required": false,
+            "in": "query",
+            "description": "Filter by system default",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "jurisdiction",
+            "required": false,
+            "in": "query",
+            "description": "Filter by jurisdiction",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Search in title and description",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Preset content retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AdminPresetContentResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get all preset content",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "post": {
+        "operationId": "AdminController_createPresetContent",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminCreatePresetContentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Preset content created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminPresetContentResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Create preset content",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/preset-content/{id}": {
+      "get": {
+        "operationId": "AdminController_getPresetContentById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Preset content retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminPresetContentResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get preset content by ID",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "put": {
+        "operationId": "AdminController_updatePresetContent",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminUpdatePresetContentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Preset content updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminPresetContentResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Update preset content",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "delete": {
+        "operationId": "AdminController_deletePresetContent",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Preset content deleted successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Delete preset content",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/preset-content/bulk-import": {
+      "post": {
+        "operationId": "AdminController_bulkImportPresetContent",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminBulkImportPresetContentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Preset content imported successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Bulk import preset content",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/preset-content/{id}/clone": {
+      "post": {
+        "operationId": "AdminController_clonePresetContent",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminClonePresetContentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Preset content cloned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminPresetContentResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Clone preset content",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/preset-content/{id}/deploy": {
+      "post": {
+        "operationId": "AdminController_deployPresetContent",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminDeployPresetContentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Preset content deployed successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Deploy preset content to tenants",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/localization-configs": {
+      "get": {
+        "operationId": "AdminController_getLocalizationConfigurations",
+        "parameters": [
+          {
+            "name": "localization_code",
+            "required": false,
+            "in": "query",
+            "description": "Filter by localization code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "language_code",
+            "required": false,
+            "in": "query",
+            "description": "Filter by language code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "country_code",
+            "required": false,
+            "in": "query",
+            "description": "Filter by country code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "is_active",
+            "required": false,
+            "in": "query",
+            "description": "Filter by active status",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Localization configurations retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AdminLocalizationConfigurationResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get all localization configurations",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "post": {
+        "operationId": "AdminController_createLocalizationConfiguration",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminCreateLocalizationConfigurationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Localization configuration created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminLocalizationConfigurationResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Create localization configuration",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/localization-configs/{id}": {
+      "get": {
+        "operationId": "AdminController_getLocalizationConfiguration",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Localization configuration retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminLocalizationConfigurationResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get localization configuration by ID",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "put": {
+        "operationId": "AdminController_updateLocalizationConfiguration",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminUpdateLocalizationConfigurationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Localization configuration updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminLocalizationConfigurationResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Update localization configuration",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "delete": {
+        "operationId": "AdminController_deleteLocalizationConfiguration",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Localization configuration deleted successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Delete localization configuration",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/localization-translations": {
+      "get": {
+        "operationId": "AdminController_getLocalizationTranslations",
+        "parameters": [
+          {
+            "name": "localization_id",
+            "required": false,
+            "in": "query",
+            "description": "Filter by localization ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "translation_key",
+            "required": false,
+            "in": "query",
+            "description": "Filter by translation key",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "translation_quality",
+            "required": false,
+            "in": "query",
+            "description": "Filter by translation quality",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "draft",
+                "reviewed",
+                "approved",
+                "needs_review"
+              ]
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Search in translated text",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Localization translations retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AdminLocalizationTranslationResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get all localization translations",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "post": {
+        "operationId": "AdminController_createLocalizationTranslation",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminCreateLocalizationTranslationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Localization translation created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminLocalizationTranslationResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Create localization translation",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/localization-translations/{id}": {
+      "get": {
+        "operationId": "AdminController_getLocalizationTranslation",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Localization translation retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminLocalizationTranslationResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get localization translation by ID",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "put": {
+        "operationId": "AdminController_updateLocalizationTranslation",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminUpdateLocalizationTranslationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Localization translation updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminLocalizationTranslationResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Update localization translation",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "delete": {
+        "operationId": "AdminController_deleteLocalizationTranslation",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Localization translation deleted successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Delete localization translation",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/localization-translations/bulk-import": {
+      "post": {
+        "operationId": "AdminController_bulkImportTranslations",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Translations imported successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Bulk import translations",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/system-initialization": {
+      "get": {
+        "operationId": "AdminController_getSystemInitializationStatus",
+        "parameters": [
+          {
+            "name": "component",
+            "required": false,
+            "in": "query",
+            "description": "Filter by component name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "is_initialized",
+            "required": false,
+            "in": "query",
+            "description": "Filter by initialization status",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Filter by status",
+            "schema": {
+              "example": "completed",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "System initialization status retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AdminSystemInitializationResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get system initialization status",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/system-initialization/{component}": {
+      "get": {
+        "operationId": "AdminController_getComponentInitializationStatus",
+        "parameters": [
+          {
+            "name": "component",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Component initialization status retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminSystemInitializationResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get initialization status for component",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      },
+      "put": {
+        "operationId": "AdminController_updateComponentInitializationStatus",
+        "parameters": [
+          {
+            "name": "component",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminUpdateSystemInitializationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Component initialization status updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminSystemInitializationResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Update component initialization status",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/system-initialization/initialize/{component}": {
+      "post": {
+        "operationId": "AdminController_initializeComponent",
+        "parameters": [
+          {
+            "name": "component",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Component initialized successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Initialize system component",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/system-initialization/reset/{component}": {
+      "post": {
+        "operationId": "AdminController_resetComponentInitialization",
+        "parameters": [
+          {
+            "name": "component",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Component initialization reset successfully"
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Reset component initialization",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/tenant-operations/bulk-update": {
+      "post": {
+        "operationId": "AdminController_performBulkUpdate",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminBulkUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Bulk update completed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminOperationResultDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Perform bulk update across tenants",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/tenant-operations/data-migration": {
+      "post": {
+        "operationId": "AdminController_performDataMigration",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminDataMigrationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data migration completed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminOperationResultDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Migrate data between tenants",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/tenant-operations/cleanup": {
+      "post": {
+        "operationId": "AdminController_performDataCleanup",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminDataCleanupDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data cleanup completed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminOperationResultDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Cleanup tenant data",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/tenant-operations/health-check": {
+      "get": {
+        "operationId": "AdminController_performHealthCheck",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Health check completed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TenantHealthStatusDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Check health status of all tenants",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/regulatory-updates/status": {
+      "get": {
+        "operationId": "AdminController_getRegulatoryUpdateStatus",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Regulatory update status retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RegulatoryUpdateStatusDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Check for regulatory updates",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/regulatory-updates/apply": {
+      "post": {
+        "operationId": "AdminController_applyRegulatoryUpdates",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplyRegulatoryUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Regulatory updates applied successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminOperationResultDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Apply regulatory updates",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/regulatory-updates/history": {
+      "get": {
+        "operationId": "AdminController_getRegulatoryUpdateHistory",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Regulatory update history retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RegulatoryUpdateHistoryDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get regulatory update history",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/regulatory-updates/rollback": {
+      "post": {
+        "operationId": "AdminController_rollbackRegulatoryUpdate",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RollbackRegulatoryUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Regulatory updates rolled back successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminOperationResultDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Rollback regulatory updates",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/presets/leave-types": {
+      "get": {
+        "operationId": "AdminController_getLeaveTypePresets",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Leave type presets retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SystemPresetDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get default leave type presets",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/presets/leave-types/update": {
+      "post": {
+        "operationId": "AdminController_updateLeaveTypePresets",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSystemPresetDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Leave type presets updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemPresetDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Update leave type presets",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/presets/compliance-checks": {
+      "get": {
+        "operationId": "AdminController_getComplianceCheckPresets",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Compliance check presets retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SystemPresetDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get default compliance check presets",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/presets/compliance-checks/update": {
+      "post": {
+        "operationId": "AdminController_updateComplianceCheckPresets",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSystemPresetDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Compliance check presets updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemPresetDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Update compliance check presets",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/presets/learning-paths": {
+      "get": {
+        "operationId": "AdminController_getLearningPathPresets",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Learning path presets retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SystemPresetDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Get default learning path presets",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
+    "/admin/presets/learning-paths/update": {
+      "post": {
+        "operationId": "AdminController_updateLearningPathPresets",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSystemPresetDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Learning path presets updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemPresetDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "admin-token": []
+          }
+        ],
+        "summary": "(Admin) Update learning path presets",
+        "tags": [
+          "Admin - Configuration"
+        ]
+      }
+    },
     "/ess/profile": {
       "get": {
         "description": "Retrieve the authenticated employee's profile information for self-service access",
@@ -32199,6 +35304,2826 @@
           "payroll_statistics",
           "generated_at"
         ]
+      },
+      "AdminTemplateCustomizationConfigResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "template_id": {
+            "type": "string"
+          },
+          "template_type": {
+            "type": "string"
+          },
+          "customization_level": {
+            "type": "string",
+            "enum": [
+              "BASIC",
+              "INTERMEDIATE",
+              "ADVANCED",
+              "EXPERT"
+            ]
+          },
+          "supported_customizations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "customizable_elements": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "element_constraints": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "conditional_logic": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "validation_schema": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "preview_template": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "version_control_enabled": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "template_id",
+          "template_type",
+          "customization_level",
+          "supported_customizations",
+          "customizable_elements",
+          "version_control_enabled",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "AdminCreateTemplateCustomizationConfigDto": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "description": "Template ID this configuration is for",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "template_type": {
+            "type": "string",
+            "description": "Type of template",
+            "example": "LeaveTypeTemplate"
+          },
+          "customization_level": {
+            "type": "string",
+            "description": "Customization level",
+            "enum": [
+              "BASIC",
+              "INTERMEDIATE",
+              "ADVANCED",
+              "EXPERT"
+            ],
+            "default": "BASIC"
+          },
+          "supported_customizations": {
+            "description": "List of supported customization types",
+            "example": [
+              "fields",
+              "workflow",
+              "notifications"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "customizable_elements": {
+            "type": "object",
+            "description": "Elements that can be customized",
+            "additionalProperties": true,
+            "example": {
+              "fields": [
+                "max_days",
+                "accrual_rate"
+              ],
+              "workflow": [
+                "approval_steps",
+                "notifications"
+              ]
+            }
+          },
+          "element_constraints": {
+            "type": "object",
+            "description": "Constraints on element customization",
+            "additionalProperties": true,
+            "example": {
+              "max_days": {
+                "min": 1,
+                "max": 365
+              },
+              "approval_steps": {
+                "max": 5
+              }
+            }
+          },
+          "conditional_logic": {
+            "type": "object",
+            "description": "Conditional logic for customizations",
+            "additionalProperties": true
+          },
+          "validation_schema": {
+            "type": "object",
+            "description": "Validation schema for customizations",
+            "additionalProperties": true
+          },
+          "preview_template": {
+            "type": "object",
+            "description": "Preview template for customizations",
+            "additionalProperties": true
+          },
+          "version_control_enabled": {
+            "type": "boolean",
+            "description": "Enable version control for customizations",
+            "default": true
+          }
+        },
+        "required": [
+          "template_id",
+          "template_type",
+          "supported_customizations",
+          "customizable_elements"
+        ]
+      },
+      "AdminUpdateTemplateCustomizationConfigDto": {
+        "type": "object",
+        "properties": {
+          "template_type": {
+            "type": "string",
+            "description": "Type of template"
+          },
+          "customization_level": {
+            "type": "string",
+            "description": "Customization level",
+            "enum": [
+              "BASIC",
+              "INTERMEDIATE",
+              "ADVANCED",
+              "EXPERT"
+            ]
+          },
+          "supported_customizations": {
+            "description": "List of supported customization types",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "customizable_elements": {
+            "type": "object",
+            "description": "Elements that can be customized",
+            "additionalProperties": true
+          },
+          "element_constraints": {
+            "type": "object",
+            "description": "Constraints on element customization",
+            "additionalProperties": true
+          },
+          "conditional_logic": {
+            "type": "object",
+            "description": "Conditional logic for customizations",
+            "additionalProperties": true
+          },
+          "validation_schema": {
+            "type": "object",
+            "description": "Validation schema for customizations",
+            "additionalProperties": true
+          },
+          "preview_template": {
+            "type": "object",
+            "description": "Preview template for customizations",
+            "additionalProperties": true
+          },
+          "version_control_enabled": {
+            "type": "boolean",
+            "description": "Enable version control for customizations"
+          }
+        }
+      },
+      "AdminComplianceInspectionTypeResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "inspection_code": {
+            "type": "string"
+          },
+          "inspection_name": {
+            "type": "string"
+          },
+          "regulator_name": {
+            "type": "string"
+          },
+          "scope_definition": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "legal_framework": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "typical_notice_period_days": {
+            "type": "number"
+          },
+          "standard_response_days": {
+            "type": "number"
+          },
+          "response_requirements": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "required_evidence_types": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "optional_evidence_types": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "inspection_code",
+          "inspection_name",
+          "regulator_name",
+          "scope_definition",
+          "legal_framework",
+          "typical_notice_period_days",
+          "standard_response_days",
+          "required_evidence_types",
+          "optional_evidence_types",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "AdminCreateComplianceInspectionTypeDto": {
+        "type": "object",
+        "properties": {
+          "inspection_code": {
+            "type": "string",
+            "description": "Unique inspection code",
+            "example": "HSE_ANNUAL_2024",
+            "maxLength": 100
+          },
+          "inspection_name": {
+            "type": "string",
+            "description": "Inspection name",
+            "example": "Annual Health & Safety Executive Inspection",
+            "maxLength": 200
+          },
+          "regulator_name": {
+            "type": "string",
+            "description": "Name of the regulatory body",
+            "example": "Health and Safety Executive",
+            "maxLength": 100
+          },
+          "scope_definition": {
+            "type": "object",
+            "description": "Inspection scope definition",
+            "additionalProperties": true,
+            "example": {
+              "scope": "workplace_safety",
+              "timeRange": "annual",
+              "entityTypes": [
+                "office",
+                "warehouse",
+                "factory"
+              ]
+            }
+          },
+          "legal_framework": {
+            "type": "object",
+            "description": "Legal framework and regulations",
+            "additionalProperties": true,
+            "example": {
+              "legalBasis": "Health and Safety at Work Act 1974",
+              "regulations": [
+                "CDM 2015",
+                "RIDDOR 2013"
+              ],
+              "guidance": [
+                "HSG65",
+                "L153"
+              ]
+            }
+          },
+          "typical_notice_period_days": {
+            "type": "number",
+            "description": "Typical notice period in days",
+            "default": 21,
+            "minimum": 0
+          },
+          "standard_response_days": {
+            "type": "number",
+            "description": "Standard response time in days",
+            "default": 14,
+            "minimum": 0
+          },
+          "response_requirements": {
+            "type": "object",
+            "description": "Response requirements",
+            "additionalProperties": true,
+            "example": {
+              "format": "digital",
+              "submissionMethods": [
+                "email",
+                "portal"
+              ],
+              "requiredSections": [
+                "risk_assessment",
+                "incident_log"
+              ]
+            }
+          },
+          "required_evidence_types": {
+            "description": "Required evidence type IDs",
+            "example": [
+              "risk_assessment",
+              "training_records"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "optional_evidence_types": {
+            "description": "Optional evidence type IDs",
+            "example": [
+              "improvement_plans",
+              "audit_reports"
+            ],
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "inspection_code",
+          "inspection_name",
+          "regulator_name",
+          "scope_definition",
+          "legal_framework",
+          "required_evidence_types"
+        ]
+      },
+      "AdminUpdateComplianceInspectionTypeDto": {
+        "type": "object",
+        "properties": {
+          "inspection_name": {
+            "type": "string",
+            "description": "Inspection name",
+            "maxLength": 200
+          },
+          "regulator_name": {
+            "type": "string",
+            "description": "Name of the regulatory body",
+            "maxLength": 100
+          },
+          "scope_definition": {
+            "type": "object",
+            "description": "Inspection scope definition",
+            "additionalProperties": true
+          },
+          "legal_framework": {
+            "type": "object",
+            "description": "Legal framework and regulations",
+            "additionalProperties": true
+          },
+          "typical_notice_period_days": {
+            "type": "number",
+            "description": "Typical notice period in days",
+            "minimum": 0
+          },
+          "standard_response_days": {
+            "type": "number",
+            "description": "Standard response time in days",
+            "minimum": 0
+          },
+          "response_requirements": {
+            "type": "object",
+            "description": "Response requirements",
+            "additionalProperties": true
+          },
+          "required_evidence_types": {
+            "description": "Required evidence type IDs",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "optional_evidence_types": {
+            "description": "Optional evidence type IDs",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "AdminEvidenceTypeResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "evidence_code": {
+            "type": "string"
+          },
+          "evidence_name": {
+            "type": "string"
+          },
+          "evidence_category": {
+            "type": "string"
+          },
+          "description": {
+            "type": "object"
+          },
+          "data_sources": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "extraction_rules": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "output_format": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "legal_significance": {
+            "type": "string"
+          },
+          "retention_period_years": {
+            "type": "number"
+          },
+          "processing_complexity": {
+            "type": "string"
+          },
+          "estimated_generation_time_minutes": {
+            "type": "number"
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "evidence_code",
+          "evidence_name",
+          "evidence_category",
+          "data_sources",
+          "extraction_rules",
+          "output_format",
+          "legal_significance",
+          "retention_period_years",
+          "processing_complexity",
+          "estimated_generation_time_minutes",
+          "is_active",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "AdminCreateEvidenceTypeDto": {
+        "type": "object",
+        "properties": {
+          "evidence_code": {
+            "type": "string",
+            "description": "Unique evidence code",
+            "example": "RISK_ASSESSMENT_DOC",
+            "maxLength": 100
+          },
+          "evidence_name": {
+            "type": "string",
+            "description": "Evidence name",
+            "example": "Risk Assessment Documentation",
+            "maxLength": 200
+          },
+          "evidence_category": {
+            "type": "string",
+            "description": "Evidence category",
+            "example": "SAFETY",
+            "maxLength": 50
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the evidence type",
+            "example": "Comprehensive risk assessment documentation for workplace hazards"
+          },
+          "data_sources": {
+            "type": "object",
+            "description": "Data sources configuration",
+            "additionalProperties": true,
+            "example": {
+              "primaryTable": "risk_assessments",
+              "relatedTables": [
+                "risk_controls",
+                "risk_reviews"
+              ],
+              "joinConditions": [
+                "risk_assessment_id"
+              ]
+            }
+          },
+          "extraction_rules": {
+            "type": "object",
+            "description": "Extraction rules",
+            "additionalProperties": true,
+            "example": {
+              "extractionRules": [
+                "active_only",
+                "last_12_months"
+              ],
+              "sorting": "date_desc",
+              "grouping": "by_department"
+            }
+          },
+          "output_format": {
+            "type": "object",
+            "description": "Output format configuration",
+            "additionalProperties": true,
+            "example": {
+              "fileType": "pdf",
+              "template": "risk_assessment_template",
+              "mergeStrategy": "single_document"
+            }
+          },
+          "legal_significance": {
+            "type": "string",
+            "description": "Legal significance level",
+            "default": "IMPORTANT",
+            "enum": [
+              "CRITICAL",
+              "IMPORTANT",
+              "STANDARD",
+              "LOW"
+            ],
+            "maxLength": 20
+          },
+          "retention_period_years": {
+            "type": "number",
+            "description": "Retention period in years",
+            "default": 6,
+            "minimum": 0
+          },
+          "processing_complexity": {
+            "type": "string",
+            "description": "Processing complexity",
+            "default": "SIMPLE",
+            "enum": [
+              "SIMPLE",
+              "MODERATE",
+              "COMPLEX",
+              "VERY_COMPLEX"
+            ],
+            "maxLength": 20
+          },
+          "estimated_generation_time_minutes": {
+            "type": "number",
+            "description": "Estimated generation time in minutes",
+            "default": 5,
+            "minimum": 0
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Is active",
+            "default": true
+          }
+        },
+        "required": [
+          "evidence_code",
+          "evidence_name",
+          "evidence_category",
+          "data_sources",
+          "extraction_rules",
+          "output_format"
+        ]
+      },
+      "AdminUpdateEvidenceTypeDto": {
+        "type": "object",
+        "properties": {
+          "evidence_name": {
+            "type": "string",
+            "description": "Evidence name",
+            "maxLength": 200
+          },
+          "evidence_category": {
+            "type": "string",
+            "description": "Evidence category",
+            "maxLength": 50
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the evidence type"
+          },
+          "data_sources": {
+            "type": "object",
+            "description": "Data sources configuration",
+            "additionalProperties": true
+          },
+          "extraction_rules": {
+            "type": "object",
+            "description": "Extraction rules",
+            "additionalProperties": true
+          },
+          "output_format": {
+            "type": "object",
+            "description": "Output format configuration",
+            "additionalProperties": true
+          },
+          "legal_significance": {
+            "type": "string",
+            "description": "Legal significance level",
+            "enum": [
+              "CRITICAL",
+              "IMPORTANT",
+              "STANDARD",
+              "LOW"
+            ],
+            "maxLength": 20
+          },
+          "retention_period_years": {
+            "type": "number",
+            "description": "Retention period in years",
+            "minimum": 0
+          },
+          "processing_complexity": {
+            "type": "string",
+            "description": "Processing complexity",
+            "enum": [
+              "SIMPLE",
+              "MODERATE",
+              "COMPLEX",
+              "VERY_COMPLEX"
+            ],
+            "maxLength": 20
+          },
+          "estimated_generation_time_minutes": {
+            "type": "number",
+            "description": "Estimated generation time in minutes",
+            "minimum": 0
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Is active"
+          }
+        }
+      },
+      "AdminAnalyticsQueryCacheResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "cache_key": {
+            "type": "string",
+            "description": "Unique cache key",
+            "maxLength": 255
+          },
+          "query_hash": {
+            "type": "string",
+            "description": "Query hash for validation",
+            "maxLength": 64
+          },
+          "result_data": {
+            "type": "object",
+            "description": "Cached result data",
+            "additionalProperties": true
+          },
+          "expires_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Cache expiration time"
+          },
+          "hit_count": {
+            "type": "number",
+            "description": "Number of cache hits"
+          },
+          "last_accessed": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Last time the cache was accessed"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "cache_key",
+          "query_hash",
+          "expires_at",
+          "hit_count",
+          "last_accessed",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "AdminCacheStatisticsDto": {
+        "type": "object",
+        "properties": {
+          "total_entries": {
+            "type": "number",
+            "description": "Total number of cache entries"
+          },
+          "active_entries": {
+            "type": "number",
+            "description": "Number of active (non-expired) entries"
+          },
+          "expired_entries": {
+            "type": "number",
+            "description": "Number of expired entries"
+          },
+          "total_hits": {
+            "type": "number",
+            "description": "Total cache hits"
+          },
+          "avg_hit_count": {
+            "type": "number",
+            "description": "Average hit count per entry"
+          },
+          "hit_rate": {
+            "type": "number",
+            "description": "Cache hit rate percentage"
+          },
+          "total_size_bytes": {
+            "type": "number",
+            "description": "Total cache size in bytes"
+          },
+          "top_accessed": {
+            "type": "array",
+            "description": "Most accessed cache keys",
+            "items": {
+              "type": "object",
+              "properties": {
+                "cache_key": {
+                  "type": "string"
+                },
+                "hit_count": {
+                  "type": "number"
+                },
+                "last_accessed": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            }
+          },
+          "generated_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Statistics generated at"
+          }
+        },
+        "required": [
+          "total_entries",
+          "active_entries",
+          "expired_entries",
+          "total_hits",
+          "avg_hit_count",
+          "hit_rate",
+          "total_size_bytes",
+          "top_accessed",
+          "generated_at"
+        ]
+      },
+      "AdminClearCacheDto": {
+        "type": "object",
+        "properties": {
+          "expired_only": {
+            "type": "boolean",
+            "description": "Clear only expired entries",
+            "default": false
+          },
+          "older_than": {
+            "type": "string",
+            "description": "Clear entries older than this date"
+          },
+          "hit_count_less_than": {
+            "type": "number",
+            "description": "Clear entries with hit count less than this value",
+            "minimum": 0
+          },
+          "cache_keys": {
+            "description": "Specific cache keys to clear",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "AdminOptimizeCacheDto": {
+        "type": "object",
+        "properties": {
+          "remove_low_hit": {
+            "type": "boolean",
+            "description": "Remove entries with low hit count",
+            "default": true
+          },
+          "min_hit_count": {
+            "type": "number",
+            "description": "Minimum hit count to keep",
+            "default": 5,
+            "minimum": 0
+          },
+          "remove_expired": {
+            "type": "boolean",
+            "description": "Remove expired entries",
+            "default": true
+          },
+          "compact_large_entries": {
+            "type": "boolean",
+            "description": "Compact large entries",
+            "default": false
+          },
+          "max_age_days": {
+            "type": "number",
+            "description": "Maximum age in days to keep",
+            "minimum": 1
+          }
+        }
+      },
+      "AdminDataUpdateLogResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "update_id": {
+            "type": "string",
+            "description": "Unique update identifier"
+          },
+          "component": {
+            "type": "string",
+            "description": "Component being updated"
+          },
+          "update_type": {
+            "type": "string",
+            "description": "Type of update"
+          },
+          "from_version": {
+            "type": "object",
+            "description": "Version before update"
+          },
+          "to_version": {
+            "type": "string",
+            "description": "Version after update"
+          },
+          "trigger_type": {
+            "type": "string",
+            "description": "What triggered the update",
+            "enum": [
+              "MANUAL",
+              "SCHEDULED",
+              "SYSTEM_UPDATE",
+              "CONTENT_CHANGE",
+              "COMPLIANCE_UPDATE"
+            ]
+          },
+          "trigger_source": {
+            "type": "object",
+            "description": "Source of the trigger"
+          },
+          "priority": {
+            "type": "string",
+            "description": "Update priority",
+            "default": "medium"
+          },
+          "started_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "When the update started"
+          },
+          "completed_at": {
+            "type": "object",
+            "description": "When the update completed"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current status",
+            "enum": [
+              "QUEUED",
+              "RUNNING",
+              "COMPLETED",
+              "FAILED",
+              "CANCELLED"
+            ]
+          },
+          "total_items": {
+            "type": "number",
+            "description": "Total items to process"
+          },
+          "processed_items": {
+            "type": "number",
+            "description": "Items processed so far"
+          },
+          "created_items": {
+            "type": "number",
+            "description": "Items created"
+          },
+          "updated_items": {
+            "type": "number",
+            "description": "Items updated"
+          },
+          "deleted_items": {
+            "type": "number",
+            "description": "Items deleted"
+          },
+          "failed_items": {
+            "type": "number",
+            "description": "Items that failed"
+          },
+          "execution_details": {
+            "type": "object",
+            "description": "Execution details",
+            "additionalProperties": true
+          },
+          "error_details": {
+            "type": "object",
+            "description": "Error details if failed",
+            "additionalProperties": true
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "update_id",
+          "component",
+          "update_type",
+          "to_version",
+          "trigger_type",
+          "priority",
+          "started_at",
+          "status",
+          "total_items",
+          "processed_items",
+          "created_items",
+          "updated_items",
+          "deleted_items",
+          "failed_items",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "AdminDataUpdateLogStatisticsDto": {
+        "type": "object",
+        "properties": {
+          "total_logs": {
+            "type": "number",
+            "description": "Total number of logs"
+          },
+          "by_status": {
+            "type": "object",
+            "description": "Logs by status",
+            "additionalProperties": true
+          },
+          "by_component": {
+            "type": "object",
+            "description": "Logs by component",
+            "additionalProperties": true
+          },
+          "by_trigger_type": {
+            "type": "object",
+            "description": "Logs by trigger type",
+            "additionalProperties": true
+          },
+          "avg_execution_time_seconds": {
+            "type": "number",
+            "description": "Average execution time in seconds"
+          },
+          "success_rate": {
+            "type": "number",
+            "description": "Success rate percentage"
+          },
+          "total_items_processed": {
+            "type": "number",
+            "description": "Total items processed"
+          },
+          "recent_failures": {
+            "type": "array",
+            "description": "Recent failures",
+            "items": {
+              "type": "object",
+              "properties": {
+                "update_id": {
+                  "type": "string"
+                },
+                "component": {
+                  "type": "string"
+                },
+                "started_at": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "error_summary": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "generated_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Statistics generated at"
+          }
+        },
+        "required": [
+          "total_logs",
+          "by_status",
+          "by_component",
+          "by_trigger_type",
+          "avg_execution_time_seconds",
+          "success_rate",
+          "total_items_processed",
+          "recent_failures",
+          "generated_at"
+        ]
+      },
+      "AdminCleanupDataUpdateLogsDto": {
+        "type": "object",
+        "properties": {
+          "older_than_days": {
+            "type": "number",
+            "description": "Delete logs older than this many days",
+            "default": 90,
+            "minimum": 1
+          },
+          "keep_latest_per_component": {
+            "type": "number",
+            "description": "Keep only the latest N logs per component",
+            "minimum": 1
+          },
+          "statuses": {
+            "type": "array",
+            "description": "Delete only logs with these statuses",
+            "items": {
+              "type": "string",
+              "enum": [
+                "QUEUED",
+                "RUNNING",
+                "COMPLETED",
+                "FAILED",
+                "CANCELLED"
+              ]
+            }
+          },
+          "components": {
+            "description": "Delete logs for specific components only",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "preserve_errors": {
+            "type": "boolean",
+            "description": "Preserve logs with errors",
+            "default": true
+          }
+        }
+      },
+      "AdminPresetContentUpdateQueueResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "content_type": {
+            "type": "string"
+          },
+          "content_code": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "string"
+          },
+          "scheduled_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "content_data": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "previous_version": {
+            "type": "object"
+          },
+          "target_version": {
+            "type": "string"
+          },
+          "dependencies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "QUEUED",
+              "RUNNING",
+              "COMPLETED",
+              "FAILED",
+              "CANCELLED"
+            ]
+          },
+          "retry_count": {
+            "type": "number"
+          },
+          "max_retries": {
+            "type": "number"
+          },
+          "started_at": {
+            "type": "object"
+          },
+          "completed_at": {
+            "type": "object"
+          },
+          "error_message": {
+            "type": "object"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "content_type",
+          "content_code",
+          "action",
+          "priority",
+          "scheduled_at",
+          "content_data",
+          "target_version",
+          "dependencies",
+          "status",
+          "retry_count",
+          "max_retries",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "AdminQueueStatusDto": {
+        "type": "object",
+        "properties": {
+          "total_items": {
+            "type": "number",
+            "description": "Total items in queue"
+          },
+          "by_status": {
+            "type": "object",
+            "description": "Items by status",
+            "additionalProperties": true
+          },
+          "by_priority": {
+            "type": "object",
+            "description": "Items by priority",
+            "additionalProperties": true
+          },
+          "by_content_type": {
+            "type": "object",
+            "description": "Items by content type",
+            "additionalProperties": true
+          },
+          "ready_to_process": {
+            "type": "number",
+            "description": "Items ready to process"
+          },
+          "retriable_failures": {
+            "type": "number",
+            "description": "Failed items that can be retried"
+          },
+          "avg_wait_time_seconds": {
+            "type": "number",
+            "description": "Average wait time in seconds"
+          },
+          "next_item": {
+            "type": "object",
+            "description": "Next scheduled item",
+            "nullable": true,
+            "additionalProperties": true
+          },
+          "generated_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Status generated at"
+          }
+        },
+        "required": [
+          "total_items",
+          "by_status",
+          "by_priority",
+          "by_content_type",
+          "ready_to_process",
+          "retriable_failures",
+          "avg_wait_time_seconds",
+          "next_item",
+          "generated_at"
+        ]
+      },
+      "AdminCreatePresetContentUpdateQueueDto": {
+        "type": "object",
+        "properties": {
+          "content_type": {
+            "type": "string",
+            "description": "Type of content to update",
+            "example": "LeaveTypeTemplate"
+          },
+          "content_code": {
+            "type": "string",
+            "description": "Content code identifier",
+            "example": "ANNUAL_LEAVE"
+          },
+          "action": {
+            "type": "string",
+            "description": "Action to perform",
+            "example": "CREATE",
+            "enum": [
+              "CREATE",
+              "UPDATE",
+              "DELETE",
+              "DEPLOY"
+            ]
+          },
+          "priority": {
+            "type": "string",
+            "description": "Priority level",
+            "default": "medium",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "scheduled_at": {
+            "type": "string",
+            "description": "Scheduled execution time",
+            "default": "now"
+          },
+          "content_data": {
+            "type": "object",
+            "description": "Content data to process",
+            "additionalProperties": true
+          },
+          "previous_version": {
+            "type": "string",
+            "description": "Previous version identifier"
+          },
+          "target_version": {
+            "type": "string",
+            "description": "Target version identifier",
+            "example": "2.0.0"
+          },
+          "dependencies": {
+            "description": "List of dependency content codes",
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "max_retries": {
+            "type": "number",
+            "description": "Maximum retry attempts",
+            "default": 3,
+            "minimum": 0,
+            "maximum": 10
+          }
+        },
+        "required": [
+          "content_type",
+          "content_code",
+          "action",
+          "content_data",
+          "target_version"
+        ]
+      },
+      "AdminUpdatePresetContentUpdateQueueDto": {
+        "type": "object",
+        "properties": {
+          "priority": {
+            "type": "string",
+            "description": "Priority level",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "scheduled_at": {
+            "type": "string",
+            "description": "Scheduled execution time"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status",
+            "enum": [
+              "QUEUED",
+              "RUNNING",
+              "COMPLETED",
+              "FAILED",
+              "CANCELLED"
+            ]
+          },
+          "max_retries": {
+            "type": "number",
+            "description": "Maximum retry attempts",
+            "minimum": 0,
+            "maximum": 10
+          }
+        }
+      },
+      "AdminProcessQueueDto": {
+        "type": "object",
+        "properties": {
+          "batch_size": {
+            "type": "number",
+            "description": "Maximum items to process",
+            "default": 10,
+            "minimum": 1,
+            "maximum": 100
+          },
+          "min_priority": {
+            "type": "string",
+            "description": "Process only items with this priority or higher",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "content_types": {
+            "description": "Process specific content types only",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "Process items in dry run mode",
+            "default": false
+          }
+        }
+      },
+      "AdminPresetContentResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "content_type": {
+            "type": "string",
+            "enum": [
+              "contract",
+              "policy",
+              "document",
+              "form",
+              "training"
+            ]
+          },
+          "code": {
+            "type": "string"
+          },
+          "title_en": {
+            "type": "string"
+          },
+          "description_en": {
+            "type": "object"
+          },
+          "content_data": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "localization_data": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "version": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "DRAFT",
+              "ACTIVE",
+              "ARCHIVED",
+              "DEPRECATED"
+            ]
+          },
+          "is_system_default": {
+            "type": "boolean"
+          },
+          "jurisdictions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "last_review_date": {
+            "type": "object"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "content_type",
+          "code",
+          "title_en",
+          "content_data",
+          "localization_data",
+          "version",
+          "status",
+          "is_system_default",
+          "jurisdictions",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "AdminCreatePresetContentDto": {
+        "type": "object",
+        "properties": {
+          "content_type": {
+            "type": "string",
+            "description": "Type of content",
+            "enum": [
+              "contract",
+              "policy",
+              "document",
+              "form",
+              "training"
+            ],
+            "example": "contract"
+          },
+          "code": {
+            "type": "string",
+            "description": "Unique content code",
+            "example": "EMPLOYMENT_CONTRACT_STANDARD",
+            "maxLength": 100
+          },
+          "title_en": {
+            "type": "string",
+            "description": "Title in English",
+            "example": "Standard Employment Contract",
+            "maxLength": 200
+          },
+          "description_en": {
+            "type": "string",
+            "description": "Description in English",
+            "example": "Standard employment contract template for permanent employees"
+          },
+          "content_data": {
+            "type": "object",
+            "description": "Main content data",
+            "additionalProperties": true,
+            "example": {
+              "template": "contract template content",
+              "fields": [
+                "employee_name",
+                "start_date",
+                "salary"
+              ],
+              "sections": [
+                "terms",
+                "conditions",
+                "benefits"
+              ]
+            }
+          },
+          "localization_data": {
+            "type": "object",
+            "description": "Localization data for multiple languages",
+            "additionalProperties": true,
+            "default": {},
+            "example": {
+              "cy": {
+                "title": "Cytundeb Cyflogaeth Safonol"
+              },
+              "gd": {
+                "title": "Cùmhnant Cosnaidh Àbhaisteach"
+              }
+            }
+          },
+          "version": {
+            "type": "string",
+            "description": "Content version",
+            "default": "1.0.0",
+            "example": "1.0.0"
+          },
+          "status": {
+            "type": "string",
+            "description": "Content status",
+            "enum": [
+              "DRAFT",
+              "ACTIVE",
+              "ARCHIVED",
+              "DEPRECATED"
+            ],
+            "default": "ACTIVE"
+          },
+          "is_system_default": {
+            "type": "boolean",
+            "description": "Is system default content",
+            "default": false
+          },
+          "jurisdictions": {
+            "description": "Jurisdictions this content applies to",
+            "default": [
+              "UK"
+            ],
+            "example": [
+              "UK",
+              "Scotland",
+              "Wales",
+              "Northern Ireland"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "last_review_date": {
+            "type": "string",
+            "description": "Last compliance review date",
+            "example": "2024-01-01"
+          }
+        },
+        "required": [
+          "content_type",
+          "code",
+          "title_en",
+          "content_data"
+        ]
+      },
+      "AdminUpdatePresetContentDto": {
+        "type": "object",
+        "properties": {
+          "title_en": {
+            "type": "string",
+            "description": "Title in English",
+            "maxLength": 200
+          },
+          "description_en": {
+            "type": "string",
+            "description": "Description in English"
+          },
+          "content_data": {
+            "type": "object",
+            "description": "Main content data",
+            "additionalProperties": true
+          },
+          "localization_data": {
+            "type": "object",
+            "description": "Localization data for multiple languages",
+            "additionalProperties": true
+          },
+          "version": {
+            "type": "string",
+            "description": "Content version"
+          },
+          "status": {
+            "type": "string",
+            "description": "Content status",
+            "enum": [
+              "DRAFT",
+              "ACTIVE",
+              "ARCHIVED",
+              "DEPRECATED"
+            ]
+          },
+          "is_system_default": {
+            "type": "boolean",
+            "description": "Is system default content"
+          },
+          "jurisdictions": {
+            "description": "Jurisdictions this content applies to",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "last_review_date": {
+            "type": "string",
+            "description": "Last compliance review date"
+          }
+        }
+      },
+      "AdminBulkImportPresetContentDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "description": "Array of preset content to import",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AdminCreatePresetContentDto"
+            }
+          },
+          "update_existing": {
+            "type": "boolean",
+            "description": "Update existing items with same code",
+            "default": false
+          }
+        },
+        "required": [
+          "items"
+        ]
+      },
+      "AdminClonePresetContentDto": {
+        "type": "object",
+        "properties": {
+          "new_code": {
+            "type": "string",
+            "description": "New unique code for cloned content",
+            "example": "EMPLOYMENT_CONTRACT_EXECUTIVE"
+          },
+          "new_title": {
+            "type": "string",
+            "description": "New title for cloned content",
+            "example": "Executive Employment Contract"
+          },
+          "new_description": {
+            "type": "string",
+            "description": "New description for cloned content"
+          },
+          "reset_version": {
+            "type": "boolean",
+            "description": "Reset version to 1.0.0",
+            "default": true
+          }
+        },
+        "required": [
+          "new_code",
+          "new_title"
+        ]
+      },
+      "AdminDeployPresetContentDto": {
+        "type": "object",
+        "properties": {
+          "tenant_ids": {
+            "description": "List of tenant IDs to deploy to",
+            "example": [
+              "tenant-1",
+              "tenant-2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "override_existing": {
+            "type": "boolean",
+            "description": "Override existing content",
+            "default": false
+          },
+          "target_jurisdictions": {
+            "description": "Deploy only to tenants in specific jurisdictions",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "tenant_ids"
+        ]
+      },
+      "AdminLocalizationConfigurationResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "localization_code": {
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "language_code": {
+            "type": "string"
+          },
+          "country_code": {
+            "type": "object"
+          },
+          "region": {
+            "type": "object"
+          },
+          "date_format": {
+            "type": "string"
+          },
+          "currency_code": {
+            "type": "string"
+          },
+          "currency_symbol": {
+            "type": "string"
+          },
+          "number_format": {
+            "type": "object"
+          },
+          "legal_framework": {
+            "type": "object"
+          },
+          "compliance_requirements": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "cultural_preferences": {
+            "type": "object"
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "translation_count": {
+            "type": "number",
+            "description": "Number of translations for this localization",
+            "example": 150
+          }
+        },
+        "required": [
+          "id",
+          "localization_code",
+          "display_name",
+          "language_code",
+          "date_format",
+          "currency_code",
+          "currency_symbol",
+          "number_format",
+          "compliance_requirements",
+          "is_active",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "AdminCreateLocalizationConfigurationDto": {
+        "type": "object",
+        "properties": {
+          "localization_code": {
+            "type": "string",
+            "description": "Unique localization code",
+            "example": "en_GB"
+          },
+          "display_name": {
+            "type": "string",
+            "description": "Display name for the localization",
+            "example": "English (United Kingdom)"
+          },
+          "language_code": {
+            "type": "string",
+            "description": "Language code",
+            "example": "en"
+          },
+          "country_code": {
+            "type": "string",
+            "description": "Country code",
+            "example": "GB"
+          },
+          "region": {
+            "type": "string",
+            "description": "Region",
+            "example": "Europe"
+          },
+          "date_format": {
+            "type": "string",
+            "description": "Date format",
+            "default": "DD/MM/YYYY",
+            "example": "DD/MM/YYYY"
+          },
+          "currency_code": {
+            "type": "string",
+            "description": "Currency code",
+            "default": "GBP",
+            "example": "GBP"
+          },
+          "currency_symbol": {
+            "type": "string",
+            "description": "Currency symbol",
+            "default": "£",
+            "example": "£"
+          },
+          "number_format": {
+            "type": "object",
+            "description": "Number format configuration",
+            "default": {
+              "decimal_separator": ".",
+              "thousand_separator": ","
+            },
+            "example": {
+              "decimal_separator": ".",
+              "thousand_separator": ","
+            }
+          },
+          "legal_framework": {
+            "type": "object",
+            "description": "Legal framework configuration",
+            "example": {
+              "employment_law": "UK Employment Act",
+              "data_protection": "UK GDPR"
+            }
+          },
+          "compliance_requirements": {
+            "description": "Compliance requirements",
+            "example": [
+              "GDPR",
+              "IR35",
+              "AWR"
+            ],
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "cultural_preferences": {
+            "type": "object",
+            "description": "Cultural preferences",
+            "example": {
+              "working_week_start": "Monday",
+              "time_format": "24h"
+            }
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Whether the configuration is active",
+            "default": true
+          }
+        },
+        "required": [
+          "localization_code",
+          "display_name",
+          "language_code"
+        ]
+      },
+      "AdminUpdateLocalizationConfigurationDto": {
+        "type": "object",
+        "properties": {
+          "display_name": {
+            "type": "string",
+            "description": "Display name for the localization"
+          },
+          "language_code": {
+            "type": "string",
+            "description": "Language code"
+          },
+          "country_code": {
+            "type": "string",
+            "description": "Country code"
+          },
+          "region": {
+            "type": "string",
+            "description": "Region"
+          },
+          "date_format": {
+            "type": "string",
+            "description": "Date format"
+          },
+          "currency_code": {
+            "type": "string",
+            "description": "Currency code"
+          },
+          "currency_symbol": {
+            "type": "string",
+            "description": "Currency symbol"
+          },
+          "number_format": {
+            "type": "object",
+            "description": "Number format configuration"
+          },
+          "legal_framework": {
+            "type": "object",
+            "description": "Legal framework configuration"
+          },
+          "compliance_requirements": {
+            "description": "Compliance requirements",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "cultural_preferences": {
+            "type": "object",
+            "description": "Cultural preferences"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Whether the configuration is active"
+          }
+        }
+      },
+      "AdminLocalizationTranslationResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "localization_id": {
+            "type": "string"
+          },
+          "translation_key": {
+            "type": "string"
+          },
+          "translation_context": {
+            "type": "object"
+          },
+          "translated_text": {
+            "type": "string"
+          },
+          "alternative_translations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "translation_quality": {
+            "type": "string"
+          },
+          "translator": {
+            "type": "object"
+          },
+          "reviewer": {
+            "type": "object"
+          },
+          "translation_version": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "localization_id",
+          "translation_key",
+          "translated_text",
+          "alternative_translations",
+          "translation_quality",
+          "translation_version",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "AdminCreateLocalizationTranslationDto": {
+        "type": "object",
+        "properties": {
+          "localization_id": {
+            "type": "string",
+            "description": "Localization configuration ID",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "translation_key": {
+            "type": "string",
+            "description": "Translation key",
+            "example": "common.button.submit"
+          },
+          "translation_context": {
+            "type": "string",
+            "description": "Translation context",
+            "example": "Used for form submission buttons"
+          },
+          "translated_text": {
+            "type": "string",
+            "description": "Translated text",
+            "example": "Submit"
+          },
+          "alternative_translations": {
+            "description": "Alternative translations",
+            "example": [
+              "Send",
+              "Confirm"
+            ],
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "translation_quality": {
+            "type": "string",
+            "description": "Translation quality",
+            "default": "reviewed",
+            "example": "reviewed",
+            "enum": [
+              "draft",
+              "reviewed",
+              "approved",
+              "needs_review"
+            ]
+          },
+          "translator": {
+            "type": "string",
+            "description": "Translator name or ID",
+            "example": "John Doe"
+          },
+          "reviewer": {
+            "type": "string",
+            "description": "Reviewer name or ID",
+            "example": "Jane Smith"
+          },
+          "translation_version": {
+            "type": "string",
+            "description": "Translation version",
+            "default": "1.0.0",
+            "example": "1.0.0"
+          }
+        },
+        "required": [
+          "localization_id",
+          "translation_key",
+          "translated_text"
+        ]
+      },
+      "AdminUpdateLocalizationTranslationDto": {
+        "type": "object",
+        "properties": {
+          "translation_context": {
+            "type": "string",
+            "description": "Translation context"
+          },
+          "translated_text": {
+            "type": "string",
+            "description": "Translated text"
+          },
+          "alternative_translations": {
+            "description": "Alternative translations",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "translation_quality": {
+            "type": "string",
+            "description": "Translation quality",
+            "enum": [
+              "draft",
+              "reviewed",
+              "approved",
+              "needs_review"
+            ]
+          },
+          "translator": {
+            "type": "string",
+            "description": "Translator name or ID"
+          },
+          "reviewer": {
+            "type": "string",
+            "description": "Reviewer name or ID"
+          },
+          "translation_version": {
+            "type": "string",
+            "description": "Translation version"
+          }
+        }
+      },
+      "AdminSystemInitializationResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "component": {
+            "type": "string"
+          },
+          "is_initialized": {
+            "type": "boolean"
+          },
+          "initialization_version": {
+            "type": "object"
+          },
+          "initialization_date": {
+            "type": "object"
+          },
+          "last_update_version": {
+            "type": "object"
+          },
+          "last_update_date": {
+            "type": "object"
+          },
+          "status": {
+            "type": "string"
+          },
+          "error_message": {
+            "type": "object"
+          },
+          "total_items": {
+            "type": "number"
+          },
+          "processed_items": {
+            "type": "number"
+          },
+          "failed_items": {
+            "type": "number"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "progress_percentage": {
+            "type": "number",
+            "description": "Progress percentage",
+            "example": 75.5
+          }
+        },
+        "required": [
+          "id",
+          "component",
+          "is_initialized",
+          "status",
+          "total_items",
+          "processed_items",
+          "failed_items",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "AdminUpdateSystemInitializationDto": {
+        "type": "object",
+        "properties": {
+          "is_initialized": {
+            "type": "boolean",
+            "description": "Whether the component is initialized"
+          },
+          "initialization_version": {
+            "type": "string",
+            "description": "Initialization version"
+          },
+          "last_update_version": {
+            "type": "string",
+            "description": "Last update version"
+          },
+          "last_update_date": {
+            "type": "string",
+            "description": "Last update date"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of the initialization"
+          },
+          "error_message": {
+            "type": "string",
+            "description": "Error message if any"
+          },
+          "total_items": {
+            "type": "number",
+            "description": "Total items to process"
+          },
+          "processed_items": {
+            "type": "number",
+            "description": "Processed items count"
+          },
+          "failed_items": {
+            "type": "number",
+            "description": "Failed items count"
+          }
+        }
+      },
+      "AdminBulkUpdateDto": {
+        "type": "object",
+        "properties": {
+          "tenant_ids": {
+            "description": "List of tenant IDs to update",
+            "example": [
+              "tenant-1",
+              "tenant-2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "entity_type": {
+            "type": "string",
+            "description": "Type of entity to update",
+            "example": "leave_policy"
+          },
+          "update_data": {
+            "type": "object",
+            "description": "Update data to apply",
+            "additionalProperties": true,
+            "example": {
+              "max_days": 30,
+              "carry_forward": true
+            }
+          },
+          "filter_criteria": {
+            "type": "object",
+            "description": "Filter criteria for selective update",
+            "additionalProperties": true
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "Run in dry-run mode to preview changes",
+            "default": false
+          },
+          "create_backup": {
+            "type": "boolean",
+            "description": "Create backup before update",
+            "default": true
+          }
+        },
+        "required": [
+          "tenant_ids",
+          "entity_type",
+          "update_data"
+        ]
+      },
+      "AdminOperationResultDto": {
+        "type": "object",
+        "properties": {
+          "operation_id": {
+            "type": "string"
+          },
+          "operation_type": {
+            "type": "string",
+            "enum": [
+              "BULK_UPDATE",
+              "DATA_MIGRATION",
+              "CLEANUP",
+              "HEALTH_CHECK",
+              "DEPLOYMENT",
+              "BACKUP",
+              "RESTORE"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "IN_PROGRESS",
+              "COMPLETED",
+              "FAILED",
+              "PARTIALLY_COMPLETED"
+            ]
+          },
+          "started_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "completed_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "total_tenants": {
+            "type": "number"
+          },
+          "successful_tenants": {
+            "type": "number"
+          },
+          "failed_tenants": {
+            "type": "number"
+          },
+          "details": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "tenant_results": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "operation_id",
+          "operation_type",
+          "status",
+          "started_at",
+          "total_tenants",
+          "successful_tenants",
+          "failed_tenants",
+          "details",
+          "tenant_results"
+        ]
+      },
+      "AdminDataMigrationDto": {
+        "type": "object",
+        "properties": {
+          "source_tenant_id": {
+            "type": "string",
+            "description": "Source tenant ID",
+            "example": "tenant-source"
+          },
+          "target_tenant_ids": {
+            "description": "Target tenant IDs",
+            "example": [
+              "tenant-target-1",
+              "tenant-target-2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "data_types": {
+            "description": "Data types to migrate",
+            "example": [
+              "policies",
+              "templates",
+              "configurations"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "migration_options": {
+            "type": "object",
+            "description": "Migration options",
+            "additionalProperties": true,
+            "default": {},
+            "example": {
+              "overwrite_existing": false,
+              "merge_data": true
+            }
+          },
+          "start_date": {
+            "type": "string",
+            "description": "Start date for data migration"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "End date for data migration"
+          }
+        },
+        "required": [
+          "source_tenant_id",
+          "target_tenant_ids",
+          "data_types"
+        ]
+      },
+      "AdminDataCleanupDto": {
+        "type": "object",
+        "properties": {
+          "tenant_ids": {
+            "description": "Tenant IDs to cleanup",
+            "example": [
+              "tenant-1",
+              "tenant-2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "cleanup_types": {
+            "description": "Types of data to cleanup",
+            "example": [
+              "old_logs",
+              "archived_records",
+              "temp_files"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "retention_days": {
+            "type": "number",
+            "description": "Retention period in days",
+            "default": 90,
+            "minimum": 1,
+            "maximum": 365
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "Run in dry-run mode",
+            "default": false
+          },
+          "force": {
+            "type": "boolean",
+            "description": "Force cleanup even for active data",
+            "default": false
+          }
+        },
+        "required": [
+          "tenant_ids",
+          "cleanup_types"
+        ]
+      },
+      "TenantHealthStatusDto": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string"
+          },
+          "tenant_name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "database_status": {
+            "type": "string"
+          },
+          "last_activity": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "employee_count": {
+            "type": "number"
+          },
+          "storage_used_mb": {
+            "type": "number"
+          },
+          "api_calls_today": {
+            "type": "number"
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "checked_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "tenant_id",
+          "tenant_name",
+          "status",
+          "database_status",
+          "last_activity",
+          "employee_count",
+          "storage_used_mb",
+          "api_calls_today",
+          "warnings",
+          "errors",
+          "checked_at"
+        ]
+      },
+      "RegulatoryUpdateStatusDto": {
+        "type": "object",
+        "properties": {
+          "update_type": {
+            "type": "string",
+            "enum": [
+              "MINIMUM_WAGE",
+              "STATUTORY_RATES",
+              "TAX_CODES",
+              "PUBLIC_HOLIDAYS",
+              "PENSION_RATES",
+              "EMPLOYMENT_LAW",
+              "HEALTH_SAFETY"
+            ]
+          },
+          "current_version": {
+            "type": "string"
+          },
+          "latest_version": {
+            "type": "string"
+          },
+          "update_available": {
+            "type": "boolean"
+          },
+          "last_updated": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "next_update_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "changes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "mandatory": {
+            "type": "boolean"
+          },
+          "effective_date": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "update_type",
+          "current_version",
+          "latest_version",
+          "update_available",
+          "last_updated",
+          "description",
+          "changes",
+          "mandatory"
+        ]
+      },
+      "ApplyRegulatoryUpdateDto": {
+        "type": "object",
+        "properties": {
+          "update_types": {
+            "type": "array",
+            "description": "Types of regulatory updates to apply",
+            "example": [
+              "MINIMUM_WAGE",
+              "STATUTORY_RATES"
+            ],
+            "items": {
+              "type": "string",
+              "enum": [
+                "MINIMUM_WAGE",
+                "STATUTORY_RATES",
+                "TAX_CODES",
+                "PUBLIC_HOLIDAYS",
+                "PENSION_RATES",
+                "EMPLOYMENT_LAW",
+                "HEALTH_SAFETY"
+              ]
+            }
+          },
+          "tenant_ids": {
+            "description": "Apply to specific tenants only",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "scheduled_date": {
+            "type": "string",
+            "description": "Schedule update for future date"
+          },
+          "create_backup": {
+            "type": "boolean",
+            "description": "Create backup before applying",
+            "default": true
+          },
+          "notify_tenants": {
+            "type": "boolean",
+            "description": "Send notifications to affected tenants",
+            "default": true
+          }
+        },
+        "required": [
+          "update_types"
+        ]
+      },
+      "RegulatoryUpdateHistoryDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "update_type": {
+            "type": "string",
+            "enum": [
+              "MINIMUM_WAGE",
+              "STATUTORY_RATES",
+              "TAX_CODES",
+              "PUBLIC_HOLIDAYS",
+              "PENSION_RATES",
+              "EMPLOYMENT_LAW",
+              "HEALTH_SAFETY"
+            ]
+          },
+          "version": {
+            "type": "string"
+          },
+          "applied_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "applied_by": {
+            "type": "string"
+          },
+          "affected_tenants": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "IN_PROGRESS",
+              "COMPLETED",
+              "FAILED",
+              "PARTIALLY_COMPLETED"
+            ]
+          },
+          "changes_applied": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "rollback_available": {
+            "type": "boolean"
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "update_type",
+          "version",
+          "applied_at",
+          "applied_by",
+          "affected_tenants",
+          "status",
+          "changes_applied"
+        ]
+      },
+      "RollbackRegulatoryUpdateDto": {
+        "type": "object",
+        "properties": {
+          "update_id": {
+            "type": "string",
+            "description": "Update history ID to rollback",
+            "example": "update-123"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for rollback",
+            "example": "Incorrect values applied"
+          },
+          "tenant_ids": {
+            "description": "Apply to specific tenants only",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "update_id"
+        ]
+      },
+      "SystemPresetDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "preset_type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "is_default": {
+            "type": "boolean"
+          },
+          "configuration": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "version": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "preset_type",
+          "name",
+          "description",
+          "is_active",
+          "is_default",
+          "configuration",
+          "version",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "UpdateSystemPresetDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Preset name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Preset description"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Is active"
+          },
+          "configuration": {
+            "type": "object",
+            "description": "Preset configuration",
+            "additionalProperties": true
+          },
+          "version": {
+            "type": "string",
+            "description": "Version"
+          }
+        }
       },
       "EmployeeProfileDto": {
         "type": "object",
