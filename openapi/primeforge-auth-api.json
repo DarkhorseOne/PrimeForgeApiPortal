@@ -1258,6 +1258,71 @@
         ]
       }
     },
+    "/organizations/{id}/members/{memberId}/app-roles": {
+      "put": {
+        "operationId": "OrganizationsController_updateMemberAppRoles",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Organization ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "memberId",
+            "required": true,
+            "in": "path",
+            "description": "Member ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMemberAppRolesDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Member app roles updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationMemberResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data"
+          },
+          "403": {
+            "description": "Insufficient permissions"
+          },
+          "404": {
+            "description": "Member not found"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Update member application roles in organization",
+        "tags": [
+          "Organizations"
+        ]
+      }
+    },
     "/organizations/{id}/members/{memberId}": {
       "delete": {
         "operationId": "OrganizationsController_removeMember",
@@ -3416,6 +3481,480 @@
           "Admin"
         ]
       }
+    },
+    "/admin/app-role-matrix": {
+      "post": {
+        "description": "Create a new app role matrix for application-specific roles",
+        "operationId": "AdminController_createAppRoleMatrix",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAppRoleMatrixDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "App role matrix created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppRoleMatrixResponseDto"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "App role matrix with same name already exists"
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Create app role matrix",
+        "tags": [
+          "Admin"
+        ]
+      },
+      "get": {
+        "description": "Get all app role matrices with pagination",
+        "operationId": "AdminController_findAllAppRoleMatrices",
+        "parameters": [
+          {
+            "name": "activeOnly",
+            "required": false,
+            "in": "query",
+            "description": "Only return active app role matrices",
+            "schema": {
+              "example": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of app role matrices",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppRoleMatrixListResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Get all app role matrices",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/app-role-matrix/{id}": {
+      "get": {
+        "description": "Get a single app role matrix by its ID",
+        "operationId": "AdminController_findOneAppRoleMatrix",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "App role matrix ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "App role matrix details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppRoleMatrixResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "App role matrix not found"
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Get app role matrix by ID",
+        "tags": [
+          "Admin"
+        ]
+      },
+      "put": {
+        "description": "Update an existing app role matrix",
+        "operationId": "AdminController_updateAppRoleMatrix",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "App role matrix ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAppRoleMatrixDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "App role matrix updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppRoleMatrixResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "App role matrix not found"
+          },
+          "409": {
+            "description": "App role matrix with same name already exists"
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Update app role matrix",
+        "tags": [
+          "Admin"
+        ]
+      },
+      "delete": {
+        "description": "Delete an app role matrix",
+        "operationId": "AdminController_deleteAppRoleMatrix",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "App role matrix ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "App role matrix deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "App role matrix not found"
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Delete app role matrix",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/app-role-matrix/by-name/{name}": {
+      "get": {
+        "description": "Get a single app role matrix by its name",
+        "operationId": "AdminController_findAppRoleMatrixByName",
+        "parameters": [
+          {
+            "name": "name",
+            "required": true,
+            "in": "path",
+            "description": "App role matrix name",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "App role matrix details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppRoleMatrixResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "App role matrix not found"
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Get app role matrix by name",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/admin/app-role-matrix/{id}/toggle-active": {
+      "patch": {
+        "description": "Toggle the active status of an app role matrix",
+        "operationId": "AdminController_toggleAppRoleMatrixActive",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "App role matrix ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Active status toggled successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppRoleMatrixResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "App role matrix not found"
+          }
+        },
+        "security": [
+          {
+            "Admin-JWT": []
+          }
+        ],
+        "summary": "(Admin) Toggle app role matrix active status",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/app-roles/available": {
+      "get": {
+        "description": "Returns all active app role matrices that can be assigned to organization members. Only accessible to organization owners and admins.",
+        "operationId": "AppRoleMatrixController_getAvailableRoles",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "organizationId",
+            "required": false,
+            "in": "query",
+            "description": "Organization ID to check permissions for. If not provided, uses default organization.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of available app roles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedAvailableAppRolesDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "User is not an owner or admin of the organization"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get available app roles for member assignment",
+        "tags": [
+          "App Roles"
+        ]
+      }
+    },
+    "/app-roles/available/{appName}": {
+      "get": {
+        "description": "Returns available roles that can be assigned for a specific application. Only accessible to organization owners and admins.",
+        "operationId": "AppRoleMatrixController_getAvailableRolesForApp",
+        "parameters": [
+          {
+            "name": "appName",
+            "required": true,
+            "in": "path",
+            "description": "Application name (e.g., HR, CRM)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "organizationId",
+            "required": false,
+            "in": "query",
+            "description": "Organization ID to check permissions for. If not provided, uses default organization.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Available roles for the specified app",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AvailableAppRolesDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "User is not an owner or admin of the organization"
+          },
+          "404": {
+            "description": "App role matrix not found or inactive"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get available roles for a specific app",
+        "tags": [
+          "App Roles"
+        ]
+      }
+    },
+    "/app-roles/apps": {
+      "get": {
+        "description": "Returns a simple list of app names that have role matrices defined. Useful for UI dropdowns.",
+        "operationId": "AppRoleMatrixController_getAvailableApps",
+        "parameters": [
+          {
+            "name": "organizationId",
+            "required": false,
+            "in": "query",
+            "description": "Organization ID to check permissions for. If not provided, uses default organization.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of app names",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "User is not an owner or admin of the organization"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get list of available apps",
+        "tags": [
+          "App Roles"
+        ]
+      }
     }
   },
   "info": {
@@ -3434,12 +3973,16 @@
       "description": "Organization management endpoints"
     },
     {
-      "name": "Social Auth",
+      "name": "Social Authentication",
       "description": "Social authentication endpoints"
     },
     {
       "name": "Admin",
       "description": "Administrative endpoints"
+    },
+    {
+      "name": "App Roles",
+      "description": "Application role matrix management"
     }
   ],
   "servers": [
@@ -3456,6 +3999,14 @@
         "type": "http",
         "name": "JWT",
         "description": "Enter JWT token",
+        "in": "header"
+      },
+      "Admin-JWT": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http",
+        "name": "Admin-JWT",
+        "description": "Enter Admin JWT token",
         "in": "header"
       }
     },
@@ -3657,6 +4208,18 @@
               "SUSPENDED"
             ]
           },
+          "app_roles": {
+            "description": "User roles in applications",
+            "example": [
+              "admin",
+              "editor",
+              "viewer"
+            ],
+            "items": {
+              "type": "array"
+            },
+            "type": "array"
+          },
           "organization": {
             "description": "Organization details",
             "allOf": [
@@ -3683,6 +4246,7 @@
           "tenant_id",
           "role",
           "status",
+          "app_roles",
           "organization",
           "created_at",
           "updated_at"
@@ -4534,6 +5098,18 @@
               "PENDING"
             ]
           },
+          "app_roles": {
+            "description": "User roles in applications",
+            "example": [
+              "admin",
+              "editor",
+              "viewer"
+            ],
+            "items": {
+              "type": "array"
+            },
+            "type": "array"
+          },
           "joinedAt": {
             "format": "date-time",
             "type": "string",
@@ -4573,6 +5149,7 @@
           "id",
           "role",
           "status",
+          "app_roles",
           "joinedAt",
           "user"
         ]
@@ -4771,6 +5348,26 @@
         },
         "required": [
           "role"
+        ]
+      },
+      "UpdateMemberAppRolesDto": {
+        "type": "object",
+        "properties": {
+          "app_roles": {
+            "description": "Application roles to assign to the member",
+            "example": [
+              "admin",
+              "editor",
+              "viewer"
+            ],
+            "items": {
+              "type": "array"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "app_roles"
         ]
       },
       "PaginatedInvitationsResponseDto": {
@@ -6331,6 +6928,250 @@
             "description": "Maximum active members"
           }
         }
+      },
+      "CreateAppRoleMatrixDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Application name",
+            "example": "HR"
+          },
+          "description": {
+            "type": "string",
+            "description": "Application description",
+            "example": "Human Resources Management"
+          },
+          "roles": {
+            "description": "Available roles for this application",
+            "example": [
+              "HR_MANAGER",
+              "HR_SPECIALIST",
+              "HR_ESS",
+              "HR_PAYROLL"
+            ],
+            "items": {
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "active": {
+            "type": "boolean",
+            "description": "Whether the app role matrix is active",
+            "example": true,
+            "default": true
+          }
+        },
+        "required": [
+          "name",
+          "roles"
+        ]
+      },
+      "AppRoleMatrixResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "App role matrix ID",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "name": {
+            "type": "string",
+            "description": "Application name",
+            "example": "HR"
+          },
+          "description": {
+            "type": "string",
+            "description": "Application description",
+            "example": "Human Resources Management"
+          },
+          "roles": {
+            "description": "Available roles for this application",
+            "example": [
+              "HR_MANAGER",
+              "HR_SPECIALIST",
+              "HR_ESS",
+              "HR_PAYROLL"
+            ],
+            "items": {
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "active": {
+            "type": "boolean",
+            "description": "Whether the app role matrix is active",
+            "example": true
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Creation timestamp",
+            "example": "2024-01-01T00:00:00Z"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Last update timestamp",
+            "example": "2024-01-01T00:00:00Z"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "roles",
+          "active",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "AppRoleMatrixListResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AppRoleMatrixResponseDto"
+            }
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number",
+                "example": 1
+              },
+              "limit": {
+                "type": "number",
+                "example": 20
+              },
+              "total": {
+                "type": "number",
+                "example": 100
+              },
+              "totalPages": {
+                "type": "number",
+                "example": 5
+              }
+            }
+          }
+        },
+        "required": [
+          "data",
+          "pagination"
+        ]
+      },
+      "UpdateAppRoleMatrixDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Application name",
+            "example": "HR"
+          },
+          "description": {
+            "type": "string",
+            "description": "Application description",
+            "example": "Human Resources Management"
+          },
+          "roles": {
+            "description": "Available roles for this application",
+            "example": [
+              "HR_MANAGER",
+              "HR_SPECIALIST",
+              "HR_ESS",
+              "HR_PAYROLL"
+            ],
+            "items": {
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "active": {
+            "type": "boolean",
+            "description": "Whether the app role matrix is active",
+            "example": true
+          }
+        }
+      },
+      "AvailableAppRolesDto": {
+        "type": "object",
+        "properties": {
+          "app": {
+            "type": "string",
+            "description": "Application name",
+            "example": "HR"
+          },
+          "description": {
+            "type": "string",
+            "description": "Application description",
+            "example": "Human Resources Management"
+          },
+          "availableRoles": {
+            "description": "Available roles for assignment",
+            "example": [
+              "HR_MANAGER",
+              "HR_SPECIALIST",
+              "HR_ESS",
+              "HR_PAYROLL"
+            ],
+            "items": {
+              "type": "array"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "app",
+          "description",
+          "availableRoles"
+        ]
+      },
+      "PaginatedAvailableAppRolesDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of available app roles",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AvailableAppRolesDto"
+            }
+          },
+          "meta": {
+            "type": "object",
+            "description": "Pagination metadata",
+            "properties": {
+              "currentPage": {
+                "type": "number",
+                "example": 1
+              },
+              "itemsPerPage": {
+                "type": "number",
+                "example": 10
+              },
+              "totalItems": {
+                "type": "number",
+                "example": 100
+              },
+              "total_pages": {
+                "type": "number",
+                "example": 10
+              },
+              "hasNextPage": {
+                "type": "boolean",
+                "example": true
+              },
+              "hasPreviousPage": {
+                "type": "boolean",
+                "example": false
+              }
+            }
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ]
       }
     }
   }
