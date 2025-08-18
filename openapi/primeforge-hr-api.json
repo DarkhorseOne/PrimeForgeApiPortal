@@ -1108,7 +1108,7 @@
     },
     "/companies": {
       "post": {
-        "description": "Roles: HR_MANAGER, HR_SPECIALIST, TENANT_ADMIN, OWNER",
+        "description": "Roles: HR_MANAGER, HR_SPECIALIST, ADMIN, OWNER",
         "operationId": "CompanyController_createCompany",
         "parameters": [],
         "requestBody": {
@@ -1482,6 +1482,15 @@
         "operationId": "DepartmentController_findAllDepartments",
         "parameters": [
           {
+            "name": "company_id",
+            "required": true,
+            "in": "query",
+            "description": "Company ID to filter departments",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
@@ -1825,10 +1834,10 @@
         "operationId": "JobController_findAllJobs",
         "parameters": [
           {
-            "name": "companyId",
-            "required": false,
+            "name": "company_id",
+            "required": true,
             "in": "query",
-            "description": "Filter jobs by company ID",
+            "description": "Company ID to filter jobs",
             "schema": {
               "type": "string"
             }
@@ -30671,6 +30680,861 @@
           "Workplace - Reminders"
         ]
       }
+    },
+    "/companies-house/search": {
+      "get": {
+        "description": "Search the Companies House register for companies matching the provided name",
+        "operationId": "CompaniesHouseController_searchCompanies",
+        "parameters": [
+          {
+            "name": "company_name",
+            "required": true,
+            "in": "query",
+            "description": "Company name to search for",
+            "schema": {
+              "example": "Dark Horse",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Companies found successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompaniesHouseSearchResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Search for companies in Companies House by name",
+        "tags": [
+          "Companies House Integration"
+        ]
+      }
+    },
+    "/companies-house/company/{company_number}": {
+      "get": {
+        "description": "Fetch detailed company information from Companies House using the company registration number",
+        "operationId": "CompaniesHouseController_getCompanyDetails",
+        "parameters": [
+          {
+            "name": "company_number",
+            "required": true,
+            "in": "path",
+            "description": "Companies House registration number",
+            "schema": {
+              "example": "12345678",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Company details retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompaniesHouseCompanyDetailsDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get company details from Companies House",
+        "tags": [
+          "Companies House Integration"
+        ]
+      }
+    },
+    "/companies-house/create-company": {
+      "post": {
+        "description": "Fetch company data from Companies House and create a new company record in the system",
+        "operationId": "CompaniesHouseController_createCompanyFromCompaniesHouse",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCompanyFromCompaniesHouseDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Company created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanyResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new company record from Companies House data",
+        "tags": [
+          "Companies House Integration"
+        ]
+      }
+    },
+    "/companies-house/sync/{id}": {
+      "put": {
+        "description": "Update an existing company record with the latest data from Companies House",
+        "operationId": "CompaniesHouseController_syncCompanyWithCompaniesHouse",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Company ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SyncCompanyFromCompaniesHouseDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Company synced successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanyResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Sync existing company with Companies House data",
+        "tags": [
+          "Companies House Integration"
+        ]
+      }
+    },
+    "/companies-house/batch-sync": {
+      "post": {
+        "description": "Sync multiple existing companies with the latest data from Companies House. Each company will be synced with its own registered company number unless overridden.",
+        "operationId": "CompaniesHouseController_batchSyncCompanies",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Batch sync completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CompanySyncResultDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Batch sync multiple companies with Companies House",
+        "tags": [
+          "Companies House Integration"
+        ]
+      }
+    },
+    "/companies-house/company/{company_number}/filing-history": {
+      "get": {
+        "description": "Retrieve historical filing records including annual returns, accounts, and other statutory documents",
+        "operationId": "CompaniesHouseController_getFilingHistory",
+        "parameters": [
+          {
+            "name": "company_number",
+            "required": true,
+            "in": "path",
+            "description": "Companies House registration number",
+            "schema": {
+              "example": "12345678",
+              "type": "string"
+            }
+          },
+          {
+            "name": "items_per_page",
+            "required": false,
+            "in": "query",
+            "description": "Number of items per page (default: 100)",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Filing history retrieved successfully"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get filing history from Companies House",
+        "tags": [
+          "Companies House Integration"
+        ]
+      }
+    },
+    "/companies-house/company/{company_number}/persons-with-significant-control": {
+      "get": {
+        "description": "Retrieve information about individuals or entities with significant control over the company",
+        "operationId": "CompaniesHouseController_getPSC",
+        "parameters": [
+          {
+            "name": "company_number",
+            "required": true,
+            "in": "path",
+            "description": "Companies House registration number",
+            "schema": {
+              "example": "12345678",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PSC information retrieved successfully"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get persons with significant control",
+        "tags": [
+          "Companies House Integration"
+        ]
+      }
+    },
+    "/companies-house/company/{company_number}/charges": {
+      "get": {
+        "description": "Retrieve information about mortgages and charges registered against the company",
+        "operationId": "CompaniesHouseController_getCharges",
+        "parameters": [
+          {
+            "name": "company_number",
+            "required": true,
+            "in": "path",
+            "description": "Companies House registration number",
+            "schema": {
+              "example": "12345678",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Charges information retrieved successfully"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get company charges",
+        "tags": [
+          "Companies House Integration"
+        ]
+      }
+    },
+    "/companies-house/company/{company_number}/filing-deadlines": {
+      "get": {
+        "description": "Calculate and retrieve upcoming filing deadlines based on company details",
+        "operationId": "CompaniesHouseController_getFilingDeadlines",
+        "parameters": [
+          {
+            "name": "company_number",
+            "required": true,
+            "in": "path",
+            "description": "Companies House registration number",
+            "schema": {
+              "example": "12345678",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Filing deadlines retrieved successfully"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get upcoming filing deadlines",
+        "tags": [
+          "Companies House Integration"
+        ]
+      }
+    },
+    "/companies-house/compliance/sync/{companyId}": {
+      "post": {
+        "operationId": "ComplianceController_syncCompanyData",
+        "parameters": [
+          {
+            "name": "companyId",
+            "required": true,
+            "in": "path",
+            "description": "Company ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "companyNumber",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sync completed successfully"
+          },
+          "404": {
+            "description": "Company not found"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Sync company data from Companies House",
+        "tags": [
+          "Companies House Compliance"
+        ]
+      }
+    },
+    "/companies-house/compliance/sync-stale": {
+      "post": {
+        "operationId": "ComplianceController_syncStaleCompanies",
+        "parameters": [
+          {
+            "name": "days",
+            "required": false,
+            "in": "query",
+            "description": "Days since last sync (default: 7)",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Stale companies sync initiated"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Sync companies that haven't been updated recently",
+        "tags": [
+          "Companies House Compliance"
+        ]
+      }
+    },
+    "/companies-house/compliance/filing-history/{companyId}": {
+      "get": {
+        "operationId": "ComplianceController_getFilingHistory",
+        "parameters": [
+          {
+            "name": "companyId",
+            "required": true,
+            "in": "path",
+            "description": "Company ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (starts from 1)",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of items per page (max 100)",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Filing history retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedFilingHistoryResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get filing history for a company",
+        "tags": [
+          "Companies House Compliance"
+        ]
+      }
+    },
+    "/companies-house/compliance/filing-history/sync/{companyId}": {
+      "post": {
+        "operationId": "ComplianceController_syncFilingHistory",
+        "parameters": [
+          {
+            "name": "companyId",
+            "required": true,
+            "in": "path",
+            "description": "Company ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "companyNumber",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Filing history synced"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Sync filing history from Companies House",
+        "tags": [
+          "Companies House Compliance"
+        ]
+      }
+    },
+    "/companies-house/compliance/deadlines": {
+      "get": {
+        "operationId": "ComplianceController_getUpcomingDeadlines",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (starts from 1)",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of items per page (max 100)",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "companyId",
+            "required": false,
+            "in": "query",
+            "description": "Filter by company ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "daysAhead",
+            "required": false,
+            "in": "query",
+            "description": "Number of days to look ahead (default: 90)",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deadlines retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedFilingDeadlineResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get upcoming filing deadlines",
+        "tags": [
+          "Companies House Compliance"
+        ]
+      }
+    },
+    "/companies-house/compliance/deadlines/{deadlineId}/filed": {
+      "put": {
+        "operationId": "ComplianceController_markDeadlineAsFiled",
+        "parameters": [
+          {
+            "name": "deadlineId",
+            "required": true,
+            "in": "path",
+            "description": "Deadline ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deadline marked as filed"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Mark a filing deadline as filed",
+        "tags": [
+          "Companies House Compliance"
+        ]
+      }
+    },
+    "/companies-house/compliance/deadlines/{deadlineId}/reminders": {
+      "put": {
+        "operationId": "ComplianceController_updateDeadlineReminders",
+        "parameters": [
+          {
+            "name": "deadlineId",
+            "required": true,
+            "in": "path",
+            "description": "Deadline ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reminder settings updated"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update reminder settings for a deadline",
+        "tags": [
+          "Companies House Compliance"
+        ]
+      }
+    },
+    "/companies-house/compliance/filing-history/update-descriptions": {
+      "post": {
+        "operationId": "ComplianceController_updateFilingDescriptions",
+        "parameters": [
+          {
+            "name": "companyId",
+            "required": false,
+            "in": "query",
+            "description": "Optional company ID to update only that company's filings",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Filing descriptions updated"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update existing filing records with rendered descriptions",
+        "tags": [
+          "Companies House Compliance"
+        ]
+      }
+    },
+    "/companies-house/compliance/reminders/{deadlineId}": {
+      "get": {
+        "operationId": "ComplianceController_getDeadlineReminders",
+        "parameters": [
+          {
+            "name": "deadlineId",
+            "required": true,
+            "in": "path",
+            "description": "Deadline ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (starts from 1)",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of items per page (max 100)",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reminders retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedComplianceReminderResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get reminders for a filing deadline",
+        "tags": [
+          "Companies House Compliance"
+        ]
+      }
+    },
+    "/companies-house/compliance/reminders": {
+      "post": {
+        "operationId": "ComplianceController_createAdHocReminder",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Reminder created"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create an ad-hoc reminder",
+        "tags": [
+          "Companies House Compliance"
+        ]
+      }
+    },
+    "/companies-house/compliance/reminders/{reminderId}": {
+      "delete": {
+        "operationId": "ComplianceController_cancelReminder",
+        "parameters": [
+          {
+            "name": "reminderId",
+            "required": true,
+            "in": "path",
+            "description": "Reminder ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reminder cancelled"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Cancel a reminder",
+        "tags": [
+          "Companies House Compliance"
+        ]
+      }
+    },
+    "/companies-house/compliance/reminders/process": {
+      "post": {
+        "operationId": "ComplianceController_processReminders",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Reminder processing triggered"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Manually trigger reminder processing",
+        "tags": [
+          "Companies House Compliance"
+        ]
+      }
+    },
+    "/companies-house/compliance/reminders/send": {
+      "post": {
+        "operationId": "ComplianceController_sendReminders",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Reminder sending triggered"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Manually trigger sending scheduled reminders",
+        "tags": [
+          "Companies House Compliance"
+        ]
+      }
+    },
+    "/companies-house/compliance/dashboard/{companyId}": {
+      "get": {
+        "operationId": "ComplianceController_getComplianceDashboard",
+        "parameters": [
+          {
+            "name": "companyId",
+            "required": true,
+            "in": "path",
+            "description": "Company ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dashboard data retrieved"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get compliance dashboard data for a company",
+        "tags": [
+          "Companies House Compliance"
+        ]
+      }
+    },
+    "/companies-house/compliance/compliance-status/{companyId}": {
+      "get": {
+        "operationId": "ComplianceController_getComplianceStatus",
+        "parameters": [
+          {
+            "name": "companyId",
+            "required": true,
+            "in": "path",
+            "description": "Company ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Compliance status retrieved"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get overall compliance status for a company",
+        "tags": [
+          "Companies House Compliance"
+        ]
+      }
     }
   },
   "info": {
@@ -31476,6 +32340,11 @@
           "name": {
             "type": "string",
             "description": "Company name"
+          },
+          "company_number": {
+            "type": "string",
+            "description": "Company registration number (Be careful when updating)",
+            "example": "12345678"
           },
           "company_type": {
             "type": "string",
@@ -52587,6 +53456,644 @@
           "status",
           "created_at",
           "updated_at"
+        ]
+      },
+      "CompaniesHouseSearchResultDto": {
+        "type": "object",
+        "properties": {
+          "company_name": {
+            "type": "string",
+            "description": "Company name",
+            "example": "DARK HORSE LIMITED"
+          },
+          "company_number": {
+            "type": "string",
+            "description": "Company registration number",
+            "example": "12345678"
+          },
+          "company_status": {
+            "type": "string",
+            "description": "Company status",
+            "example": "active"
+          },
+          "company_type": {
+            "type": "string",
+            "description": "Company type",
+            "example": "ltd"
+          },
+          "date_of_creation": {
+            "type": "string",
+            "description": "Date of incorporation",
+            "example": "2020-01-15"
+          },
+          "registered_office_address": {
+            "type": "string",
+            "description": "Registered office address"
+          }
+        },
+        "required": [
+          "company_name",
+          "company_number",
+          "company_status",
+          "company_type"
+        ]
+      },
+      "CompaniesHouseSearchResponseDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "description": "Search results",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CompaniesHouseSearchResultDto"
+            }
+          },
+          "total_results": {
+            "type": "number",
+            "description": "Total number of results",
+            "example": 10
+          }
+        },
+        "required": [
+          "items",
+          "total_results"
+        ]
+      },
+      "CompaniesHouseCompanyDetailsDto": {
+        "type": "object",
+        "properties": {
+          "company_name": {
+            "type": "string",
+            "description": "Company name",
+            "example": "DARK HORSE LIMITED"
+          },
+          "company_number": {
+            "type": "string",
+            "description": "Company registration number",
+            "example": "12345678"
+          },
+          "company_status": {
+            "type": "string",
+            "description": "Company status",
+            "example": "active"
+          },
+          "company_type": {
+            "type": "string",
+            "description": "Company type",
+            "example": "ltd"
+          },
+          "date_of_creation": {
+            "type": "string",
+            "description": "Date of incorporation",
+            "example": "2020-01-15"
+          },
+          "registered_office_address": {
+            "type": "string",
+            "description": "Registered office address"
+          },
+          "sic_codes": {
+            "description": "SIC codes",
+            "example": [
+              "62020",
+              "62090"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "officers": {
+            "type": "array",
+            "description": "Company officers",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "officer_role": {
+                  "type": "string"
+                },
+                "appointed_on": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "company_name",
+          "company_number"
+        ]
+      },
+      "CreateCompanyFromCompaniesHouseDto": {
+        "type": "object",
+        "properties": {
+          "company_number": {
+            "type": "string",
+            "description": "Companies House registration number",
+            "example": "12345678"
+          },
+          "utr_number": {
+            "type": "string",
+            "description": "Unique Taxpayer Reference number",
+            "example": "1234567890"
+          },
+          "vat_number": {
+            "type": "string",
+            "description": "VAT registration number",
+            "example": "GB123456789"
+          },
+          "paye_reference": {
+            "type": "string",
+            "description": "PAYE reference",
+            "example": "123/AB456"
+          },
+          "account_office_reference": {
+            "type": "string",
+            "description": "Accounts Office reference",
+            "example": "123PA12345678"
+          },
+          "website": {
+            "type": "string",
+            "description": "Company website",
+            "example": "https://www.example.com"
+          },
+          "email": {
+            "type": "string",
+            "description": "Company email",
+            "example": "info@example.com"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Company phone number",
+            "example": "02012345678"
+          }
+        },
+        "required": [
+          "company_number"
+        ]
+      },
+      "SyncCompanyFromCompaniesHouseDto": {
+        "type": "object",
+        "properties": {
+          "company_number": {
+            "type": "string",
+            "description": "Companies House registration number (if different from existing)",
+            "example": "12345678"
+          },
+          "sync_basic_info": {
+            "type": "boolean",
+            "description": "Sync basic company information (name, status, type)",
+            "default": true
+          },
+          "sync_address": {
+            "type": "boolean",
+            "description": "Sync registered office address",
+            "default": true
+          },
+          "sync_officers": {
+            "type": "boolean",
+            "description": "Sync company officers (directors and secretary)",
+            "default": true
+          },
+          "sync_sic_codes": {
+            "type": "boolean",
+            "description": "Sync SIC codes",
+            "default": true
+          }
+        }
+      },
+      "CompanySyncResultDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Sync operation result",
+            "example": "success"
+          },
+          "fields_updated": {
+            "type": "number",
+            "description": "Number of fields updated",
+            "example": 5
+          },
+          "updated_fields": {
+            "description": "List of updated fields",
+            "example": [
+              "name",
+              "registered_office_address",
+              "company_director"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "error": {
+            "type": "string",
+            "description": "Error message if sync failed"
+          }
+        },
+        "required": [
+          "status",
+          "fields_updated"
+        ]
+      },
+      "CompanyFilingHistoryDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Filing ID"
+          },
+          "company_id": {
+            "type": "string",
+            "description": "Company ID"
+          },
+          "transaction_id": {
+            "type": "object",
+            "description": "Transaction ID from Companies House"
+          },
+          "filing_type": {
+            "type": "string",
+            "description": "Filing type"
+          },
+          "filing_category": {
+            "type": "object",
+            "description": "Filing category"
+          },
+          "filing_subcategory": {
+            "type": "object",
+            "description": "Filing subcategory"
+          },
+          "filing_description": {
+            "type": "object",
+            "description": "Filing description"
+          },
+          "filing_date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Filing date"
+          },
+          "document_links": {
+            "type": "object",
+            "description": "Document links"
+          },
+          "barcode": {
+            "type": "object",
+            "description": "Barcode"
+          },
+          "paper_filed": {
+            "type": "boolean",
+            "description": "Paper filed flag"
+          },
+          "resolution_category": {
+            "type": "object",
+            "description": "Resolution category"
+          },
+          "resolution_subcategory": {
+            "type": "object",
+            "description": "Resolution subcategory"
+          },
+          "resolution_description": {
+            "type": "object",
+            "description": "Resolution description"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Created timestamp"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Updated timestamp"
+          }
+        },
+        "required": [
+          "id",
+          "company_id",
+          "filing_type",
+          "filing_date",
+          "paper_filed",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "PaginatedFilingHistoryResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of filing history records",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CompanyFilingHistoryDto"
+            }
+          },
+          "meta": {
+            "type": "object",
+            "description": "Pagination metadata",
+            "properties": {
+              "currentPage": {
+                "type": "number",
+                "example": 1
+              },
+              "itemsPerPage": {
+                "type": "number",
+                "example": 10
+              },
+              "totalItems": {
+                "type": "number",
+                "example": 100
+              },
+              "total_pages": {
+                "type": "number",
+                "example": 10
+              },
+              "hasNextPage": {
+                "type": "boolean",
+                "example": true
+              },
+              "hasPreviousPage": {
+                "type": "boolean",
+                "example": false
+              }
+            }
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ]
+      },
+      "CompanyFilingDeadlineDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Deadline ID"
+          },
+          "company_id": {
+            "type": "string",
+            "description": "Company ID"
+          },
+          "filing_type": {
+            "type": "string",
+            "description": "Filing type"
+          },
+          "filing_description": {
+            "type": "object",
+            "description": "Filing description"
+          },
+          "due_date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Due date"
+          },
+          "period_start_date": {
+            "type": "object",
+            "description": "Period start date"
+          },
+          "period_end_date": {
+            "type": "object",
+            "description": "Period end date"
+          },
+          "status": {
+            "type": "string",
+            "description": "Filing status",
+            "enum": [
+              "PENDING",
+              "IN_PROGRESS",
+              "FILED",
+              "OVERDUE",
+              "CANCELLED"
+            ]
+          },
+          "filed_date": {
+            "type": "object",
+            "description": "Filed date"
+          },
+          "filing_reference": {
+            "type": "object",
+            "description": "Filing reference"
+          },
+          "reminder_enabled": {
+            "type": "boolean",
+            "description": "Reminder enabled flag"
+          },
+          "reminder_days_before": {
+            "type": "object",
+            "description": "Reminder days before deadline"
+          },
+          "last_reminder_sent": {
+            "type": "object",
+            "description": "Last reminder sent date"
+          },
+          "notes": {
+            "type": "object",
+            "description": "Notes"
+          },
+          "ch_deadline_type": {
+            "type": "object",
+            "description": "Companies House deadline type"
+          },
+          "ch_original_deadline": {
+            "type": "object",
+            "description": "Original deadline from Companies House"
+          },
+          "company": {
+            "type": "object",
+            "description": "Company details"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Created timestamp"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Updated timestamp"
+          }
+        },
+        "required": [
+          "id",
+          "company_id",
+          "filing_type",
+          "due_date",
+          "status",
+          "reminder_enabled",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "PaginatedFilingDeadlineResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of filing deadlines",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CompanyFilingDeadlineDto"
+            }
+          },
+          "meta": {
+            "type": "object",
+            "description": "Pagination metadata",
+            "properties": {
+              "currentPage": {
+                "type": "number",
+                "example": 1
+              },
+              "itemsPerPage": {
+                "type": "number",
+                "example": 10
+              },
+              "totalItems": {
+                "type": "number",
+                "example": 100
+              },
+              "total_pages": {
+                "type": "number",
+                "example": 10
+              },
+              "hasNextPage": {
+                "type": "boolean",
+                "example": true
+              },
+              "hasPreviousPage": {
+                "type": "boolean",
+                "example": false
+              }
+            }
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ]
+      },
+      "ComplianceReminderDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Reminder ID"
+          },
+          "company_id": {
+            "type": "string",
+            "description": "Company ID"
+          },
+          "deadline_id": {
+            "type": "object",
+            "description": "Deadline ID"
+          },
+          "reminder_type": {
+            "type": "string",
+            "description": "Reminder type"
+          },
+          "reminder_date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Reminder date"
+          },
+          "reminder_status": {
+            "type": "string",
+            "description": "Reminder status"
+          },
+          "recipients": {
+            "type": "object",
+            "description": "Recipients"
+          },
+          "subject": {
+            "type": "object",
+            "description": "Subject"
+          },
+          "message": {
+            "type": "object",
+            "description": "Message"
+          },
+          "sent_at": {
+            "type": "object",
+            "description": "Sent date"
+          },
+          "failed_at": {
+            "type": "object",
+            "description": "Failed date"
+          },
+          "failure_reason": {
+            "type": "object",
+            "description": "Failure reason"
+          },
+          "clicked_at": {
+            "type": "object",
+            "description": "Clicked date"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Created timestamp"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Updated timestamp"
+          }
+        },
+        "required": [
+          "id",
+          "company_id",
+          "reminder_type",
+          "reminder_date",
+          "reminder_status",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "PaginatedComplianceReminderResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of compliance reminders",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ComplianceReminderDto"
+            }
+          },
+          "meta": {
+            "type": "object",
+            "description": "Pagination metadata",
+            "properties": {
+              "currentPage": {
+                "type": "number",
+                "example": 1
+              },
+              "itemsPerPage": {
+                "type": "number",
+                "example": 10
+              },
+              "totalItems": {
+                "type": "number",
+                "example": 100
+              },
+              "total_pages": {
+                "type": "number",
+                "example": 10
+              },
+              "hasNextPage": {
+                "type": "boolean",
+                "example": true
+              },
+              "hasPreviousPage": {
+                "type": "boolean",
+                "example": false
+              }
+            }
+          }
+        },
+        "required": [
+          "data",
+          "meta"
         ]
       }
     }

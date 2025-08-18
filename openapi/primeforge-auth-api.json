@@ -3800,7 +3800,7 @@
     },
     "/app-roles/available": {
       "get": {
-        "description": "Returns all active app role matrices that can be assigned to organization members. Only accessible to organization owners and admins.",
+        "description": "Returns all active app role matrices that can be assigned to organization members.",
         "operationId": "AppRoleMatrixController_getAvailableRoles",
         "parameters": [
           {
@@ -3822,15 +3822,6 @@
               "example": 20,
               "type": "number"
             }
-          },
-          {
-            "name": "organizationId",
-            "required": false,
-            "in": "query",
-            "description": "Organization ID to check permissions for. If not provided, uses default organization.",
-            "schema": {
-              "type": "string"
-            }
           }
         ],
         "responses": {
@@ -3843,9 +3834,6 @@
                 }
               }
             }
-          },
-          "403": {
-            "description": "User is not an owner or admin of the organization"
           }
         },
         "security": [
@@ -3861,7 +3849,7 @@
     },
     "/app-roles/available/{appName}": {
       "get": {
-        "description": "Returns available roles that can be assigned for a specific application. Only accessible to organization owners and admins.",
+        "description": "Returns available roles that can be assigned for a specific application.",
         "operationId": "AppRoleMatrixController_getAvailableRolesForApp",
         "parameters": [
           {
@@ -3869,15 +3857,6 @@
             "required": true,
             "in": "path",
             "description": "Application name (e.g., HR, CRM)",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "organizationId",
-            "required": false,
-            "in": "query",
-            "description": "Organization ID to check permissions for. If not provided, uses default organization.",
             "schema": {
               "type": "string"
             }
@@ -3893,9 +3872,6 @@
                 }
               }
             }
-          },
-          "403": {
-            "description": "User is not an owner or admin of the organization"
           },
           "404": {
             "description": "App role matrix not found or inactive"
@@ -3916,17 +3892,7 @@
       "get": {
         "description": "Returns a simple list of app names that have role matrices defined. Useful for UI dropdowns.",
         "operationId": "AppRoleMatrixController_getAvailableApps",
-        "parameters": [
-          {
-            "name": "organizationId",
-            "required": false,
-            "in": "query",
-            "description": "Organization ID to check permissions for. If not provided, uses default organization.",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "List of app names",
@@ -3940,9 +3906,6 @@
                 }
               }
             }
-          },
-          "403": {
-            "description": "User is not an owner or admin of the organization"
           }
         },
         "security": [
