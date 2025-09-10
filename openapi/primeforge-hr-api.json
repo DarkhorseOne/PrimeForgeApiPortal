@@ -1332,6 +1332,15 @@
               "format": "uuid",
               "type": "string"
             }
+          },
+          {
+            "name": "force_delete",
+            "required": false,
+            "in": "query",
+            "description": "Force delete without checking for associated data (OWNER role only)",
+            "schema": {
+              "type": "boolean"
+            }
           }
         ],
         "responses": {
@@ -1340,6 +1349,9 @@
           },
           "404": {
             "description": "Company not found"
+          },
+          "409": {
+            "description": "Company has associated data and cannot be deleted"
           }
         },
         "security": [
@@ -1419,6 +1431,9 @@
                     "departmentCount": {
                       "type": "number"
                     },
+                    "jobCount": {
+                      "type": "number"
+                    },
                     "employeeCount": {
                       "type": "number"
                     }
@@ -1437,6 +1452,81 @@
           }
         ],
         "summary": "Get company statistics",
+        "tags": [
+          "Organization - Companies"
+        ]
+      }
+    },
+    "/companies/{id}/usage": {
+      "get": {
+        "operationId": "CompanyController_checkCompanyUsage",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Company ID",
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Company usage information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "canDelete": {
+                      "type": "boolean"
+                    },
+                    "usage": {
+                      "type": "object",
+                      "properties": {
+                        "departments": {
+                          "type": "number"
+                        },
+                        "jobs": {
+                          "type": "number"
+                        },
+                        "assignments": {
+                          "type": "number"
+                        },
+                        "paySchedules": {
+                          "type": "number"
+                        },
+                        "payRuns": {
+                          "type": "number"
+                        },
+                        "shiftTemplates": {
+                          "type": "number"
+                        },
+                        "insurancePolicies": {
+                          "type": "number"
+                        },
+                        "safetyInspections": {
+                          "type": "number"
+                        },
+                        "riskAssessments": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Check company usage before deletion",
         "tags": [
           "Organization - Companies"
         ]
@@ -1487,56 +1577,8 @@
             "in": "query",
             "description": "Company ID to filter departments",
             "schema": {
+              "example": "550e8400-e29b-41d4-a716-446655440000",
               "type": "string"
-            }
-          },
-          {
-            "name": "sortOrder",
-            "required": false,
-            "in": "query",
-            "description": "Sort order",
-            "schema": {
-              "enum": [
-                "asc",
-                "desc"
-              ],
-              "type": "string"
-            }
-          },
-          {
-            "name": "sortBy",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (name, created, updated, function, company)",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "search",
-            "required": false,
-            "in": "query",
-            "description": "Search term for department name or company name",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Number of items per page (max 100)",
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "page",
-            "required": false,
-            "in": "query",
-            "description": "Page number for pagination (starts from 1)",
-            "schema": {
-              "type": "number"
             }
           }
         ],
@@ -1839,56 +1881,8 @@
             "in": "query",
             "description": "Company ID to filter jobs",
             "schema": {
+              "example": "550e8400-e29b-41d4-a716-446655440000",
               "type": "string"
-            }
-          },
-          {
-            "name": "sortOrder",
-            "required": false,
-            "in": "query",
-            "description": "Sort order",
-            "schema": {
-              "enum": [
-                "asc",
-                "desc"
-              ],
-              "type": "string"
-            }
-          },
-          {
-            "name": "sortBy",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (name, created, updated, level, type, status)",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "search",
-            "required": false,
-            "in": "query",
-            "description": "Search term for job name, code, or description",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Number of items per page (max 100)",
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "page",
-            "required": false,
-            "in": "query",
-            "description": "Page number for pagination (starts from 1)",
-            "schema": {
-              "type": "number"
             }
           }
         ],
@@ -2151,43 +2145,43 @@
         "operationId": "EmployeeController_findAllEmployees",
         "parameters": [
           {
-            "name": "sortOrder",
+            "name": "company_id",
+            "required": true,
+            "in": "query",
+            "description": "Company ID (required)",
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          {
+            "name": "employment_status",
             "required": false,
             "in": "query",
-            "description": "Sort order",
             "schema": {
+              "type": "string",
               "enum": [
-                "asc",
-                "desc"
-              ],
-              "type": "string"
+                "ACTIVE",
+                "PROBATION",
+                "LEAVE_PAID",
+                "LEAVE_UNPAID",
+                "SUSPENDED",
+                "NOTICE_PERIOD",
+                "RESIGNED",
+                "TERMINATED",
+                "RETIRED",
+                "CONTRACT_ENDED",
+                "INACTIVE"
+              ]
             }
           },
           {
-            "name": "sortBy",
+            "name": "department_id",
             "required": false,
             "in": "query",
-            "description": "Field to sort by (firstName, lastName, employeeNumber, email, status, created, updated)",
+            "description": "Department ID",
             "schema": {
               "type": "string"
-            }
-          },
-          {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Number of items per page (max 100)",
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "page",
-            "required": false,
-            "in": "query",
-            "description": "Page number for pagination (starts from 1)",
-            "schema": {
-              "type": "number"
             }
           },
           {
@@ -2195,28 +2189,10 @@
             "required": false,
             "in": "query",
             "description": "Include terminated employees",
-            "schema": {}
-          },
-          {
-            "name": "department_id",
-            "required": false,
-            "in": "query",
-            "description": "Filter by department ID",
-            "schema": {}
-          },
-          {
-            "name": "employment_status",
-            "required": false,
-            "in": "query",
-            "description": "Filter by employment status",
-            "schema": {}
-          },
-          {
-            "name": "search",
-            "required": false,
-            "in": "query",
-            "description": "Search by name or employee number",
-            "schema": {}
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
           }
         ],
         "responses": {
@@ -2316,6 +2292,75 @@
           }
         ],
         "summary": "Get employee count by employment status",
+        "tags": [
+          "People - Employees"
+        ]
+      }
+    },
+    "/employees/unassigned": {
+      "get": {
+        "description": "Returns a paginated list of employees who do not have any assignments",
+        "operationId": "EmployeeController_getUnassignedEmployees",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (default: 1)",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (default: 10)",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort order (asc or desc)",
+            "schema": {
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Unassigned employees retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedEmployeeResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get employees without any assignments",
         "tags": [
           "People - Employees"
         ]
@@ -2571,6 +2616,44 @@
           }
         ],
         "summary": "Terminate an employee (soft delete)",
+        "tags": [
+          "People - Employees"
+        ]
+      }
+    },
+    "/employees/check-employee-number": {
+      "post": {
+        "description": "Checks if the provided employee number already exists and suggests an alternative if it does",
+        "operationId": "EmployeeController_checkEmployeeNumber",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckEmployeeNumberDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Employee number check result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmployeeNumberCheckResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Check if employee number is duplicate and get suggestion",
         "tags": [
           "People - Employees"
         ]
@@ -3101,6 +3184,209 @@
           }
         ],
         "summary": "End an assignment",
+        "tags": [
+          "People - Assignments"
+        ]
+      }
+    },
+    "/assignments/company/{companyId}/employees": {
+      "get": {
+        "description": "Returns all employees currently assigned to a specific company",
+        "operationId": "AssignmentController_getEmployeesByCompany",
+        "parameters": [
+          {
+            "name": "companyId",
+            "required": true,
+            "in": "path",
+            "description": "Company ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "includeEnded",
+            "required": false,
+            "in": "query",
+            "description": "Include employees with ended assignments",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Employees retrieved successfully"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get all employees assigned to a company",
+        "tags": [
+          "People - Assignments"
+        ]
+      }
+    },
+    "/assignments/employee/{employeeId}/primary-company": {
+      "get": {
+        "description": "Returns the company where the employee has a primary assignment",
+        "operationId": "AssignmentController_getEmployeePrimaryCompany",
+        "parameters": [
+          {
+            "name": "employeeId",
+            "required": true,
+            "in": "path",
+            "description": "Employee ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Primary company retrieved successfully"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get employee's primary company",
+        "tags": [
+          "People - Assignments"
+        ]
+      }
+    },
+    "/assignments/employee/{employeeId}/companies": {
+      "get": {
+        "description": "Returns all companies where the employee has assignments",
+        "operationId": "AssignmentController_getEmployeeCompanies",
+        "parameters": [
+          {
+            "name": "employeeId",
+            "required": true,
+            "in": "path",
+            "description": "Employee ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "activeOnly",
+            "required": false,
+            "in": "query",
+            "description": "Only include active assignments",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Employee companies retrieved successfully"
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get all companies an employee is associated with",
+        "tags": [
+          "People - Assignments"
+        ]
+      }
+    },
+    "/assignments/transfer": {
+      "post": {
+        "description": "Ends current assignment and creates a new one for job transfer",
+        "operationId": "AssignmentController_handleJobTransfer",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "employeeId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "newAssignment": {
+                    "$ref": "#/components/schemas/CreateAssignmentDto"
+                  },
+                  "reason": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "employeeId",
+                  "newAssignment"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Job transfer completed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentWithRelationsDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Handle employee job transfer",
+        "tags": [
+          "People - Assignments"
+        ]
+      }
+    },
+    "/assignments/with-rules": {
+      "post": {
+        "description": "Creates an assignment while enforcing business rules (e.g., single primary assignment)",
+        "operationId": "AssignmentController_createAssignmentWithRules",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAssignmentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Assignment created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Create assignment with business rules",
         "tags": [
           "People - Assignments"
         ]
@@ -17708,6 +17994,706 @@
         ]
       }
     },
+    "/recruitment/publishing-platforms": {
+      "post": {
+        "operationId": "JobPublishingPlatformController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateJobPublishingPlatformDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Platform created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobPublishingPlatformResponseDto"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Platform code already exists"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new job publishing platform",
+        "tags": [
+          "Recruitment - Publishing Platforms"
+        ]
+      },
+      "get": {
+        "operationId": "JobPublishingPlatformController_findAll",
+        "parameters": [
+          {
+            "name": "platform_type",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "is_active",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of platforms retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedJobPublishingPlatformResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all job publishing platforms",
+        "tags": [
+          "Recruitment - Publishing Platforms"
+        ]
+      }
+    },
+    "/recruitment/publishing-platforms/statistics": {
+      "get": {
+        "operationId": "JobPublishingPlatformController_getStatistics",
+        "parameters": [
+          {
+            "name": "platform_id",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Platform statistics retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PlatformStatisticsDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get platform statistics",
+        "tags": [
+          "Recruitment - Publishing Platforms"
+        ]
+      }
+    },
+    "/recruitment/publishing-platforms/{id}": {
+      "get": {
+        "operationId": "JobPublishingPlatformController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Platform retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobPublishingPlatformResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Platform not found"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a job publishing platform by ID",
+        "tags": [
+          "Recruitment - Publishing Platforms"
+        ]
+      },
+      "put": {
+        "operationId": "JobPublishingPlatformController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateJobPublishingPlatformDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Platform updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobPublishingPlatformResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Platform not found"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a job publishing platform",
+        "tags": [
+          "Recruitment - Publishing Platforms"
+        ]
+      },
+      "delete": {
+        "operationId": "JobPublishingPlatformController_delete",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Platform deleted successfully"
+          },
+          "400": {
+            "description": "Cannot delete platform with existing publications"
+          },
+          "404": {
+            "description": "Platform not found"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a job publishing platform",
+        "tags": [
+          "Recruitment - Publishing Platforms"
+        ]
+      }
+    },
+    "/recruitment/job-publications": {
+      "post": {
+        "operationId": "JobPostingPublicationController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateJobPostingPublicationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Job posting published successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobPostingPublicationResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Job posting or platform not found"
+          },
+          "409": {
+            "description": "Job already published to this platform"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Publish a job posting to a platform",
+        "tags": [
+          "Recruitment - Job Publications"
+        ]
+      },
+      "get": {
+        "operationId": "JobPostingPublicationController_findAll",
+        "parameters": [
+          {
+            "name": "auto_renew",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "expiring_before",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "published_before",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "published_after",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "job_posting_id",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "platform_id",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "enum": [
+                "pending",
+                "published",
+                "expired",
+                "removed",
+                "failed",
+                "scheduled"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of publications retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedJobPostingPublicationResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all job posting publications",
+        "tags": [
+          "Recruitment - Job Publications"
+        ]
+      }
+    },
+    "/recruitment/job-publications/bulk-publish": {
+      "post": {
+        "operationId": "JobPostingPublicationController_bulkPublish",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkPublishDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Job posting published to multiple platforms successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JobPostingPublicationResponseDto"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Job posting or platforms not found"
+          },
+          "409": {
+            "description": "Job already published to some platforms"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Publish a job posting to multiple platforms",
+        "tags": [
+          "Recruitment - Job Publications"
+        ]
+      }
+    },
+    "/recruitment/job-publications/job-posting/{jobPostingId}/summary": {
+      "get": {
+        "operationId": "JobPostingPublicationController_getPublicationSummary",
+        "parameters": [
+          {
+            "name": "jobPostingId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Publication summary retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicationSummaryDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Job posting not found"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get publication summary for a job posting",
+        "tags": [
+          "Recruitment - Job Publications"
+        ]
+      }
+    },
+    "/recruitment/job-publications/{id}": {
+      "get": {
+        "operationId": "JobPostingPublicationController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Publication retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobPostingPublicationResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Publication not found"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a job posting publication by ID",
+        "tags": [
+          "Recruitment - Job Publications"
+        ]
+      },
+      "put": {
+        "operationId": "JobPostingPublicationController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateJobPostingPublicationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Publication updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobPostingPublicationResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Publication not found"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a job posting publication",
+        "tags": [
+          "Recruitment - Job Publications"
+        ]
+      },
+      "delete": {
+        "operationId": "JobPostingPublicationController_delete",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Publication deleted successfully"
+          },
+          "400": {
+            "description": "Cannot delete active publication"
+          },
+          "404": {
+            "description": "Publication not found"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a job posting publication",
+        "tags": [
+          "Recruitment - Job Publications"
+        ]
+      }
+    },
+    "/recruitment/job-publications/{id}/statistics": {
+      "put": {
+        "operationId": "JobPostingPublicationController_updateStatistics",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePublicationStatisticsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Statistics updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobPostingPublicationResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Publication not found"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update publication statistics",
+        "tags": [
+          "Recruitment - Job Publications"
+        ]
+      }
+    },
+    "/recruitment/job-publications/{id}/sync": {
+      "post": {
+        "operationId": "JobPostingPublicationController_syncWithPlatform",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Publication synced successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobPostingPublicationResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Platform does not support automatic sync"
+          },
+          "404": {
+            "description": "Publication not found"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Sync publication data with external platform",
+        "tags": [
+          "Recruitment - Job Publications"
+        ]
+      }
+    },
     "/performance/reviews": {
       "post": {
         "operationId": "PerformanceReviewController_create",
@@ -31013,6 +31999,164 @@
         ]
       }
     },
+    "/companies-house/company/{company_number}/filing-history/{transaction_id}/download": {
+      "get": {
+        "description": "Download a specific filing document in PDF or XHTML format from Companies House",
+        "operationId": "CompaniesHouseController_downloadFilingDocument",
+        "parameters": [
+          {
+            "name": "company_number",
+            "required": true,
+            "in": "path",
+            "description": "Companies House registration number",
+            "schema": {
+              "example": "12345678",
+              "type": "string"
+            }
+          },
+          {
+            "name": "transaction_id",
+            "required": true,
+            "in": "path",
+            "description": "Filing history transaction ID",
+            "schema": {
+              "example": "MzM3NTI0MzU0OWFkaXF6a2N4",
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "description": "Document format (default: pdf)",
+            "schema": {
+              "enum": [
+                "pdf",
+                "xhtml"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Document downloaded successfully",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "application/xhtml+xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Download a filing history document",
+        "tags": [
+          "Companies House Integration"
+        ]
+      }
+    },
+    "/companies-house/document/{document_id}/metadata": {
+      "get": {
+        "description": "Retrieve metadata for a specific document from Companies House",
+        "operationId": "CompaniesHouseController_getDocumentMetadata",
+        "parameters": [
+          {
+            "name": "document_id",
+            "required": true,
+            "in": "path",
+            "description": "Document ID from Companies House",
+            "schema": {
+              "example": "HMsKGYRQ0a12waWa3LG2zhcwXkujPWQ671cSMFZNVsU",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Document metadata retrieved successfully"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get document metadata",
+        "tags": [
+          "Companies House Integration"
+        ]
+      }
+    },
+    "/companies-house/document/{document_id}/download": {
+      "get": {
+        "description": "Download a document directly using its document ID",
+        "operationId": "CompaniesHouseController_downloadDocumentById",
+        "parameters": [
+          {
+            "name": "document_id",
+            "required": true,
+            "in": "path",
+            "description": "Document ID from Companies House",
+            "schema": {
+              "example": "HMsKGYRQ0a12waWa3LG2zhcwXkujPWQ671cSMFZNVsU",
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "description": "Document format (default: pdf)",
+            "schema": {
+              "enum": [
+                "pdf",
+                "xhtml"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Document downloaded successfully",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "application/xhtml+xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Download document by ID",
+        "tags": [
+          "Companies House Integration"
+        ]
+      }
+    },
     "/companies-house/compliance/sync/{companyId}": {
       "post": {
         "operationId": "ComplianceController_syncCompanyData",
@@ -31581,6 +32725,14 @@
       "description": "Job offers and negotiations"
     },
     {
+      "name": "Recruitment - Publishing Platforms",
+      "description": "Job publishing platform management"
+    },
+    {
+      "name": "Recruitment - Job Publications",
+      "description": "Job posting publication tracking"
+    },
+    {
       "name": "Time - Attendance",
       "description": "Clock in/out and attendance records"
     },
@@ -31609,7 +32761,7 @@
       "description": "Goal setting and tracking"
     },
     {
-      "name": "Performance - Feedback",
+      "name": "Performance - Continuous Feedback",
       "description": "Continuous feedback and check-ins"
     },
     {
@@ -31625,6 +32777,18 @@
       "description": "Review cycles and periods"
     },
     {
+      "name": "Performance - Calibration Sessions",
+      "description": "Calibration sessions for reviews"
+    },
+    {
+      "name": "Performance - Development Plans",
+      "description": "Employee development planning"
+    },
+    {
+      "name": "Performance - Review Templates",
+      "description": "Review form templates"
+    },
+    {
       "name": "Training - Courses",
       "description": "Training course catalog and enrollment"
     },
@@ -31633,12 +32797,12 @@
       "description": "Skills tracking and development"
     },
     {
-      "name": "Compensation - Pay Elements",
-      "description": "Compensation components and structures"
+      "name": "Training - Tenant Learning Content",
+      "description": "Tenant-specific learning content"
     },
     {
-      "name": "Compensation - Pay Assignments",
-      "description": "Employee compensation setup"
+      "name": "Training - Tenant Learning Path",
+      "description": "Learning paths and curricula"
     },
     {
       "name": "Compensation - Rate Groups",
@@ -31647,6 +32811,14 @@
     {
       "name": "Compensation - Rate Entries",
       "description": "Detailed rate configurations"
+    },
+    {
+      "name": "Payroll - Pay Elements",
+      "description": "Compensation components and structures"
+    },
+    {
+      "name": "Payroll - Pay Assignments",
+      "description": "Employee compensation setup"
     },
     {
       "name": "Payroll - Pay Schedules",
@@ -31751,6 +32923,14 @@
     {
       "name": "Analytics - Instances",
       "description": "Report generation and scheduling"
+    },
+    {
+      "name": "Companies House Integration",
+      "description": "UK Companies House data integration"
+    },
+    {
+      "name": "Companies House Compliance",
+      "description": "Companies House compliance tracking"
     },
     {
       "name": "Notifications - Queue",
@@ -33558,6 +34738,10 @@
             "format": "date-time",
             "type": "string",
             "description": "Last updated timestamp"
+          },
+          "default_company": {
+            "type": "object",
+            "description": "Default/primary company information"
           }
         },
         "required": [
@@ -33730,6 +34914,10 @@
             "type": "string",
             "description": "Last updated timestamp"
           },
+          "default_company": {
+            "type": "object",
+            "description": "Default/primary company information"
+          },
           "contract_type": {
             "type": "string",
             "enum": [
@@ -33819,6 +35007,11 @@
       "UpdateEmployeeDto": {
         "type": "object",
         "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title",
+            "example": "Mr"
+          },
           "first_name": {
             "type": "string",
             "description": "First name"
@@ -33826,6 +35019,10 @@
           "last_name": {
             "type": "string",
             "description": "Last name"
+          },
+          "preferred_name": {
+            "type": "string",
+            "description": "Preferred name"
           },
           "email": {
             "type": "string",
@@ -33835,6 +35032,37 @@
             "type": "string",
             "description": "Phone number",
             "example": "07912345678"
+          },
+          "dob": {
+            "type": "string",
+            "description": "Date of birth",
+            "example": "1990-01-15"
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "MALE",
+              "FEMALE",
+              "OTHER",
+              "PREFER_NOT_TO_SAY"
+            ],
+            "example": "MALE"
+          },
+          "national_insurance_no": {
+            "type": "string",
+            "description": "National Insurance number",
+            "example": "AB123456C"
+          },
+          "right_to_work_status": {
+            "type": "string",
+            "enum": [
+              "VERIFIED",
+              "PENDING",
+              "EXPIRED",
+              "FAILED",
+              "NOT_PROVIDED"
+            ],
+            "example": "VERIFIED"
           },
           "address": {
             "type": "string",
@@ -33870,6 +35098,10 @@
               "CONTRACTOR"
             ]
           },
+          "contract_start_date": {
+            "type": "string",
+            "description": "Contract start date"
+          },
           "contract_end_date": {
             "type": "string",
             "description": "Contract end date"
@@ -33879,15 +35111,74 @@
             "description": "Working hours per week",
             "example": 37.5
           },
+          "salary_type": {
+            "type": "string",
+            "enum": [
+              "ANNUAL",
+              "MONTHLY",
+              "WEEKLY",
+              "BIWEEKLY",
+              "DAILY",
+              "HOURLY",
+              "COMMISSION",
+              "PROJECT_BASED"
+            ],
+            "example": "ANNUAL"
+          },
           "salary_amount": {
             "type": "string",
             "description": "Salary amount"
           },
           "tax_code": {
             "type": "string",
-            "description": "Tax code"
+            "description": "Tax code",
+            "example": "1257L"
+          },
+          "nic_table_letter": {
+            "type": "string",
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "H",
+              "J",
+              "M",
+              "Z"
+            ],
+            "example": "A"
           }
         }
+      },
+      "CheckEmployeeNumberDto": {
+        "type": "object",
+        "properties": {
+          "employee_no": {
+            "type": "string",
+            "description": "Employee number to check for duplicates",
+            "example": "EMP001"
+          }
+        },
+        "required": [
+          "employee_no"
+        ]
+      },
+      "EmployeeNumberCheckResponseDto": {
+        "type": "object",
+        "properties": {
+          "is_duplicate": {
+            "type": "boolean",
+            "description": "Whether the employee number is already in use",
+            "example": true
+          },
+          "suggested_employee_no": {
+            "type": "string",
+            "description": "Suggested alternative employee number if duplicate",
+            "example": "EMP002"
+          }
+        },
+        "required": [
+          "is_duplicate"
+        ]
       },
       "CreateAssignmentDto": {
         "type": "object",
@@ -33895,6 +35186,11 @@
           "employee_id": {
             "type": "string",
             "description": "Employee ID",
+            "format": "uuid"
+          },
+          "company_id": {
+            "type": "string",
+            "description": "Company ID",
             "format": "uuid"
           },
           "job_id": {
@@ -33916,10 +35212,30 @@
             "type": "string",
             "description": "Assignment end date",
             "example": "2024-12-31"
+          },
+          "is_primary": {
+            "type": "boolean",
+            "description": "Is this the primary assignment for the employee",
+            "default": true
+          },
+          "employment_type": {
+            "type": "string",
+            "description": "Employment type",
+            "enum": [
+              "PERMANENT",
+              "TEMPORARY",
+              "CONTRACT",
+              "INTERNSHIP",
+              "PART_TIME",
+              "ZERO_HOUR",
+              "OTHER"
+            ],
+            "default": "PERMANENT"
           }
         },
         "required": [
           "employee_id",
+          "company_id",
           "job_id",
           "department_id",
           "start_date"
@@ -33940,6 +35256,10 @@
             "type": "string",
             "description": "Employee ID"
           },
+          "company_id": {
+            "type": "string",
+            "description": "Company ID"
+          },
           "job_id": {
             "type": "string",
             "description": "Job ID"
@@ -33956,6 +35276,25 @@
           "end_date": {
             "type": "object",
             "description": "Assignment end date"
+          },
+          "is_primary": {
+            "type": "boolean",
+            "description": "Is this the primary assignment",
+            "default": true
+          },
+          "employment_type": {
+            "type": "string",
+            "description": "Employment type",
+            "enum": [
+              "PERMANENT",
+              "TEMPORARY",
+              "CONTRACT",
+              "INTERNSHIP",
+              "PART_TIME",
+              "ZERO_HOUR",
+              "OTHER"
+            ],
+            "default": "PERMANENT"
           },
           "created_at": {
             "format": "date-time",
@@ -33988,9 +35327,12 @@
           "id",
           "tenant_id",
           "employee_id",
+          "company_id",
           "job_id",
           "department_id",
           "start_date",
+          "is_primary",
+          "employment_type",
           "created_at",
           "updated_at"
         ]
@@ -34056,6 +35398,10 @@
             "type": "string",
             "description": "Employee ID"
           },
+          "company_id": {
+            "type": "string",
+            "description": "Company ID"
+          },
           "job_id": {
             "type": "string",
             "description": "Job ID"
@@ -34072,6 +35418,25 @@
           "end_date": {
             "type": "object",
             "description": "Assignment end date"
+          },
+          "is_primary": {
+            "type": "boolean",
+            "description": "Is this the primary assignment",
+            "default": true
+          },
+          "employment_type": {
+            "type": "string",
+            "description": "Employment type",
+            "enum": [
+              "PERMANENT",
+              "TEMPORARY",
+              "CONTRACT",
+              "INTERNSHIP",
+              "PART_TIME",
+              "ZERO_HOUR",
+              "OTHER"
+            ],
+            "default": "PERMANENT"
           },
           "created_at": {
             "format": "date-time",
@@ -34110,15 +35475,22 @@
           "department": {
             "type": "object",
             "description": "Department details"
+          },
+          "company": {
+            "type": "object",
+            "description": "Company details"
           }
         },
         "required": [
           "id",
           "tenant_id",
           "employee_id",
+          "company_id",
           "job_id",
           "department_id",
           "start_date",
+          "is_primary",
+          "employment_type",
           "created_at",
           "updated_at",
           "employee",
@@ -34129,6 +35501,11 @@
       "UpdateAssignmentDto": {
         "type": "object",
         "properties": {
+          "company_id": {
+            "type": "string",
+            "description": "Company ID",
+            "format": "uuid"
+          },
           "job_id": {
             "type": "string",
             "description": "Job ID",
@@ -34143,6 +35520,23 @@
             "type": "string",
             "description": "Assignment end date",
             "example": "2024-12-31"
+          },
+          "is_primary": {
+            "type": "boolean",
+            "description": "Is this the primary assignment for the employee"
+          },
+          "employment_type": {
+            "type": "string",
+            "description": "Employment type",
+            "enum": [
+              "PERMANENT",
+              "TEMPORARY",
+              "CONTRACT",
+              "INTERNSHIP",
+              "PART_TIME",
+              "ZERO_HOUR",
+              "OTHER"
+            ]
           }
         }
       },
@@ -43811,6 +45205,759 @@
         "required": [
           "decline_reason"
         ]
+      },
+      "CreateJobPublishingPlatformDto": {
+        "type": "object",
+        "properties": {
+          "platform_name": {
+            "type": "string",
+            "example": "LinkedIn Jobs"
+          },
+          "platform_code": {
+            "type": "string",
+            "example": "linkedin"
+          },
+          "platform_type": {
+            "type": "string",
+            "enum": [
+              "social",
+              "job_board",
+              "internal",
+              "agency",
+              "government",
+              "university",
+              "other"
+            ],
+            "example": "social"
+          },
+          "website_url": {
+            "type": "string",
+            "example": "https://www.linkedin.com/jobs"
+          },
+          "api_endpoint": {
+            "type": "string",
+            "example": "https://api.linkedin.com/v2/jobs"
+          },
+          "api_key": {
+            "type": "string",
+            "example": "encrypted_api_key"
+          },
+          "api_secret": {
+            "type": "string",
+            "example": "encrypted_api_secret"
+          },
+          "is_active": {
+            "type": "boolean",
+            "example": true
+          },
+          "is_free": {
+            "type": "boolean",
+            "example": false
+          },
+          "cost_per_posting": {
+            "type": "number",
+            "example": 250
+          },
+          "billing_period": {
+            "type": "string",
+            "enum": [
+              "per_posting",
+              "daily",
+              "weekly",
+              "monthly",
+              "quarterly",
+              "annual"
+            ],
+            "example": "per_posting"
+          },
+          "max_postings_per_period": {
+            "type": "number",
+            "example": 100
+          },
+          "features": {
+            "type": "object",
+            "example": {
+              "supports_bulk_posting": true,
+              "supports_analytics": true,
+              "requires_company_verification": false
+            }
+          },
+          "integration_status": {
+            "type": "string",
+            "enum": [
+              "manual",
+              "api_integrated",
+              "webhook"
+            ],
+            "example": "api_integrated"
+          }
+        },
+        "required": [
+          "platform_name",
+          "platform_code",
+          "platform_type"
+        ]
+      },
+      "JobPublishingPlatformResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "tenant_id": {
+            "type": "string"
+          },
+          "platform_name": {
+            "type": "string"
+          },
+          "platform_code": {
+            "type": "string"
+          },
+          "platform_type": {
+            "type": "string"
+          },
+          "website_url": {
+            "type": "string"
+          },
+          "api_endpoint": {
+            "type": "string"
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "is_free": {
+            "type": "boolean"
+          },
+          "cost_per_posting": {
+            "type": "number"
+          },
+          "billing_period": {
+            "type": "string"
+          },
+          "max_postings_per_period": {
+            "type": "number"
+          },
+          "features": {
+            "type": "object"
+          },
+          "integration_status": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "created_by": {
+            "type": "string"
+          },
+          "updated_by": {
+            "type": "string"
+          },
+          "active_postings_count": {
+            "type": "number"
+          },
+          "total_postings_count": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "tenant_id",
+          "platform_name",
+          "platform_code",
+          "platform_type",
+          "is_active",
+          "is_free",
+          "integration_status",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "PaginatedJobPublishingPlatformResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of job publishing platforms",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JobPublishingPlatformResponseDto"
+            }
+          },
+          "meta": {
+            "type": "object",
+            "description": "Pagination metadata",
+            "properties": {
+              "currentPage": {
+                "type": "number",
+                "example": 1
+              },
+              "itemsPerPage": {
+                "type": "number",
+                "example": 10
+              },
+              "totalItems": {
+                "type": "number",
+                "example": 100
+              },
+              "total_pages": {
+                "type": "number",
+                "example": 10
+              },
+              "hasNextPage": {
+                "type": "boolean",
+                "example": true
+              },
+              "hasPreviousPage": {
+                "type": "boolean",
+                "example": false
+              }
+            }
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ]
+      },
+      "PlatformStatisticsDto": {
+        "type": "object",
+        "properties": {
+          "platform_id": {
+            "type": "string"
+          },
+          "platform_name": {
+            "type": "string"
+          },
+          "total_postings": {
+            "type": "number"
+          },
+          "active_postings": {
+            "type": "number"
+          },
+          "total_views": {
+            "type": "number"
+          },
+          "total_clicks": {
+            "type": "number"
+          },
+          "total_applications": {
+            "type": "number"
+          },
+          "average_conversion_rate": {
+            "type": "number"
+          },
+          "total_cost": {
+            "type": "number"
+          },
+          "cost_per_application": {
+            "type": "number"
+          },
+          "performance_by_month": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "platform_id",
+          "platform_name",
+          "total_postings",
+          "active_postings",
+          "total_views",
+          "total_clicks",
+          "total_applications",
+          "average_conversion_rate",
+          "total_cost",
+          "cost_per_application"
+        ]
+      },
+      "UpdateJobPublishingPlatformDto": {
+        "type": "object",
+        "properties": {
+          "platform_name": {
+            "type": "string",
+            "example": "LinkedIn Jobs Premium"
+          },
+          "platform_type": {
+            "type": "string",
+            "enum": [
+              "social",
+              "job_board",
+              "internal",
+              "agency",
+              "government",
+              "university",
+              "other"
+            ]
+          },
+          "website_url": {
+            "type": "string",
+            "example": "https://www.linkedin.com/jobs"
+          },
+          "api_endpoint": {
+            "type": "string",
+            "example": "https://api.linkedin.com/v2/jobs"
+          },
+          "api_key": {
+            "type": "string"
+          },
+          "api_secret": {
+            "type": "string"
+          },
+          "is_active": {
+            "type": "boolean",
+            "example": true
+          },
+          "is_free": {
+            "type": "boolean",
+            "example": false
+          },
+          "cost_per_posting": {
+            "type": "number",
+            "example": 350
+          },
+          "billing_period": {
+            "type": "string",
+            "enum": [
+              "per_posting",
+              "daily",
+              "weekly",
+              "monthly",
+              "quarterly",
+              "annual"
+            ]
+          },
+          "max_postings_per_period": {
+            "type": "number",
+            "example": 150
+          },
+          "features": {
+            "type": "object"
+          },
+          "integration_status": {
+            "type": "string",
+            "enum": [
+              "manual",
+              "api_integrated",
+              "webhook"
+            ]
+          }
+        }
+      },
+      "CreateJobPostingPublicationDto": {
+        "type": "object",
+        "properties": {
+          "job_posting_id": {
+            "type": "string",
+            "example": "uuid"
+          },
+          "platform_id": {
+            "type": "string",
+            "example": "uuid"
+          },
+          "publication_status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "published",
+              "expired",
+              "removed",
+              "failed",
+              "scheduled"
+            ],
+            "example": "pending"
+          },
+          "scheduled_publish_date": {
+            "type": "string",
+            "example": "2024-01-15"
+          },
+          "expiry_date": {
+            "type": "string",
+            "example": "2024-02-15"
+          },
+          "external_posting_id": {
+            "type": "string",
+            "example": "EXT-123456"
+          },
+          "external_posting_url": {
+            "type": "string",
+            "example": "https://linkedin.com/jobs/view/123456"
+          },
+          "posting_cost": {
+            "type": "number",
+            "example": 250
+          },
+          "currency": {
+            "type": "string",
+            "example": "GBP"
+          },
+          "auto_renew": {
+            "type": "boolean",
+            "example": false
+          },
+          "publication_data": {
+            "type": "object",
+            "example": {
+              "targeting": {
+                "industries": [
+                  "Technology",
+                  "Finance"
+                ],
+                "experience_level": "Senior",
+                "location_radius": 50
+              }
+            }
+          }
+        },
+        "required": [
+          "job_posting_id",
+          "platform_id"
+        ]
+      },
+      "JobPostingPublicationResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "tenant_id": {
+            "type": "string"
+          },
+          "job_posting_id": {
+            "type": "string"
+          },
+          "platform_id": {
+            "type": "string"
+          },
+          "publication_status": {
+            "type": "string"
+          },
+          "published_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "scheduled_publish_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "expiry_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "actual_expiry_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "external_posting_id": {
+            "type": "string"
+          },
+          "external_posting_url": {
+            "type": "string"
+          },
+          "posting_cost": {
+            "type": "number"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "performance_metrics": {
+            "type": "object"
+          },
+          "publication_data": {
+            "type": "object"
+          },
+          "error_message": {
+            "type": "string"
+          },
+          "auto_renew": {
+            "type": "boolean"
+          },
+          "renewal_count": {
+            "type": "number"
+          },
+          "last_sync_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "view_count": {
+            "type": "number"
+          },
+          "click_count": {
+            "type": "number"
+          },
+          "application_count": {
+            "type": "number"
+          },
+          "conversion_rate": {
+            "type": "number"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "created_by": {
+            "type": "string"
+          },
+          "updated_by": {
+            "type": "string"
+          },
+          "platform": {
+            "type": "object"
+          },
+          "job_posting": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "tenant_id",
+          "job_posting_id",
+          "platform_id",
+          "publication_status",
+          "currency",
+          "auto_renew",
+          "renewal_count",
+          "view_count",
+          "click_count",
+          "application_count",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "BulkPublishDto": {
+        "type": "object",
+        "properties": {
+          "job_posting_id": {
+            "type": "string",
+            "example": "uuid"
+          },
+          "platform_ids": {
+            "example": [
+              "uuid1",
+              "uuid2",
+              "uuid3"
+            ],
+            "description": "Array of platform IDs to publish to",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "scheduled_publish_date": {
+            "type": "string",
+            "example": "2024-01-15"
+          },
+          "expiry_date": {
+            "type": "string",
+            "example": "2024-02-15"
+          },
+          "auto_renew": {
+            "type": "boolean",
+            "example": false
+          }
+        },
+        "required": [
+          "job_posting_id",
+          "platform_ids"
+        ]
+      },
+      "PaginatedJobPostingPublicationResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of job posting publications",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JobPostingPublicationResponseDto"
+            }
+          },
+          "meta": {
+            "type": "object",
+            "description": "Pagination metadata",
+            "properties": {
+              "currentPage": {
+                "type": "number",
+                "example": 1
+              },
+              "itemsPerPage": {
+                "type": "number",
+                "example": 10
+              },
+              "totalItems": {
+                "type": "number",
+                "example": 100
+              },
+              "total_pages": {
+                "type": "number",
+                "example": 10
+              },
+              "hasNextPage": {
+                "type": "boolean",
+                "example": true
+              },
+              "hasPreviousPage": {
+                "type": "boolean",
+                "example": false
+              }
+            }
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ]
+      },
+      "PublicationSummaryDto": {
+        "type": "object",
+        "properties": {
+          "job_posting_id": {
+            "type": "string"
+          },
+          "posting_title": {
+            "type": "string"
+          },
+          "total_platforms": {
+            "type": "number"
+          },
+          "active_platforms": {
+            "type": "number"
+          },
+          "total_cost": {
+            "type": "number"
+          },
+          "total_views": {
+            "type": "number"
+          },
+          "total_clicks": {
+            "type": "number"
+          },
+          "total_applications": {
+            "type": "number"
+          },
+          "average_conversion_rate": {
+            "type": "number"
+          },
+          "platform_breakdown": {
+            "type": "array",
+            "description": "Breakdown by platform",
+            "items": {
+              "type": "object",
+              "properties": {
+                "platform_name": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "views": {
+                  "type": "number"
+                },
+                "applications": {
+                  "type": "number"
+                },
+                "cost": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "job_posting_id",
+          "posting_title",
+          "total_platforms",
+          "active_platforms",
+          "total_cost",
+          "total_views",
+          "total_clicks",
+          "total_applications",
+          "average_conversion_rate",
+          "platform_breakdown"
+        ]
+      },
+      "UpdateJobPostingPublicationDto": {
+        "type": "object",
+        "properties": {
+          "publication_status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "published",
+              "expired",
+              "removed",
+              "failed",
+              "scheduled"
+            ]
+          },
+          "published_at": {
+            "type": "string",
+            "example": "2024-01-20"
+          },
+          "expiry_date": {
+            "type": "string",
+            "example": "2024-02-20"
+          },
+          "actual_expiry_date": {
+            "type": "string",
+            "example": "2024-02-25"
+          },
+          "external_posting_id": {
+            "type": "string",
+            "example": "EXT-789012"
+          },
+          "external_posting_url": {
+            "type": "string",
+            "example": "https://indeed.com/viewjob?jk=789012"
+          },
+          "posting_cost": {
+            "type": "number",
+            "example": 300
+          },
+          "auto_renew": {
+            "type": "boolean",
+            "example": true
+          },
+          "performance_metrics": {
+            "type": "object"
+          },
+          "publication_data": {
+            "type": "object"
+          },
+          "error_message": {
+            "type": "string",
+            "example": "Failed to authenticate with platform API"
+          }
+        }
+      },
+      "UpdatePublicationStatisticsDto": {
+        "type": "object",
+        "properties": {
+          "view_count": {
+            "type": "number",
+            "example": 1500
+          },
+          "click_count": {
+            "type": "number",
+            "example": 150
+          },
+          "application_count": {
+            "type": "number",
+            "example": 25
+          },
+          "conversion_rate": {
+            "type": "number",
+            "example": 1.67
+          }
+        }
       },
       "CreatePerformanceReviewDto": {
         "type": "object",
